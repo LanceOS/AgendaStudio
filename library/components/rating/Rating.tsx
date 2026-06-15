@@ -1,0 +1,45 @@
+import React from 'react';
+import { Star } from 'lucide-react';
+
+export interface RatingProps {
+  max?: number;
+  value: number;
+  onChange: (val: number) => void;
+  label?: string;
+}
+
+export function Rating({ max = 5, value, onChange, label }: RatingProps) {
+  const [hoverVal, setHoverVal] = React.useState<number | null>(null);
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+      {label && <div className="label">{label}</div>}
+      <div style={{ display: 'flex', gap: '4px' }}>
+        {Array.from({ length: max }, (_, i) => {
+          const starVal = i + 1;
+          const isActive = hoverVal !== null ? starVal <= hoverVal : starVal <= value;
+          return (
+            <button
+              key={i}
+              type="button"
+              onMouseEnter={() => setHoverVal(starVal)}
+              onMouseLeave={() => setHoverVal(null)}
+              onClick={() => onChange(starVal)}
+              aria-label={`Rate ${starVal} out of ${max}`}
+              style={{
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                padding: 0,
+                color: isActive ? 'var(--color-text-secondary)' : 'var(--color-border-default)',
+                transition: 'color var(--transition-fast)',
+              }}
+            >
+              <Star size={18} fill={isActive ? 'var(--color-text-secondary)' : 'none'} />
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}

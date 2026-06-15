@@ -1,0 +1,167 @@
+import React, { CSSProperties } from 'react';
+import './Sidebar.css';
+
+export interface SidebarProps extends React.HTMLAttributes<HTMLElement> {
+  children: React.ReactNode;
+}
+
+export function Sidebar({ children, className, style, ...props }: SidebarProps) {
+  return (
+    <aside
+      className={className}
+      style={{
+        width: '240px',
+        height: '100%',
+        backgroundColor: 'var(--color-base50)',
+        borderRight: '1px solid var(--color-border-default)',
+        display: 'flex',
+        flexDirection: 'column',
+        flexShrink: 0,
+        ...style,
+      }}
+      {...props}
+    >
+      {children}
+    </aside>
+  );
+}
+
+export function SidebarHeader({ children, className, style, ...props }: SidebarProps) {
+  return (
+    <div
+      className={className}
+      style={{
+        padding: '16px 16px 8px 16px',
+        flexShrink: 0,
+        ...style,
+      }}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+}
+
+export function SidebarContent({ children, className, style, ...props }: SidebarProps) {
+  return (
+    <div
+      className={className}
+      style={{
+        flex: 1,
+        overflowY: 'auto',
+        padding: '12px 8px',
+        ...style,
+      }}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+}
+
+export function SidebarFooter({ children, className, style, ...props }: SidebarProps) {
+  return (
+    <div
+      className={className}
+      style={{
+        padding: '8px',
+        borderTop: '1px solid transparent', // Optional visual break
+        flexShrink: 0,
+        ...style,
+      }}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+}
+
+export interface SidebarGroupProps extends React.HTMLAttributes<HTMLDivElement> {
+  label?: React.ReactNode;
+  children: React.ReactNode;
+}
+
+export function SidebarGroup({ label, children, className, style, ...props }: SidebarGroupProps) {
+  return (
+    <div className={className} style={{ marginBottom: '6px', ...style }} {...props}>
+      {label && (
+        <div
+          className="sidebar-group-label"
+          style={{
+            fontWeight: 600,
+            color: 'var(--color-text-disabled)',
+            textTransform: 'uppercase',
+            letterSpacing: '0.04em',
+            marginBottom: '4px',
+          }}
+        >
+          {label}
+        </div>
+      )}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+        {children}
+      </div>
+    </div>
+  );
+}
+
+export interface SidebarItemProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  active?: boolean;
+  leftIcon?: React.ReactNode;
+  rightElement?: React.ReactNode;
+  nested?: boolean;
+}
+
+export function SidebarItem({
+  active,
+  leftIcon,
+  rightElement,
+  nested,
+  children,
+  className,
+  style,
+  onMouseEnter,
+  onMouseLeave,
+  ...props
+}: SidebarItemProps) {
+  const [isHovered, setIsHovered] = React.useState(false);
+
+  const baseStyle: CSSProperties = {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px',
+    borderRadius: '6px',
+    color: active ? 'var(--color-text-primary)' : 'var(--color-text-secondary)',
+    background: active ? 'var(--color-state-selected-bg)' : isHovered ? 'var(--color-state-hover-overlay)' : 'transparent',
+    fontWeight: 400,
+    cursor: 'pointer',
+    border: 'none',
+    textAlign: 'left',
+    width: '100%',
+    transition: 'background 0.1s, color 0.1s, box-shadow 0.1s',
+    ...style,
+  };
+
+  return (
+    <button
+      className={`sidebar-item ${nested ? 'sidebar-item-nested' : ''} ${className || ''}`}
+      style={baseStyle}
+      onMouseEnter={(e) => {
+        setIsHovered(true);
+        onMouseEnter?.(e);
+      }}
+      onMouseLeave={(e) => {
+        setIsHovered(false);
+        onMouseLeave?.(e);
+      }}
+      {...props}
+      type="button"
+    >
+      {leftIcon && <span style={{ display: 'flex', alignItems: 'center' }}>{leftIcon}</span>}
+      <div style={{ flex: 1, minWidth: 0, textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>
+        {children}
+      </div>
+      {rightElement && <span>{rightElement}</span>}
+    </button>
+  );
+}
