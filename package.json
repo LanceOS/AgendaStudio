@@ -6,10 +6,9 @@
     "packages/*"
   ],
   "scripts": {
-    "tauri": "tauri",
-    "start": "WEBKIT_DISABLE_DMABUF_RENDERER=1 npm run tauri dev"
+    "start": "concurrently \"npm run dev -w client\" \"npm run dev -w server\""
   },
   "devDependencies": {
-    "@tauri-apps/cli": "^2.11.2"
+    "concurrently": "^8.2.2"
   }
 }
