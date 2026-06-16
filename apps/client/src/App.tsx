@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useCalendarStore } from './store/calendarStore';
+import { Sidebar } from './modules/layout/components/Sidebar';
 import './App.css';
 
 function App() {
@@ -27,61 +28,66 @@ function App() {
   };
 
   return (
-    <div className="calendar-container">
-      <header className="calendar-header">
-        <h1>Local Calendar</h1>
-      </header>
-      
-      <main className="calendar-main">
-        <section className="add-event-section">
-          <h2>Add Event</h2>
-          <form onSubmit={handleAddEvent} className="add-event-form">
-            <input
-              type="text"
-              placeholder="Event Title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              required
-            />
-            <input
-              type="datetime-local"
-              value={start}
-              onChange={(e) => setStart(e.target.value)}
-              required
-            />
-            <input
-              type="datetime-local"
-              value={end}
-              onChange={(e) => setEnd(e.target.value)}
-              required
-            />
-            <button type="submit">Save Event</button>
-          </form>
-        </section>
+    <div className="app-layout">
+      <Sidebar />
+      <div className="main-content">
+        <div className="calendar-container">
+          <header className="calendar-header">
+            <h1>Local Calendar</h1>
+          </header>
+          
+          <main className="calendar-main">
+            <section className="add-event-section">
+              <h2>Add Event</h2>
+              <form onSubmit={handleAddEvent} className="add-event-form">
+                <input
+                  type="text"
+                  placeholder="Event Title"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  required
+                />
+                <input
+                  type="datetime-local"
+                  value={start}
+                  onChange={(e) => setStart(e.target.value)}
+                  required
+                />
+                <input
+                  type="datetime-local"
+                  value={end}
+                  onChange={(e) => setEnd(e.target.value)}
+                  required
+                />
+                <button type="submit">Save Event</button>
+              </form>
+            </section>
 
-        <section className="events-list-section">
-          <h2>Upcoming Events</h2>
-          {events.length === 0 ? (
-            <p>No events scheduled.</p>
-          ) : (
-            <ul className="events-list">
-              {events.map((event) => (
-                <li key={event.id} className="event-item">
-                  <div className="event-info">
-                    <h3>{event.title}</h3>
-                    <p>
-                      {new Date(event.start).toLocaleString()} - {new Date(event.end).toLocaleString()}
-                    </p>
-                  </div>
-                  <button onClick={() => deleteEvent(event.id)} className="delete-btn">
-                    Delete
-                  </button>
-                </li>
-              ))}
-            </ul>
-          )}
-        </section>
-      </main>
+            <section className="events-list-section">
+              <h2>Upcoming Events</h2>
+              {events.length === 0 ? (
+                <p>No events scheduled.</p>
+              ) : (
+                <ul className="events-list">
+                  {events.map((event) => (
+                    <li key={event.id} className="event-item">
+                      <div className="event-info">
+                        <h3>{event.title}</h3>
+                        <p>
+                          {new Date(event.start).toLocaleString()} - {new Date(event.end).toLocaleString()}
+                        </p>
+                      </div>
+                      <button onClick={() => deleteEvent(event.id)} className="delete-btn">
+                        Delete
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </section>
+          </main>
+        </div>
+      </div>
     </div>
   );
 }

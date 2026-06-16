@@ -1,5 +1,5 @@
 import React from 'react';
-import { ClickAwayListener } from '../../utilities';
+import { ClickAwayListener } from '../../utilities/clickawaylistener';
 
 export interface DropdownMenuProps {
   trigger: React.ReactNode;

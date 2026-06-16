@@ -1,5 +1,5 @@
 import React from 'react';
-import { User, ChevronLeft, ChevronRight, Folder, File, ChevronDown } from 'lucide-react';
+const User = () => <span>User</span>;
 
 export interface AvatarProps {
   src?: string;

@@ -1,0 +1,230 @@
+:root {
+  --sidebar-bg: rgba(20, 20, 25, 0.85);
+  --sidebar-border: rgba(255, 255, 255, 0.08);
+  --text-primary: #f0f0f5;
+  --text-secondary: #a0a0ab;
+  --accent-color: #6366f1;
+  --accent-hover: #4f46e5;
+  --hover-bg: rgba(255, 255, 255, 0.05);
+  --danger: #ef4444;
+}
+
+.sidebar {
+  width: 260px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--sidebar-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-right: 1px solid var(--sidebar-border);
+  color: var(--text-primary);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 100;
+}
+
+.sidebar-header {
+  padding: 24px 20px;
+  border-bottom: 1px solid var(--sidebar-border);
+}
+
+.sidebar-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #fff, #a0a0ab);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.02em;
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: 20px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.nav-item .icon {
+  font-size: 1.1rem;
+}
+
+.nav-item:hover {
+  background-color: var(--hover-bg);
+  color: var(--text-primary);
+  transform: translateX(4px);
+}
+
+.nav-item.active {
+  background-color: rgba(99, 102, 241, 0.15);
+  color: var(--accent-color);
+  border-left: 3px solid var(--accent-color);
+  border-radius: 4px 8px 8px 4px;
+}
+
+.sidebar-footer {
+  padding: 16px 12px;
+  border-top: 1px solid var(--sidebar-border);
+  position: relative;
+}
+
+.settings-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  text-align: left;
+}
+
+.settings-trigger:hover {
+  background-color: var(--hover-bg);
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-color), #a855f7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: white;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.avatar.small {
+  width: 40px;
+  height: 40px;
+  font-size: 1rem;
+}
+
+.user-name {
+  flex: 1;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.chevron {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+}
+
+/* Settings Popup - Modern Glassmorphism Design */
+.settings-popup {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 12px;
+  right: 12px;
+  background: rgba(30, 30, 38, 0.95);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--sidebar-border);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255,255,255,0.05) inset;
+  animation: slideUp 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.popup-header {
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--sidebar-border);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-info strong {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.user-info span {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.popup-menu {
+  list-style: none;
+  padding: 8px;
+  margin: 0;
+}
+
+.popup-menu li {
+  margin: 2px 0;
+}
+
+.popup-menu button {
+  width: 100%;
+  text-align: left;
+  padding: 10px 12px;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.popup-menu button:hover {
+  background-color: var(--hover-bg);
+  transform: translateX(4px);
+}
+
+.popup-menu button.danger {
+  color: var(--danger);
+}
+
+.popup-menu button.danger:hover {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+}
+
+.divider {
+  height: 1px;
+  background-color: var(--sidebar-border);
+  margin: 6px 0 !important;
+}
