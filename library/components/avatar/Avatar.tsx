@@ -46,7 +46,7 @@ export function Avatar({ src, name, size = 'md', style }: AvatarProps) {
       ) : name ? (
         getInitials()
       ) : (
-        <User size={16} />
+        <User />
       )}
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+import React, { type CSSProperties } from 'react';
 import './Sidebar.css';
 
 export interface SidebarProps extends React.HTMLAttributes<HTMLElement> {
