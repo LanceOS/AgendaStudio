@@ -1,18 +1,18 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "tauri-app",
+  "productName": "calendar",
   "version": "0.1.0",
-  "identifier": "com.lance.tauri-app",
+  "identifier": "com.calendar.app",
   "build": {
-    "beforeDevCommand": "npm run dev",
+    "beforeDevCommand": "npm run dev -w client",
     "devUrl": "http://localhost:1420",
-    "beforeBuildCommand": "npm run build",
-    "frontendDist": "../dist"
+    "beforeBuildCommand": "npm run build -w client",
+    "frontendDist": "../apps/client/dist"
   },
   "app": {
     "windows": [
       {
-        "title": "tauri-app",
+        "title": "calendar",
         "width": 800,
         "height": 600
       }

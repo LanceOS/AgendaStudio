@@ -4,5 +4,12 @@
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "scripts": {
+    "tauri": "tauri",
+    "start": "WEBKIT_DISABLE_DMABUF_RENDERER=1 npm run tauri dev"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.11.2"
+  }
 }
