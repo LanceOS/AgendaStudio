@@ -9,7 +9,10 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
-    "db:studio": "drizzle-kit studio"
+    "db:studio": "drizzle-kit studio",
+    "test:db:setup": "tsx scripts/setup-test-db.ts",
+    "test": "npm run test:db:setup && vitest",
+    "test:coverage": "npm run test:db:setup && vitest run --coverage"
   },
   "dependencies": {
     "better-auth": "^1.6.18",
