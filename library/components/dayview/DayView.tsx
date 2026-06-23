@@ -5,7 +5,8 @@ import { DayGridBackground } from './DayGridBackground';
 import { DragSelectionOverlay } from './DragSelectionOverlay';
 import { CurrentTimeIndicator } from './CurrentTimeIndicator';
 import { DayEvent } from './DayEvent';
-import { processOverlappingEvents, DayEventInput } from './utils';
+import { processOverlappingEvents } from './utils';
+import type { DayEventInput } from './utils';
 
 export interface DayViewProps {
   currentDate: Date;
@@ -47,7 +48,7 @@ export function DayView({
     }
   }, [currentDate, hourHeight]);
 
-  const { dragState, handlers } = useTimeSlotDrag(containerRef, currentDate, hourHeight, 15, onTimeSlotSelect);
+  const { dragState, handlers } = useTimeSlotDrag(containerRef as React.RefObject<HTMLDivElement>, currentDate, hourHeight, 15, onTimeSlotSelect);
 
   // Filter events for the current day
   const dayEvents = useMemo(() => {

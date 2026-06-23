@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 import { authClient } from "../../../lib/auth";
 import { useCalendarState } from "../../calendar/hooks/useCalendarState";
 import { 
@@ -11,21 +11,15 @@ import {
 } from "../../../../../library/components/sidebar";
 import { ClickAwayListener } from "../../../../../library/utilities/clickawaylistener";
 import { Avatar } from "../../../../../library/components/avatar";
-import { Divider } from "../../../../../library/components/divider";
-
 export function Sidebar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isWorkOpen, setIsWorkOpen] = useState(true);
   const [isPersonalOpen, setIsPersonalOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
   const { data } = authClient.useSession();
   const { activeCategoryId, setActiveCategoryId } = useCalendarState();
   
-
-
-  const handleCategoryClick = (id: string) => {
-    setActiveCategoryId(activeCategoryId === id ? null : id);
-  };
 
   const handleLogout = async () => {
     await authClient.signOut();
@@ -36,8 +30,10 @@ export function Sidebar() {
     <LibSidebar>
       <SidebarContent>
         <SidebarGroup label="Navigation">
-          <SidebarItem onClick={() => navigate("/calendar/create-category")}>Create Category</SidebarItem>
-          <SidebarItem onClick={() => navigate("/calendar/entries")}>All Entries</SidebarItem>
+          <SidebarItem active={location.pathname === "/calendar"} onClick={() => navigate("/calendar")}>Calendar</SidebarItem>
+          <SidebarItem active={location.pathname === "/events/new"} onClick={() => navigate("/events/new")}>Create Event</SidebarItem>
+          <SidebarItem active={location.pathname === "/calendar/create-category"} onClick={() => navigate("/calendar/create-category")}>Create Category</SidebarItem>
+          <SidebarItem active={location.pathname === "/calendar/entries"} onClick={() => navigate("/calendar/entries")}>All Entries</SidebarItem>
         </SidebarGroup>
         
         <SidebarGroup label="CATEGORIES">

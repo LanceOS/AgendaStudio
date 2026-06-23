@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Trash2 } from 'lucide-react';
-import { DayEventInput } from './utils';
+import type { DayEventInput } from './utils';
 
 export interface DayEventProps {
   event: DayEventInput;

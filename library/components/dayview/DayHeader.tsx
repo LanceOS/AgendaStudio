@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { ChevronLeft, ChevronRight, Minimize2 } from 'lucide-react';
 import { Button } from '../button';
 

@@ -13,6 +13,10 @@ const queryClient = new QueryClient()
 
 import { CalendarProvider } from './modules/calendar/hooks/useCalendarState'
 
+import { Navigate } from 'react-router';
+import { DayViewScreen } from './modules/calendar/screens/DayViewScreen';
+import { EventCreatorScreen } from './modules/calendar/screens/EventCreatorScreen';
+
 const router = createBrowserRouter([
   {
     path: "/login",
@@ -33,15 +37,27 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-        path: "/",
+        index: true,
+        element: <Navigate to="/calendar" replace />,
+      },
+      {
+        path: "calendar",
         element: <CalendarScreen />,
       },
       {
-        path: "/settings",
+        path: "calendar/day/:date",
+        element: <DayViewScreen />,
+      },
+      {
+        path: "events/new",
+        element: <EventCreatorScreen />,
+      },
+      {
+        path: "settings",
         element: <SettingsScreen />,
       },
       {
-        path: "/calendar/create-category",
+        path: "calendar/create-category",
         element: <CreateCategoryScreen />,
       },
     ],
