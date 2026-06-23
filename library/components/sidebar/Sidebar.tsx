@@ -65,7 +65,7 @@ export function SidebarFooter({ children, className, style, ...props }: SidebarP
       className={className}
       style={{
         padding: '8px',
-        borderTop: '1px solid transparent', // Optional visual break
+        borderTop: '1px solid transparent',
         flexShrink: 0,
         ...style,
       }}
@@ -110,6 +110,12 @@ export interface SidebarItemProps extends React.ButtonHTMLAttributes<HTMLButtonE
   leftIcon?: React.ReactNode;
   rightElement?: React.ReactNode;
   nested?: boolean;
+  className?: string;
+  style?: React.CSSProperties;
+  children?: React.ReactNode;
+  onMouseEnter?: React.MouseEventHandler<HTMLButtonElement>;
+  onMouseLeave?: React.MouseEventHandler<HTMLButtonElement>;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 export function SidebarItem({
@@ -124,16 +130,11 @@ export function SidebarItem({
   onMouseLeave,
   ...props
 }: SidebarItemProps) {
-  const [isHovered, setIsHovered] = React.useState(false);
-
   const baseStyle: CSSProperties = {
     display: 'flex',
     alignItems: 'center',
     gap: '10px',
     borderRadius: '6px',
-    color: active ? 'var(--color-text-primary)' : 'var(--color-text-secondary)',
-    background: active ? 'var(--color-state-selected-bg)' : isHovered ? 'var(--color-state-hover-overlay)' : 'transparent',
-    fontWeight: 400,
     cursor: 'pointer',
     border: 'none',
     textAlign: 'left',
@@ -144,24 +145,19 @@ export function SidebarItem({
 
   return (
     <button
-      className={`sidebar-item ${nested ? 'sidebar-item-nested' : ''} ${className || ''}`}
+      className={`sidebar-item ${nested ? 'sidebar-item-nested' : ''} ${active ? 'active' : ''} ${className || ''}`}
       style={baseStyle}
-      onMouseEnter={(e) => {
-        setIsHovered(true);
-        onMouseEnter?.(e);
-      }}
-      onMouseLeave={(e) => {
-        setIsHovered(false);
-        onMouseLeave?.(e);
-      }}
+      aria-current={active ? 'page' : undefined}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
       {...props}
       type="button"
     >
-      {leftIcon && <span style={{ display: 'flex', alignItems: 'center' }}>{leftIcon}</span>}
+      {leftIcon && <span style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>{leftIcon}</span>}
       <div style={{ flex: 1, minWidth: 0, textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>
         {children}
       </div>
-      {rightElement && <span>{rightElement}</span>}
+      {rightElement && <span style={{ display: 'flex', alignItems: 'center', flexShrink: 0, marginLeft: 'auto' }}>{rightElement}</span>}
     </button>
   );
 }
