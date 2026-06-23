@@ -1,6 +1,19 @@
 .sidebar-item {
   font-size: 13px;
   padding: 6px 10px;
+  background-color: transparent;
+  color: var(--color-text-secondary);
+  font-weight: 400;
+}
+
+.sidebar-item:hover {
+  background-color: var(--color-state-hover-overlay);
+}
+
+.sidebar-item.active {
+  background-color: var(--color-state-selected-bg);
+  color: var(--color-text-primary);
+  font-weight: 500;
 }
 
 .sidebar-item-nested {

@@ -48,6 +48,8 @@ export function Sidebar() {
               if (activeCategoryId !== 'work') setActiveCategoryId('work');
               setIsWorkOpen(!isWorkOpen);
             }}
+            aria-expanded={isWorkOpen}
+            aria-controls="work-submenu"
             leftIcon={
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                 <svg 
@@ -75,7 +77,7 @@ export function Sidebar() {
             Work
           </SidebarItem>
           
-          <div className={`sidebar-collapsible-wrapper ${isWorkOpen ? 'open' : ''}`}>
+          <div id="work-submenu" className={`sidebar-collapsible-wrapper ${isWorkOpen ? 'open' : ''}`}>
             <div className="sidebar-collapsible-inner">
               <div style={{ marginLeft: '14px', paddingLeft: '10px', borderLeft: '1px solid var(--color-border-subtle, rgba(0, 0, 0, 0.08))', display: 'flex', flexDirection: 'column', marginTop: '2px', marginBottom: '8px' }}>
                 <SidebarGroup label="ENTRIES" style={{ marginTop: '4px' }}>
@@ -112,6 +114,8 @@ export function Sidebar() {
               if (activeCategoryId !== 'personal') setActiveCategoryId('personal');
               setIsPersonalOpen(!isPersonalOpen);
             }}
+            aria-expanded={isPersonalOpen}
+            aria-controls="personal-submenu"
             leftIcon={
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                 <svg 
@@ -139,7 +143,7 @@ export function Sidebar() {
             Personal
           </SidebarItem>
           
-          <div className={`sidebar-collapsible-wrapper ${isPersonalOpen ? 'open' : ''}`}>
+          <div id="personal-submenu" className={`sidebar-collapsible-wrapper ${isPersonalOpen ? 'open' : ''}`}>
             <div className="sidebar-collapsible-inner">
               <div style={{ marginLeft: '14px', paddingLeft: '10px', borderLeft: '1px solid var(--color-border-subtle, rgba(0, 0, 0, 0.08))', display: 'flex', flexDirection: 'column', marginTop: '2px', marginBottom: '8px' }}>
                 <SidebarGroup label="ENTRIES" style={{ marginTop: '4px' }}>

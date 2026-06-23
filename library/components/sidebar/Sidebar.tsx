@@ -130,16 +130,11 @@ export function SidebarItem({
   onMouseLeave,
   ...props
 }: SidebarItemProps) {
-  const [isHovered, setIsHovered] = React.useState(false);
-
   const baseStyle: CSSProperties = {
     display: 'flex',
     alignItems: 'center',
     gap: '10px',
     borderRadius: '6px',
-    color: active ? 'var(--color-text-primary)' : 'var(--color-text-secondary)',
-    background: active ? 'var(--color-state-selected-bg)' : isHovered ? 'var(--color-state-hover-overlay)' : 'transparent',
-    fontWeight: active ? 500 : 400,
     cursor: 'pointer',
     border: 'none',
     textAlign: 'left',
@@ -150,16 +145,11 @@ export function SidebarItem({
 
   return (
     <button
-      className={`sidebar-item ${nested ? 'sidebar-item-nested' : ''} ${className || ''}`}
+      className={`sidebar-item ${nested ? 'sidebar-item-nested' : ''} ${active ? 'active' : ''} ${className || ''}`}
       style={baseStyle}
-      onMouseEnter={(e) => {
-        setIsHovered(true);
-        onMouseEnter?.(e);
-      }}
-      onMouseLeave={(e) => {
-        setIsHovered(false);
-        onMouseLeave?.(e);
-      }}
+      aria-current={active ? 'page' : undefined}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
       {...props}
       type="button"
     >
