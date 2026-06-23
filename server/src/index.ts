@@ -13,7 +13,10 @@ import { requireAuth } from './middlewares/auth.js';
 const app = express();
 const port = env.PORT;
 
-app.use(cors());
+app.use(cors({
+  origin: env.FRONTEND_URL,
+  credentials: true,
+}));
 app.use(express.json());
 
 // Composition Root: Initialize dependencies

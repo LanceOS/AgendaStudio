@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router";
+import { authClient } from "../../../lib/auth";
 import { 
   Sidebar as LibSidebar, 
   SidebarContent, 
@@ -12,6 +13,12 @@ import { Divider } from "../../../../../library/components/divider";
 
 export function Sidebar() {
   const navigate = useNavigate();
+  const { data } = authClient.useSession();
+  
+  const handleLogout = async () => {
+    await authClient.signOut();
+    navigate("/login");
+  };
 
   return (
     <LibSidebar>
@@ -38,10 +45,10 @@ export function Sidebar() {
               onMouseEnter={(e) => e.currentTarget.style.background = 'var(--color-state-hover-overlay)'}
               onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
             >
-              <Avatar name="Lance" size="md" />
+              <Avatar name={data?.user?.name || "User"} size="md" />
               <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontWeight: 500, color: 'var(--color-text-primary)' }}>Lance</div>
-                <div style={{ fontSize: '12px', color: 'var(--color-text-secondary)' }}>Guest_contributor</div>
+                <div style={{ fontWeight: 500, color: 'var(--color-text-primary)' }}>{data?.user?.name || "User"}</div>
+                <div style={{ fontSize: '12px', color: 'var(--color-text-secondary)', overflow: 'hidden', textOverflow: 'ellipsis' }}>{data?.user?.email || ""}</div>
               </div>
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--color-text-secondary)' }}>
                 <polyline points="6 9 12 15 18 9"></polyline>
@@ -89,7 +96,7 @@ export function Sidebar() {
             <Divider style={{ margin: '8px 0' }} />
             
             <div style={{ padding: '0 8px' }}>
-              <SidebarItem onClick={() => console.log('Logout')} leftIcon={
+              <SidebarItem onClick={handleLogout} leftIcon={
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
               }>
                 Log Out
