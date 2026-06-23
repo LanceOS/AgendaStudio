@@ -10,6 +10,8 @@ export interface CalendarEvent {
   id: string;
   title: string;
   date: Date;
+  endDate?: Date;
+  color?: string;
   categoryId: string;
 }
 
@@ -23,4 +25,8 @@ export interface CalendarContextValue extends CalendarState {
   setSelectedDate: (date: Date) => void;
   setViewMode: (mode: CalendarViewMode) => void;
   setActiveCategoryId: (id: string | null) => void;
+  events: CalendarEvent[];
+  addEvent: (event: Omit<CalendarEvent, 'id'>) => void;
+  updateEvent: (id: string, event: Partial<CalendarEvent>) => void;
+  removeEvent: (id: string) => void;
 }

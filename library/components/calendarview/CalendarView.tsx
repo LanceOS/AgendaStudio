@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
 import { getDaysInMonth, getFirstDayOfMonth } from '../../utilities';
 import { Button } from '../button';
 import { Select } from '../select';
@@ -8,6 +8,7 @@ export interface CalendarViewProps {
   currentDate?: Date;
   onDateChange?: (date: Date) => void;
   events?: Array<{ date: Date; label: string; color?: string }>;
+  onDayExpand?: (date: Date) => void;
   style?: React.CSSProperties;
 }
 
@@ -16,7 +17,7 @@ const MONTHS = [
   'July', 'August', 'September', 'October', 'November', 'December'
 ];
 
-export function CalendarView({ currentDate = new Date(), onDateChange, events = [], style }: CalendarViewProps) {
+export function CalendarView({ currentDate = new Date(), onDateChange, events = [], onDayExpand, style }: CalendarViewProps) {
   const daysInMonth = getDaysInMonth(currentDate.getFullYear(), currentDate.getMonth());
   const firstDay = getFirstDayOfMonth(currentDate.getFullYear(), currentDate.getMonth());
 
@@ -145,7 +146,33 @@ export function CalendarView({ currentDate = new Date(), onDateChange, events = 
                 zIndex: isToday ? 1 : 0,
               }}
             >
-              <span style={{ fontSize: '11px', fontWeight: 600, color: isToday ? 'var(--color-primary)' : 'var(--color-text-primary)' }}>{day}</span>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                <span style={{ fontSize: '11px', fontWeight: 600, color: isToday ? 'var(--color-primary)' : 'var(--color-text-primary)' }}>{day}</span>
+                {onDayExpand && (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onDayExpand(dayDate);
+                    }}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      cursor: 'pointer',
+                      padding: '2px',
+                      color: 'var(--color-text-disabled)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      borderRadius: 'var(--radius-sm)'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-text-primary)'}
+                    onMouseLeave={(e) => e.currentTarget.style.color = 'var(--color-text-disabled)'}
+                    aria-label="Expand day"
+                  >
+                    <Maximize2 size={12} />
+                  </button>
+                )}
+              </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', overflowY: 'auto' }}>
                 {dayEvents.map((evt, eIdx) => (
                   <div
