@@ -44,7 +44,12 @@ export const DayGridBackground = React.memo(function DayGridBackground({ hourHei
               </span>
             )}
           </div>
-          <div style={{ flex: 1 }} />
+          <div style={{ flex: 1, position: 'relative', pointerEvents: 'none' }}>
+            {/* 15-minute sub-grid lines */}
+            <div aria-hidden="true" style={{ position: 'absolute', top: '25%', left: 0, right: 0, borderTop: '1px dotted var(--color-border-default)', opacity: 0.5 }} />
+            <div aria-hidden="true" style={{ position: 'absolute', top: '50%', left: 0, right: 0, borderTop: '1px dotted var(--color-border-default)', opacity: 0.5 }} />
+            <div aria-hidden="true" style={{ position: 'absolute', top: '75%', left: 0, right: 0, borderTop: '1px dotted var(--color-border-default)', opacity: 0.5 }} />
+          </div>
         </div>
       ))}
     </>
