@@ -10,6 +10,7 @@ export function useTimeSlotDrag(
   containerRef: React.RefObject<HTMLDivElement>,
   currentDate: Date,
   hourHeight: number,
+  snapMinutes: number = 15,
   onTimeSlotSelect?: (startDate: Date, endDate: Date) => void
 ) {
   const [dragState, setDragState] = useState<DragState>({
@@ -22,9 +23,11 @@ export function useTimeSlotDrag(
     (clientY: number) => {
       if (!containerRef.current) return 0;
       const rect = containerRef.current.getBoundingClientRect();
-      return Math.max(0, Math.min(clientY - rect.top, rect.height));
+      const rawY = Math.max(0, Math.min(clientY - rect.top, rect.height));
+      const snapPixels = (snapMinutes / 60) * hourHeight;
+      return Math.round(rawY / snapPixels) * snapPixels;
     },
-    [containerRef]
+    [containerRef, snapMinutes, hourHeight]
   );
 
   const handleMouseDown = useCallback(

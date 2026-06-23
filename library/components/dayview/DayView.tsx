@@ -1,9 +1,10 @@
-import React, { useRef, useMemo } from 'react';
-import { Trash2 } from 'lucide-react';
+import React, { useRef, useMemo, useEffect } from 'react';
 import { useTimeSlotDrag } from './useTimeSlotDrag';
 import { DayHeader } from './DayHeader';
 import { DayGridBackground } from './DayGridBackground';
 import { DragSelectionOverlay } from './DragSelectionOverlay';
+import { CurrentTimeIndicator } from './CurrentTimeIndicator';
+import { DayEvent } from './DayEvent';
 import { processOverlappingEvents, DayEventInput } from './utils';
 
 export interface DayViewProps {
@@ -13,6 +14,7 @@ export interface DayViewProps {
   events?: Array<{ id: string; date: Date; endDate?: Date; label: string; color?: string }>;
   onTimeSlotSelect?: (startDate: Date, endDate: Date) => void;
   onEventDelete?: (eventId: string) => void;
+  onEventUpdate?: (eventId: string, updates: Partial<DayEventInput>) => void;
   hourHeight?: number;
   style?: React.CSSProperties;
 }
@@ -24,12 +26,28 @@ export function DayView({
   events = [],
   onTimeSlotSelect,
   onEventDelete,
+  onEventUpdate,
   hourHeight = 80,
   style,
 }: DayViewProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  const { dragState, handlers } = useTimeSlotDrag(containerRef, currentDate, hourHeight, onTimeSlotSelect);
+  // Auto-scroll to current time on mount
+  useEffect(() => {
+    if (scrollContainerRef.current) {
+      const now = new Date();
+      if (now.getDate() === currentDate.getDate() && now.getMonth() === currentDate.getMonth()) {
+        const currentHour = now.getHours() + now.getMinutes() / 60;
+        // Scroll so the current time is vertically centered
+        const containerHeight = scrollContainerRef.current.clientHeight;
+        const scrollTarget = Math.max(0, currentHour * hourHeight - containerHeight / 2);
+        scrollContainerRef.current.scrollTop = scrollTarget;
+      }
+    }
+  }, [currentDate, hourHeight]);
+
+  const { dragState, handlers } = useTimeSlotDrag(containerRef, currentDate, hourHeight, 15, onTimeSlotSelect);
 
   // Filter events for the current day
   const dayEvents = useMemo(() => {
@@ -51,10 +69,11 @@ export function DayView({
       <DayHeader currentDate={currentDate} onDateChange={onDateChange} onClose={onClose} />
 
       {/* Grid */}
-      <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', position: 'relative' }}>
+      <div ref={scrollContainerRef} style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', position: 'relative' }}>
         <div style={{ position: 'relative', width: '100%', height: `${24 * hourHeight}px` }}>
           
           <DayGridBackground hourHeight={hourHeight} />
+          <CurrentTimeIndicator currentDate={currentDate} hourHeight={hourHeight} />
 
           {/* Interactive Overlay for Events and Dragging */}
           <div 
@@ -64,47 +83,18 @@ export function DayView({
           >
             {/* Render Processed Events */}
             {processedEvents.map(({ event: evt, top, height, left, width }) => (
-              <div 
-                key={evt.id} 
-                style={{ 
-                  position: 'absolute',
-                  top: `${top}px`,
-                  height: `${height}px`,
-                  left: `calc(${left}% + 8px)`,
-                  width: `calc(${width}% - 16px)`,
-                  backgroundColor: evt.color || 'var(--color-primary)', 
-                  color: 'var(--color-text-inverse)', 
-                  padding: '4px 8px', 
-                  borderRadius: 'var(--radius-sm)', 
-                  fontSize: '12px', 
-                  display: 'flex', 
-                  flexDirection: 'column',
-                  boxShadow: 'var(--shadow-sm)',
-                  overflow: 'hidden',
-                  cursor: 'default',
-                  pointerEvents: 'auto', // Re-enable pointer events so we can click/delete them
-                  border: '1px solid rgba(0,0,0,0.1)',
-                  zIndex: 10,
-                }}
-                onMouseDown={(e) => e.stopPropagation()} // Prevent creating a new event when interacting with an existing one
-              >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                  <span style={{ fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{evt.label}</span>
-                  {onEventDelete && (
-                    <button 
-                      onClick={() => onEventDelete(evt.id)}
-                      style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', padding: '4px', opacity: 0.8, display: 'flex', alignItems: 'center' }}
-                      aria-label="Delete Event"
-                    >
-                      <Trash2 size={16} />
-                    </button>
-                  )}
-                </div>
-                <span style={{ fontSize: '10px', opacity: 0.9 }}>
-                  {evt.date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })} 
-                  {evt.endDate ? ` - ${evt.endDate.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}` : ''}
-                </span>
-              </div>
+              <DayEvent
+                key={evt.id}
+                event={evt}
+                top={top}
+                height={height}
+                left={left}
+                width={width}
+                hourHeight={hourHeight}
+                snapMinutes={15}
+                onDelete={onEventDelete}
+                onUpdate={onEventUpdate}
+              />
             ))}
 
             <DragSelectionOverlay dragState={dragState} />

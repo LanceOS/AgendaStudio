@@ -10,7 +10,7 @@ export const CalendarScreen: React.FC = () => {
   const { 
     selectedDate, setSelectedDate, 
     viewMode, setViewMode,
-    events, addEvent, removeEvent
+    events, addEvent, removeEvent, updateEvent
   } = useCalendarState();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -65,6 +65,7 @@ export const CalendarScreen: React.FC = () => {
           events={events.map(e => ({ id: e.id, date: e.date, endDate: e.endDate, label: e.title, color: e.color || 'var(--color-primary)' }))}
           onTimeSlotSelect={handleTimeSlotSelect}
           onEventDelete={removeEvent}
+          onEventUpdate={updateEvent}
           style={{ width: '100%', height: '100%', borderRadius: 0, border: 'none' }}
         />
       ) : (

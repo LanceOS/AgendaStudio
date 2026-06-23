@@ -27,6 +27,12 @@ export const CalendarProvider: React.FC<CalendarProviderProps> = ({ children }) 
     setEvents((prev) => prev.filter((e) => e.id !== id));
   };
 
+  const updateEvent = (id: string, updates: Partial<CalendarEvent>) => {
+    setEvents((prev) =>
+      prev.map((e) => (e.id === id ? { ...e, ...updates } : e))
+    );
+  };
+
   const contextValue = useMemo(
     () => ({
       selectedDate,
@@ -37,6 +43,7 @@ export const CalendarProvider: React.FC<CalendarProviderProps> = ({ children }) 
       setActiveCategoryId,
       events,
       addEvent,
+      updateEvent,
       removeEvent,
     }),
     [selectedDate, viewMode, activeCategoryId, events]
