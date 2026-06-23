@@ -1,20 +1,18 @@
 import { Router } from 'express';
-import { db } from '../db.js';
+import { eventRepository } from '../db.js';
 
 const router = Router();
 
 // GET events by range
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const { start, end } = req.query;
     
     if (start && end) {
-      const stmt = db.prepare('SELECT * FROM events WHERE start >= ? AND end <= ?');
-      const events = stmt.all(start, end);
+      const events = await eventRepository.findAll(String(start), String(end));
       res.json(events);
     } else {
-      const stmt = db.prepare('SELECT * FROM events');
-      const events = stmt.all();
+      const events = await eventRepository.findAll();
       res.json(events);
     }
   } catch (error) {
@@ -24,7 +22,7 @@ router.get('/', (req, res) => {
 });
 
 // POST create event
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const { title, start, end } = req.body;
     
@@ -32,15 +30,9 @@ router.post('/', (req, res) => {
       return res.status(400).json({ error: 'Missing required fields' });
     }
 
-    const stmt = db.prepare('INSERT INTO events (title, start, end) VALUES (?, ?, ?)');
-    const info = stmt.run(title, start, end);
+    const event = await eventRepository.create(title, start, end);
     
-    res.status(201).json({
-      id: info.lastInsertRowid,
-      title,
-      start,
-      end
-    });
+    res.status(201).json(event);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Failed to create event' });
@@ -48,14 +40,13 @@ router.post('/', (req, res) => {
 });
 
 // DELETE event
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
     const { id } = req.params;
     
-    const stmt = db.prepare('DELETE FROM events WHERE id = ?');
-    const info = stmt.run(id);
+    const success = await eventRepository.delete(id);
     
-    if (info.changes > 0) {
+    if (success) {
       res.json({ success: true });
     } else {
       res.status(404).json({ error: 'Event not found' });
