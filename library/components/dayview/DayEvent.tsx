@@ -121,7 +121,7 @@ export const DayEvent = React.memo(function DayEvent({
         top: `${currentTop}px`,
         height: `${currentHeight}px`,
         left: `calc(${left}% + 4px)`,
-        width: `calc(${width}% - 8px)`,
+        width: `calc(${width}% - 36px)`,
         boxSizing: 'border-box',
         backgroundColor: event.color || 'var(--color-primary)',
         color: 'var(--color-text-inverse)',
