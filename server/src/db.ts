@@ -1,11 +1,9 @@
-import 'dotenv/config';
+import { env } from './env.js';
 import { drizzle } from 'drizzle-orm/node-postgres';
 import pg from 'pg';
 import * as schema from './db/schema.js';
 
-const connectionString = process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/agendastudio';
-
-export const pool = new pg.Pool({ connectionString });
+export const pool = new pg.Pool({ connectionString: env.DATABASE_URL });
 export const db = drizzle(pool, { schema });
 
 export type Db = typeof db;
