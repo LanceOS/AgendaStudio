@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router'
 import { Layout } from './modules/core/screens/Layout'
 import { SettingsScreen } from './modules/settings/screens/SettingsScreen'
 import { CreateCategoryScreen } from './modules/calendar/screens/CreateCategoryScreen'
+import { CalendarScreen } from './modules/calendar/screens/CalendarScreen'
 
 import { LoginScreen } from './modules/auth/screens/LoginScreen'
 import { RegisterScreen } from './modules/auth/screens/RegisterScreen'
@@ -29,7 +30,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <div><h2>Home</h2><p>Welcome to AgendaStudio</p></div>,
+        element: <CalendarScreen />,
       },
       {
         path: "/settings",
