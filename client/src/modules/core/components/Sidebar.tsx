@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router";
 import { authClient } from "../../../lib/auth";
+import { useCalendarState } from "../../calendar/hooks/useCalendarState";
 import { 
   Sidebar as LibSidebar, 
   SidebarContent, 
@@ -14,7 +15,19 @@ import { Divider } from "../../../../../library/components/divider";
 export function Sidebar() {
   const navigate = useNavigate();
   const { data } = authClient.useSession();
+  const { activeCategoryId, setActiveCategoryId } = useCalendarState();
   
+  const MOCK_CATEGORIES = [
+    { id: '1', name: 'Personal', color: '#3b82f6' },
+    { id: '2', name: 'Work', color: '#10b981' },
+    { id: '3', name: 'Holidays', color: '#f59e0b' },
+    { id: '4', name: 'Events', color: '#8b5cf6' },
+  ];
+
+  const handleCategoryClick = (id: string) => {
+    setActiveCategoryId(activeCategoryId === id ? null : id);
+  };
+
   const handleLogout = async () => {
     await authClient.signOut();
     navigate("/login");
@@ -27,6 +40,22 @@ export function Sidebar() {
           <SidebarItem onClick={() => navigate("/")}>Home</SidebarItem>
           <SidebarItem onClick={() => navigate("/settings")}>Settings</SidebarItem>
           <SidebarItem onClick={() => navigate("/calendar/create-category")}>Create Category</SidebarItem>
+        </SidebarGroup>
+        
+        <SidebarGroup label="Calendars">
+          {MOCK_CATEGORIES.map(category => (
+            <SidebarItem 
+              key={category.id}
+              onClick={() => handleCategoryClick(category.id)}
+              leftIcon={<div style={{ width: 12, height: 12, borderRadius: '50%', backgroundColor: category.color }} />}
+              style={{
+                backgroundColor: activeCategoryId === category.id ? 'var(--color-state-selected, rgba(0,0,0,0.05))' : undefined,
+                fontWeight: activeCategoryId === category.id ? 600 : 400
+              }}
+            >
+              {category.name}
+            </SidebarItem>
+          ))}
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter style={{ padding: '8px' }}>

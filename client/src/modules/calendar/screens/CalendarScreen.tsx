@@ -6,13 +6,11 @@ import '../styles/calendar.css';
 
 export const CalendarScreen: React.FC = () => {
   return (
-    <CalendarProvider>
-      <CalendarLayout>
-        <Calendar>
-          <Calendar.Header title="June 2026" />
-          <Calendar.Body />
-        </Calendar>
-      </CalendarLayout>
-    </CalendarProvider>
+    <CalendarLayout>
+      <Calendar>
+        <Calendar.Header title="June 2026" />
+        <Calendar.Body />
+      </Calendar>
+    </CalendarLayout>
   );
 };

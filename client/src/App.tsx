@@ -11,6 +11,8 @@ import { ProtectedRoute } from './modules/auth/components/ProtectedRoute'
 
 const queryClient = new QueryClient()
 
+import { CalendarProvider } from './modules/calendar/hooks/useCalendarState'
+
 const router = createBrowserRouter([
   {
     path: "/login",
@@ -24,7 +26,9 @@ const router = createBrowserRouter([
     path: "/",
     element: (
       <ProtectedRoute>
-        <Layout />
+        <CalendarProvider>
+          <Layout />
+        </CalendarProvider>
       </ProtectedRoute>
     ),
     children: [
