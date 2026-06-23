@@ -312,6 +312,7 @@
   background: var(--color-surface-input);
   color: var(--color-text-primary);
   font: inherit;
+  font-size: 13px;
   text-align: left;
   display: inline-flex;
   align-items: center;
@@ -319,6 +320,12 @@
   gap: 12px;
   cursor: pointer;
   transition: all var(--transition-normal);
+}
+
+.select-trigger--sm {
+  min-height: 28px;
+  padding: 6px 12px;
+  font-size: 12px;
 }
 
 .select-trigger:hover {
@@ -399,6 +406,11 @@
   text-align: left;
   cursor: pointer;
   transition: all var(--transition-fast);
+}
+
+.select-option--sm {
+  font-size: 12px;
+  padding: 6px 8px;
 }
 
 .select-option:hover,
