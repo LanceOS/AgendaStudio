@@ -27,7 +27,7 @@ export function DayView({
   onTimeSlotSelect,
   onEventDelete,
   onEventUpdate,
-  hourHeight = 80,
+  hourHeight = 120,
   style,
 }: DayViewProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -70,7 +70,7 @@ export function DayView({
 
       {/* Grid */}
       <div ref={scrollContainerRef} style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', position: 'relative' }}>
-        <div style={{ position: 'relative', width: '100%', height: `${24 * hourHeight}px` }}>
+        <div style={{ position: 'relative', width: '100%', height: `${24 * hourHeight}px`, flexShrink: 0 }}>
           
           <DayGridBackground hourHeight={hourHeight} />
           <CurrentTimeIndicator currentDate={currentDate} hourHeight={hourHeight} />
@@ -99,6 +99,12 @@ export function DayView({
 
             <DragSelectionOverlay dragState={dragState} />
           </div>
+
+          {/* Time Column Hit Area: Allows users to start dragging from the time labels or the red dot */}
+          <div
+            style={{ position: 'absolute', top: 0, left: 0, width: '80px', bottom: 0, cursor: 'crosshair', zIndex: 5 }}
+            {...handlers}
+          />
         </div>
       </div>
     </div>

@@ -14,6 +14,7 @@ export interface ModalProps {
 }
 
 export function Modal({ isOpen, onClose, title, children, footer, style }: ModalProps) {
+  const [isCloseHovered, setIsCloseHovered] = React.useState(false);
   React.useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -82,9 +83,22 @@ export function Modal({ isOpen, onClose, title, children, footer, style }: Modal
                 <button
                   type="button"
                   onClick={onClose}
+                  onMouseEnter={() => setIsCloseHovered(true)}
+                  onMouseLeave={() => setIsCloseHovered(false)}
                   aria-label="Close dialog"
-                  className="btn btn-ghost clickable"
-                  style={{ padding: '4px', minHeight: 'auto' }}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '4px',
+                    minHeight: 'auto',
+                    background: isCloseHovered ? 'var(--color-surface-hover, rgba(0,0,0,0.05))' : 'transparent',
+                    border: 'none',
+                    cursor: 'pointer',
+                    color: 'var(--color-text-secondary)',
+                    borderRadius: 'var(--radius-sm)',
+                    transition: 'background-color 0.2s ease',
+                  }}
                 >
                   <X size={16} />
                 </button>

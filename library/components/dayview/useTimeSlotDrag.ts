@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 
 export interface DragState {
   isDragging: boolean;
@@ -44,7 +44,7 @@ export function useTimeSlotDrag(
   );
 
   const handleMouseMove = useCallback(
-    (e: React.MouseEvent) => {
+    (e: MouseEvent) => {
       if (dragState.isDragging) {
         setDragState((prev) => ({ ...prev, currentOffset: getOffsetY(e.clientY) }));
       }
@@ -53,7 +53,7 @@ export function useTimeSlotDrag(
   );
 
   const handleMouseUp = useCallback(
-    (e: React.MouseEvent) => {
+    (e: MouseEvent) => {
       if (!dragState.isDragging || dragState.startOffset === null) return;
 
       let startY = dragState.startOffset;
@@ -90,23 +90,21 @@ export function useTimeSlotDrag(
     [dragState, getOffsetY, hourHeight, currentDate, onTimeSlotSelect]
   );
 
-  const handleMouseLeave = useCallback(() => {
+  React.useEffect(() => {
     if (dragState.isDragging) {
-      setDragState({
-        isDragging: false,
-        startOffset: null,
-        currentOffset: null,
-      });
+      window.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('mouseup', handleMouseUp);
+      return () => {
+        window.removeEventListener('mousemove', handleMouseMove);
+        window.removeEventListener('mouseup', handleMouseUp);
+      };
     }
-  }, [dragState.isDragging]);
+  }, [dragState.isDragging, handleMouseMove, handleMouseUp]);
 
   return {
     dragState,
     handlers: {
       onMouseDown: handleMouseDown,
-      onMouseMove: handleMouseMove,
-      onMouseUp: handleMouseUp,
-      onMouseLeave: handleMouseLeave,
     },
   };
 }

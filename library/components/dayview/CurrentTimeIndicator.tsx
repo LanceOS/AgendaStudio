@@ -36,10 +36,8 @@ export const CurrentTimeIndicator = React.memo(function CurrentTimeIndicator({ c
         right: 0,
         height: '2px',
         backgroundColor: 'var(--color-danger, #ef4444)',
-        zIndex: 15,
+        zIndex: 100,
         pointerEvents: 'none',
-        display: 'flex',
-        alignItems: 'center',
       }}
     >
       {/* Circle dot on the left side */}
@@ -47,10 +45,12 @@ export const CurrentTimeIndicator = React.memo(function CurrentTimeIndicator({ c
         style={{
           position: 'absolute',
           left: '76px', // Aligns with the 80px border
+          top: '-3px', // Centers the 8px dot vertically on the 2px line
           width: '8px',
           height: '8px',
           borderRadius: '50%',
           backgroundColor: 'var(--color-danger, #ef4444)',
+          pointerEvents: 'none',
         }}
       />
     </div>
