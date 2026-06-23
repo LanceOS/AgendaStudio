@@ -13,7 +13,7 @@ export function CalendarView({ currentDate = new Date(), events = [], style }: C
   const firstDay = getFirstDayOfMonth(currentDate.getFullYear(), currentDate.getMonth());
 
   return (
-    <div style={{ border: '1px solid var(--color-border-default)', borderRadius: 'var(--radius-lg)', overflow: 'hidden', ...style }}>
+    <div style={{ display: 'flex', flexDirection: 'column', border: '1px solid var(--color-border-default)', borderRadius: 'var(--radius-lg)', overflow: 'hidden', ...style }}>
       <div style={{ padding: '12px 16px', backgroundColor: 'var(--color-base50)', borderBottom: '1px solid var(--color-border-default)', display: 'flex', justifyContent: 'center' }}>
         <span style={{ fontWeight: 600, fontSize: '14px', color: 'var(--color-text-primary)' }}>
           {currentDate.toLocaleString('default', { month: 'long', year: 'numeric' })}
@@ -26,9 +26,9 @@ export function CalendarView({ currentDate = new Date(), events = [], style }: C
           </div>
         ))}
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', backgroundColor: 'var(--color-border-default)', gap: '1px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gridAutoRows: '1fr', backgroundColor: 'var(--color-border-default)', gap: '1px', flex: 1 }}>
         {Array.from({ length: firstDay }).map((_, i) => (
-          <div key={`empty-${i}`} style={{ backgroundColor: 'var(--color-surface-card)', minHeight: '60px' }} />
+          <div key={`empty-${i}`} style={{ backgroundColor: 'var(--color-surface-card)', minHeight: '0' }} />
         ))}
         {Array.from({ length: daysInMonth }).map((_, i) => {
           const day = i + 1;
@@ -45,7 +45,7 @@ export function CalendarView({ currentDate = new Date(), events = [], style }: C
               key={day}
               style={{
                 backgroundColor: 'var(--color-surface-card)',
-                minHeight: '60px',
+                minHeight: '0',
                 padding: '6px',
                 display: 'flex',
                 flexDirection: 'column',
