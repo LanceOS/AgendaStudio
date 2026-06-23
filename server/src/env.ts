@@ -6,6 +6,7 @@ const envSchema = z.object({
   PORT: z.coerce.number().default(3000),
   BETTER_AUTH_SECRET: z.string().min(1, "BETTER_AUTH_SECRET is required"),
   BETTER_AUTH_URL: z.string().url("BETTER_AUTH_URL must be a valid URL"),
+  FRONTEND_URL: z.string().url("FRONTEND_URL must be a valid URL").default("http://localhost:5173"),
 });
 
 const parsedEnv = envSchema.safeParse(process.env);
