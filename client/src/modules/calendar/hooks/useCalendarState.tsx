@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useMemo, type ReactNode } from 'react';
-import type { CalendarContextValue, CalendarViewMode } from '../types';
+import type { CalendarContextValue, CalendarViewMode, CalendarEvent } from '../types';
 
 const CalendarContext = createContext<CalendarContextValue | undefined>(undefined);
 
@@ -11,6 +11,21 @@ export const CalendarProvider: React.FC<CalendarProviderProps> = ({ children }) 
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [viewMode, setViewMode] = useState<CalendarViewMode>('month');
   const [activeCategoryId, setActiveCategoryId] = useState<string | null>(null);
+  const [events, setEvents] = useState<CalendarEvent[]>([]);
+
+  const addEvent = (event: Omit<CalendarEvent, 'id'>) => {
+    setEvents((prev) => [
+      ...prev,
+      {
+        ...event,
+        id: crypto.randomUUID(),
+      },
+    ]);
+  };
+
+  const removeEvent = (id: string) => {
+    setEvents((prev) => prev.filter((e) => e.id !== id));
+  };
 
   const contextValue = useMemo(
     () => ({
@@ -20,8 +35,11 @@ export const CalendarProvider: React.FC<CalendarProviderProps> = ({ children }) 
       setSelectedDate,
       setViewMode,
       setActiveCategoryId,
+      events,
+      addEvent,
+      removeEvent,
     }),
-    [selectedDate, viewMode, activeCategoryId]
+    [selectedDate, viewMode, activeCategoryId, events]
   );
 
   return (

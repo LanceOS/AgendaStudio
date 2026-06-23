@@ -81,3 +81,4 @@ export * from './tooltip';
 export * from './transferlist';
 export * from './treeselect';
 export * from './treeview';
+export * from './dayview';

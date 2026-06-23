@@ -23,4 +23,7 @@ export interface CalendarContextValue extends CalendarState {
   setSelectedDate: (date: Date) => void;
   setViewMode: (mode: CalendarViewMode) => void;
   setActiveCategoryId: (id: string | null) => void;
+  events: CalendarEvent[];
+  addEvent: (event: Omit<CalendarEvent, 'id'>) => void;
+  removeEvent: (id: string) => void;
 }
