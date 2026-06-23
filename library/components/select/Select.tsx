@@ -68,6 +68,7 @@ export interface SelectProps extends Omit<React.SelectHTMLAttributes<HTMLSelectE
   placeholder?: string;
   onValueChange?: (value: string) => void;
   onChange?: React.ChangeEventHandler<HTMLSelectElement>;
+  size?: 'sm' | 'md' | 'lg';
 }
 
 export function Select({
@@ -82,6 +83,7 @@ export function Select({
   style,
   value,
   disabled,
+  size = 'md',
   ...props
 }: SelectProps) {
   const { name, ...triggerProps } = props;
@@ -136,7 +138,7 @@ export function Select({
       minWidth: `${triggerRect.width}px`,
       maxWidth: 'calc(100vw - 16px)',
       boxSizing: 'border-box',
-      maxHeight: `${maxHeight}px`,
+      maxHeight: `${Math.min(maxHeight, 320)}px`,
     });
   }, []);
 
@@ -252,6 +254,8 @@ export function Select({
   const labelText = selectedOption?.label ?? (selectedValue === '' ? placeholder ?? '' : selectedValue);
   const labelClassName = cn('select-trigger__value', selectedValue === '' && placeholder ? 'select-trigger__value--placeholder' : '');
 
+  const triggerSizeClass = size === 'sm' ? 'select-trigger--sm' : size === 'lg' ? 'select-trigger--lg' : '';
+
   return (
     <ClickAwayListener onClickAway={closeMenu}>
       <div className="select-root" style={{ display: 'flex', flexDirection: 'column', gap: '4px', ...style }}>
@@ -265,7 +269,7 @@ export function Select({
           type="button"
           id={selectId}
           ref={triggerRef}
-          className={cn('select-trigger', className)}
+          className={cn('select-trigger', triggerSizeClass, className)}
           aria-labelledby={label ? labelId : undefined}
           aria-invalid={error ? 'true' : undefined}
           aria-errormessage={error ? errorId : undefined}
@@ -301,7 +305,7 @@ export function Select({
               id={menuId}
               role="listbox"
               aria-labelledby={label ? labelId : undefined}
-              className={cn('select-menu scroll-container')}
+              className={cn('select-menu', size === 'sm' ? 'select-menu--sm' : '', 'scroll-container')}
               style={menuStyle}
             >
             {allOptions.map((opt, index) => {
@@ -316,7 +320,7 @@ export function Select({
                   aria-disabled={opt.disabled ? 'true' : undefined}
                   data-active={isActive ? 'true' : undefined}
                   data-selected={isSelected ? 'true' : undefined}
-                  className="select-option"
+                  className={cn('select-option', size === 'sm' ? 'select-option--sm' : '')}
                   tabIndex={-1}
                   onMouseEnter={() => {
                     if (!opt.disabled) {
