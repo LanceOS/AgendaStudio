@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: agendastudio-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: agendastudio
+    ports:
+      - "5432:5432"
+    volumes:
+      - agendastudio-db-data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  agendastudio-db-data:

@@ -1,4 +1,6 @@
-import { DatabaseProvider } from '../provider.js';
+import { Db } from '../../db.js';
+import { appConfigs } from '../schema.js';
+import { eq } from 'drizzle-orm';
 
 export interface AppConfig {
   key: string;
@@ -7,19 +9,19 @@ export interface AppConfig {
 }
 
 export class AppConfigRepository {
-  constructor(private db: DatabaseProvider) {}
+  constructor(private db: Db) {}
 
   async get(key: string): Promise<string | null> {
-    const rows = await this.db.query<AppConfig>('SELECT * FROM app_configs WHERE key = $1', [key]);
-    return rows[0]?.value || null;
+    const [config] = await this.db.select().from(appConfigs).where(eq(appConfigs.key, key));
+    return config?.value || null;
   }
 
   async set(key: string, value: string): Promise<void> {
-    await this.db.query(
-      `INSERT INTO app_configs (key, value, "updatedAt") 
-       VALUES ($1, $2, NOW()) 
-       ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value, "updatedAt" = NOW()`,
-      [key, value]
-    );
+    await this.db.insert(appConfigs)
+      .values({ key, value })
+      .onConflictDoUpdate({
+        target: appConfigs.key,
+        set: { value, updatedAt: new Date() }
+      });
   }
 }

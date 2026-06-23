@@ -1,12 +1,15 @@
 import { Router } from 'express';
-import { eventRepository } from '../db.js';
+import { EventRepository } from '../db/repositories/EventRepository.js';
+import { CreateEventSchema, QueryEventsSchema } from '../schemas/event.schema.js';
+import { validate } from '../middlewares/validate.js';
 
-const router = Router();
+export function createEventsRouter(eventRepository: EventRepository) {
+  const router = Router();
 
-// GET events by range
-router.get('/', async (req, res) => {
-  try {
-    const { start, end } = req.query;
+  // GET events by range
+  router.get('/', validate({ query: QueryEventsSchema }), async (req, res) => {
+    // The query is guaranteed to be valid and type-safe here because of the middleware
+    const { start, end } = req.query as any;
     
     if (start && end) {
       const events = await eventRepository.findAll(String(start), String(end));
@@ -15,33 +18,19 @@ router.get('/', async (req, res) => {
       const events = await eventRepository.findAll();
       res.json(events);
     }
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Failed to fetch events' });
-  }
-});
+  });
 
-// POST create event
-router.post('/', async (req, res) => {
-  try {
+  // POST create event
+  router.post('/', validate({ body: CreateEventSchema }), async (req, res) => {
+    // req.body is guaranteed valid and safe
     const { title, start, end } = req.body;
-    
-    if (!title || !start || !end) {
-      return res.status(400).json({ error: 'Missing required fields' });
-    }
 
     const event = await eventRepository.create(title, start, end);
-    
     res.status(201).json(event);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Failed to create event' });
-  }
-});
+  });
 
-// DELETE event
-router.delete('/:id', async (req, res) => {
-  try {
+  // DELETE event
+  router.delete('/:id', async (req, res) => {
     const { id } = req.params;
     
     const success = await eventRepository.delete(id);
@@ -49,12 +38,12 @@ router.delete('/:id', async (req, res) => {
     if (success) {
       res.json({ success: true });
     } else {
-      res.status(404).json({ error: 'Event not found' });
+      // Throwing an error automatically propagates it to the errorHandler middleware
+      const err = new Error('Event not found');
+      (err as any).statusCode = 404;
+      throw err;
     }
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Failed to delete event' });
-  }
-});
+  });
 
-export default router;
+  return router;
+}
