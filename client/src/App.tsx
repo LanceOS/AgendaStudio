@@ -4,12 +4,28 @@ import { Layout } from './modules/core/screens/Layout'
 import { SettingsScreen } from './modules/settings/screens/SettingsScreen'
 import { CreateCategoryScreen } from './modules/calendar/screens/CreateCategoryScreen'
 
+import { LoginScreen } from './modules/auth/screens/LoginScreen'
+import { RegisterScreen } from './modules/auth/screens/RegisterScreen'
+import { ProtectedRoute } from './modules/auth/components/ProtectedRoute'
+
 const queryClient = new QueryClient()
 
 const router = createBrowserRouter([
   {
+    path: "/login",
+    element: <LoginScreen />,
+  },
+  {
+    path: "/register",
+    element: <RegisterScreen />,
+  },
+  {
     path: "/",
-    element: <Layout />,
+    element: (
+      <ProtectedRoute>
+        <Layout />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: "/",
