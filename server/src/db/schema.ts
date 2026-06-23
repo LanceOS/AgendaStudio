@@ -10,7 +10,7 @@ export const events = pgTable('events', {
 export const users = pgTable('users', {
   id: varchar('id', { length: 255 }).primaryKey(),
   name: varchar('name', { length: 255 }).notNull(),
-  email: varchar('email', { length: 255 }).notNull(),
+  email: varchar('email', { length: 255 }).notNull().unique(),
   emailVerified: boolean('emailVerified').notNull().default(false),
   image: text('image'),
   createdAt: timestamp('createdAt', { withTimezone: true, mode: 'date' }).defaultNow().notNull(),
@@ -22,8 +22,35 @@ export const sessions = pgTable('sessions', {
   userId: varchar('userId', { length: 255 }).notNull().references(() => users.id, { onDelete: 'cascade' }),
   token: varchar('token', { length: 255 }).notNull().unique(),
   expiresAt: timestamp('expiresAt', { withTimezone: true, mode: 'date' }).notNull(),
+  ipAddress: text('ipAddress'),
+  userAgent: text('userAgent'),
   createdAt: timestamp('createdAt', { withTimezone: true, mode: 'date' }).defaultNow().notNull(),
   updatedAt: timestamp('updatedAt', { withTimezone: true, mode: 'date' }).defaultNow().notNull(),
+});
+
+export const accounts = pgTable('accounts', {
+  id: varchar('id', { length: 255 }).primaryKey(),
+  accountId: varchar('accountId', { length: 255 }).notNull(),
+  providerId: varchar('providerId', { length: 255 }).notNull(),
+  userId: varchar('userId', { length: 255 }).notNull().references(() => users.id, { onDelete: 'cascade' }),
+  accessToken: text('accessToken'),
+  refreshToken: text('refreshToken'),
+  idToken: text('idToken'),
+  accessTokenExpiresAt: timestamp('accessTokenExpiresAt', { withTimezone: true, mode: 'date' }),
+  refreshTokenExpiresAt: timestamp('refreshTokenExpiresAt', { withTimezone: true, mode: 'date' }),
+  scope: text('scope'),
+  password: text('password'),
+  createdAt: timestamp('createdAt', { withTimezone: true, mode: 'date' }).defaultNow().notNull(),
+  updatedAt: timestamp('updatedAt', { withTimezone: true, mode: 'date' }).defaultNow().notNull(),
+});
+
+export const verifications = pgTable('verifications', {
+  id: varchar('id', { length: 255 }).primaryKey(),
+  identifier: varchar('identifier', { length: 255 }).notNull(),
+  value: text('value').notNull(),
+  expiresAt: timestamp('expiresAt', { withTimezone: true, mode: 'date' }).notNull(),
+  createdAt: timestamp('createdAt', { withTimezone: true, mode: 'date' }).defaultNow(),
+  updatedAt: timestamp('updatedAt', { withTimezone: true, mode: 'date' }).defaultNow(),
 });
 
 export const mcpConfigs = pgTable('mcp_configs', {
