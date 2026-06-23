@@ -13,6 +13,14 @@ export interface ProcessedEvent<T extends DayEventInput> {
   width: number;
 }
 
+interface ClusterItem<T> {
+  event: T;
+  start: number;
+  end: number;
+  col: number;
+  maxCols: number;
+}
+
 export function processOverlappingEvents<T extends DayEventInput>(
   events: T[],
   hourHeight: number
@@ -29,9 +37,9 @@ export function processOverlappingEvents<T extends DayEventInput>(
     return a.date.getTime() - b.date.getTime();
   });
 
-  const processed: Array<{ event: T; start: number; end: number; col: number; maxCols: number }> = [];
+  const processed: Array<ClusterItem<T>> = [];
 
-  let currentCluster: Array<{ event: T; start: number; end: number; col: number; maxCols: number }> = [];
+  let currentCluster: Array<ClusterItem<T>> = [];
   let clusterEnd = -1;
 
   for (const evt of sortedEvents) {
@@ -71,7 +79,7 @@ export function processOverlappingEvents<T extends DayEventInput>(
   }));
 }
 
-function calculateColumns(cluster: any[]): number {
+function calculateColumns<T>(cluster: ClusterItem<T>[]): number {
   const columns: number[] = [];
   let maxCols = 0;
 
