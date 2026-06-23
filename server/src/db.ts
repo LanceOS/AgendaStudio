@@ -1,22 +1,19 @@
-import Database from 'better-sqlite3';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import 'dotenv/config';
+import { PgPoolProvider } from './db/provider.js';
+import {
+  EventRepository,
+  UserRepository,
+  SessionRepository,
+  MCPConfigRepository,
+  AppConfigRepository,
+} from './db/repositories/index.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+export const dbProvider = new PgPoolProvider({
+  connectionString: process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/agendastudio',
+});
 
-// Create database file in the server directory
-const dbPath = path.resolve(__dirname, '../../database.sqlite');
-export const db = new Database(dbPath);
-
-// Initialize schema
-db.pragma('journal_mode = WAL');
-
-db.exec(`
-  CREATE TABLE IF NOT EXISTS events (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    title TEXT NOT NULL,
-    start TEXT NOT NULL,
-    end TEXT NOT NULL
-  );
-`);
+export const eventRepository = new EventRepository(dbProvider);
+export const userRepository = new UserRepository(dbProvider);
+export const sessionRepository = new SessionRepository(dbProvider);
+export const mcpConfigRepository = new MCPConfigRepository(dbProvider);
+export const appConfigRepository = new AppConfigRepository(dbProvider);
