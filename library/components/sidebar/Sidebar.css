@@ -13,6 +13,20 @@
   padding: 4px 8px 0 8px;
 }
 
+.sidebar-collapsible-wrapper {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-collapsible-wrapper.open {
+  grid-template-rows: 1fr;
+}
+
+.sidebar-collapsible-inner {
+  overflow: hidden;
+}
+
 @media (max-width: 768px) {
   .sidebar-item {
     font-size: 15px;
