@@ -1,34 +1,38 @@
-import { DatabaseProvider } from '../provider.js';
+import { Db } from '../../db.js';
+import { users } from '../schema.js';
+import { eq } from 'drizzle-orm';
 
 export interface User {
   id: string;
   name: string;
   email: string;
   emailVerified: boolean;
-  image?: string;
+  image?: string | null;
   createdAt: Date;
   updatedAt: Date;
 }
 
 export class UserRepository {
-  constructor(private db: DatabaseProvider) {}
+  constructor(private db: Db) {}
 
   async findById(id: string): Promise<User | null> {
-    const rows = await this.db.query<User>('SELECT * FROM users WHERE id = $1', [id]);
-    return rows[0] || null;
+    const [user] = await this.db.select().from(users).where(eq(users.id, id));
+    return user || null;
   }
 
   async findByEmail(email: string): Promise<User | null> {
-    const rows = await this.db.query<User>('SELECT * FROM users WHERE email = $1', [email]);
-    return rows[0] || null;
+    const [user] = await this.db.select().from(users).where(eq(users.email, email));
+    return user || null;
   }
 
   async create(user: Omit<User, 'createdAt' | 'updatedAt'>): Promise<User> {
-    const rows = await this.db.query<User>(
-      `INSERT INTO users (id, name, email, "emailVerified", image, "createdAt", "updatedAt") 
-       VALUES ($1, $2, $3, $4, $5, NOW(), NOW()) RETURNING *`,
-      [user.id, user.name, user.email, user.emailVerified, user.image]
-    );
-    return rows[0];
+    const [newUser] = await this.db.insert(users).values({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      emailVerified: user.emailVerified,
+      image: user.image,
+    }).returning();
+    return newUser;
   }
 }

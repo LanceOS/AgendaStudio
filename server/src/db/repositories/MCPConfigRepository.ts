@@ -1,35 +1,34 @@
-import { DatabaseProvider } from '../provider.js';
+import { Db } from '../../db.js';
+import { mcpConfigs } from '../schema.js';
+import { eq } from 'drizzle-orm';
 
 export interface MCPConfig {
   id: string;
   name: string;
   url: string;
-  apiKey?: string;
+  apiKey?: string | null;
   createdAt: Date;
   updatedAt: Date;
 }
 
 export class MCPConfigRepository {
-  constructor(private db: DatabaseProvider) {}
+  constructor(private db: Db) {}
 
   async findAll(): Promise<MCPConfig[]> {
-    return this.db.query<MCPConfig>('SELECT * FROM mcp_configs ORDER BY name ASC');
+    return this.db.select().from(mcpConfigs);
   }
 
   async create(config: Omit<MCPConfig, 'id' | 'createdAt' | 'updatedAt'>): Promise<MCPConfig> {
-    const rows = await this.db.query<MCPConfig>(
-      `INSERT INTO mcp_configs (name, url, "apiKey", "createdAt", "updatedAt") 
-       VALUES ($1, $2, $3, NOW(), NOW()) RETURNING *`,
-      [config.name, config.url, config.apiKey]
-    );
-    return rows[0];
+    const [newConfig] = await this.db.insert(mcpConfigs).values({
+      name: config.name,
+      url: config.url,
+      apiKey: config.apiKey,
+    }).returning();
+    return newConfig;
   }
 
   async delete(id: string): Promise<boolean> {
-    const rows = await this.db.query<{ id: string }>(
-      'DELETE FROM mcp_configs WHERE id = $1 RETURNING id',
-      [id]
-    );
-    return rows.length > 0;
+    const [deleted] = await this.db.delete(mcpConfigs).where(eq(mcpConfigs.id, id)).returning({ id: mcpConfigs.id });
+    return !!deleted;
   }
 }

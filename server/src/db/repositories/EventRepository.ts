@@ -1,4 +1,6 @@
-import { DatabaseProvider } from '../provider.js';
+import { Db } from '../../db.js';
+import { events } from '../schema.js';
+import { eq, gte, lte, and } from 'drizzle-orm';
 
 export interface Event {
   id: number;
@@ -8,31 +10,24 @@ export interface Event {
 }
 
 export class EventRepository {
-  constructor(private db: DatabaseProvider) {}
+  constructor(private db: Db) {}
 
   async findAll(start?: string, end?: string): Promise<Event[]> {
     if (start && end) {
-      return this.db.query<Event>(
-        'SELECT * FROM events WHERE start >= $1 AND "end" <= $2',
-        [start, end]
+      return this.db.select().from(events).where(
+        and(gte(events.start, start), lte(events.end, end))
       );
     }
-    return this.db.query<Event>('SELECT * FROM events');
+    return this.db.select().from(events);
   }
 
   async create(title: string, start: string, end: string): Promise<Event> {
-    const rows = await this.db.query<Event>(
-      'INSERT INTO events (title, start, "end") VALUES ($1, $2, $3) RETURNING *',
-      [title, start, end]
-    );
-    return rows[0];
+    const [event] = await this.db.insert(events).values({ title, start, end }).returning();
+    return event;
   }
 
   async delete(id: number | string): Promise<boolean> {
-    const rows = await this.db.query<{ id: number }>(
-      'DELETE FROM events WHERE id = $1 RETURNING id',
-      [id]
-    );
-    return rows.length > 0;
+    const [deleted] = await this.db.delete(events).where(eq(events.id, Number(id))).returning({ id: events.id });
+    return !!deleted;
   }
 }
