@@ -36,7 +36,7 @@ export const CurrentTimeIndicator = React.memo(function CurrentTimeIndicator({ c
         right: 0,
         height: '2px',
         backgroundColor: 'var(--color-danger, #ef4444)',
-        zIndex: 15,
+        zIndex: 4,
         pointerEvents: 'none',
         display: 'flex',
         alignItems: 'center',
