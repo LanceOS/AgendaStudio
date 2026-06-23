@@ -10,6 +10,8 @@ export interface CalendarEvent {
   id: string;
   title: string;
   date: Date;
+  endDate?: Date;
+  color?: string;
   categoryId: string;
 }
 
