@@ -8,32 +8,41 @@ export function createEventsRouter(eventRepository: EventRepository) {
 
   // GET events by range
   router.get('/', validate({ query: QueryEventsSchema }), async (req, res) => {
+    const userId = (req as any).user?.id || req.headers['x-user-id'];
+    if (!userId) return res.status(401).json({ error: 'Unauthorized' });
+
     // The query is guaranteed to be valid and type-safe here because of the middleware
     const { start, end } = req.query as any;
     
     if (start && end) {
-      const events = await eventRepository.findAll(String(start), String(end));
+      const events = await eventRepository.findAll(String(userId), String(start), String(end));
       res.json(events);
     } else {
-      const events = await eventRepository.findAll();
+      const events = await eventRepository.findAll(String(userId));
       res.json(events);
     }
   });
 
   // POST create event
   router.post('/', validate({ body: CreateEventSchema }), async (req, res) => {
-    // req.body is guaranteed valid and safe
-    const { title, start, end } = req.body;
+    const userId = (req as any).user?.id || req.headers['x-user-id'];
+    if (!userId) return res.status(401).json({ error: 'Unauthorized' });
 
-    const event = await eventRepository.create(title, start, end);
+    // req.body is guaranteed valid and safe
+    const eventData = req.body;
+
+    const event = await eventRepository.create(String(userId), eventData);
     res.status(201).json(event);
   });
 
   // DELETE event
   router.delete('/:id', async (req, res) => {
+    const userId = (req as any).user?.id || req.headers['x-user-id'];
+    if (!userId) return res.status(401).json({ error: 'Unauthorized' });
+
     const { id } = req.params;
     
-    const success = await eventRepository.delete(id);
+    const success = await eventRepository.delete(String(userId), id);
     
     if (success) {
       res.json({ success: true });

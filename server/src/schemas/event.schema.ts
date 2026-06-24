@@ -7,6 +7,10 @@ const dateStringSchema = z.string().refine((val) => !isNaN(Date.parse(val)), {
 
 export const CreateEventSchema = z.object({
   title: z.string().min(1, "Title is required").max(1000, "Title is too long"),
+  categoryId: z.number().optional(),
+  description: z.string().optional(),
+  location: z.string().optional(),
+  isAllDay: z.boolean().optional(),
   start: dateStringSchema,
   end: dateStringSchema,
 }).refine((data) => new Date(data.start) <= new Date(data.end), {

@@ -4,7 +4,12 @@ import { eq, gte, lte, and } from 'drizzle-orm';
 
 export interface Event {
   id: number;
+  userId: string;
+  categoryId: number | null;
   title: string;
+  description: string | null;
+  location: string | null;
+  isAllDay: boolean;
   start: string;
   end: string;
 }
@@ -12,22 +17,22 @@ export interface Event {
 export class EventRepository {
   constructor(private db: Db) {}
 
-  async findAll(start?: string, end?: string): Promise<Event[]> {
+  async findAll(userId: string, start?: string, end?: string): Promise<Event[]> {
     if (start && end) {
       return this.db.select().from(events).where(
-        and(gte(events.start, start), lte(events.end, end))
+        and(eq(events.userId, userId), gte(events.start, start), lte(events.end, end))
       );
     }
-    return this.db.select().from(events);
+    return this.db.select().from(events).where(eq(events.userId, userId));
   }
 
-  async create(title: string, start: string, end: string): Promise<Event> {
-    const [event] = await this.db.insert(events).values({ title, start, end }).returning();
+  async create(userId: string, data: Omit<Event, 'id' | 'userId'>): Promise<Event> {
+    const [event] = await this.db.insert(events).values({ ...data, userId }).returning();
     return event;
   }
 
-  async delete(id: number | string): Promise<boolean> {
-    const [deleted] = await this.db.delete(events).where(eq(events.id, Number(id))).returning({ id: events.id });
+  async delete(userId: string, id: number | string): Promise<boolean> {
+    const [deleted] = await this.db.delete(events).where(and(eq(events.id, Number(id)), eq(events.userId, userId))).returning({ id: events.id });
     return !!deleted;
   }
 }
