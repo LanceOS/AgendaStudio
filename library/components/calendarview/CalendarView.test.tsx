@@ -83,4 +83,50 @@ describe('CalendarView', () => {
     expect(handleExpand).toHaveBeenCalledTimes(1);
     expect(handleExpand.mock.calls[0][0].getDate()).toBe(1);
   });
+
+  describe('Year View', () => {
+    it('should switch to Year view when clicking the Year toggle', async () => {
+      const user = userEvent.setup();
+      const handleViewModeChange = vi.fn();
+      const testDate = new Date('2026-06-23T12:00:00Z');
+      
+      render(<CalendarView currentDate={testDate} viewMode="month" onViewModeChange={handleViewModeChange} />);
+      
+      const yearToggle = screen.getByText('Year', { selector: 'button' });
+      await user.click(yearToggle);
+      
+      expect(handleViewModeChange).toHaveBeenCalledTimes(1);
+      expect(handleViewModeChange).toHaveBeenCalledWith('year');
+    });
+
+    it('should render all 12 months in Year view', () => {
+      const testDate = new Date('2026-06-23T12:00:00Z');
+      render(<CalendarView currentDate={testDate} viewMode="year" />);
+      
+      const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      
+      months.forEach(month => {
+        expect(screen.getByText(month)).toBeInTheDocument();
+      });
+    });
+    
+    it('should navigate by year in Year view', async () => {
+      const user = userEvent.setup();
+      const handleDateChange = vi.fn();
+      const testDate = new Date('2026-06-23T12:00:00Z');
+      
+      render(<CalendarView currentDate={testDate} viewMode="year" onDateChange={handleDateChange} />);
+      
+      const prevButton = screen.getByLabelText('Previous Year');
+      const nextButton = screen.getByLabelText('Next Year');
+      
+      await user.click(prevButton);
+      expect(handleDateChange).toHaveBeenCalledTimes(1);
+      expect(handleDateChange.mock.calls[0][0].getFullYear()).toBe(2025);
+      
+      await user.click(nextButton);
+      expect(handleDateChange).toHaveBeenCalledTimes(2);
+      expect(handleDateChange.mock.calls[1][0].getFullYear()).toBe(2027);
+    });
+  });
 });
