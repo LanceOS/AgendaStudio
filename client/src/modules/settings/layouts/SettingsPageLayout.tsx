@@ -20,7 +20,7 @@ export function SettingsPageLayout({
         <main
           style={{
             flex: 1,
-            backgroundColor: 'var(--color-background)',
+            backgroundColor: 'var(--color-surface-app)',
             overflowY: 'auto',
             position: 'relative',
           }}

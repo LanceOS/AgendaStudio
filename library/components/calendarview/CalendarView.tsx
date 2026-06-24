@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
 import { getDaysInMonth, getFirstDayOfMonth } from '../../utilities';
 import { Button } from '../button';
 import { Select } from '../select';
+import { getContrastColor } from '../dayview/utils';
 
 export interface CalendarViewProps {
   currentDate?: Date;
@@ -183,7 +184,7 @@ export function CalendarView({ currentDate = new Date(), onDateChange, events = 
                       padding: '1px 4px',
                       borderRadius: 'var(--radius-xs)',
                       backgroundColor: evt.color || 'var(--color-state-selected-bg)',
-                      color: 'var(--color-text-primary)',
+                      color: getContrastColor(evt.color || 'var(--color-state-selected-bg)'),
                       whiteSpace: 'nowrap',
                       overflow: 'hidden',
                       textOverflow: 'ellipsis',

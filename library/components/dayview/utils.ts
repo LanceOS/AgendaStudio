@@ -96,3 +96,41 @@ function calculateColumns<T>(cluster: ClusterItem<T>[]): number {
   }
   return maxCols;
 }
+
+export function getContrastColor(color: string | undefined): string {
+  if (!color) return 'var(--color-text-inverse)';
+
+  let r = 0, g = 0, b = 0;
+  
+  if (color.startsWith('#')) {
+    const hex = color.replace('#', '');
+    if (hex.length === 3) {
+      r = parseInt(hex.substring(0, 1).repeat(2), 16);
+      g = parseInt(hex.substring(1, 2).repeat(2), 16);
+      b = parseInt(hex.substring(2, 3).repeat(2), 16);
+    } else if (hex.length >= 6) {
+      r = parseInt(hex.substring(0, 2), 16);
+      g = parseInt(hex.substring(2, 4), 16);
+      b = parseInt(hex.substring(4, 6), 16);
+    }
+  } else if (color.startsWith('rgb')) {
+    const match = color.match(/\d+/g);
+    if (match && match.length >= 3) {
+      r = parseInt(match[0], 10);
+      g = parseInt(match[1], 10);
+      b = parseInt(match[2], 10);
+    }
+  } else {
+    // If we cannot parse the color (e.g., CSS variable or named color), default to inverse text
+    return 'var(--color-text-inverse)';
+  }
+
+  // Relative luminance calculation
+  const [rs, gs, bs] = [r, g, b].map(c => {
+    c = c / 255;
+    return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+  });
+  const luminance = 0.2126 * rs + 0.7152 * gs + 0.0722 * bs;
+
+  return luminance > 0.179 ? '#000000' : '#ffffff';
+}

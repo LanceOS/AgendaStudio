@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Trash2 } from 'lucide-react';
-import type { DayEventInput } from './utils';
+import { getContrastColor, type DayEventInput } from './utils';
 
 export interface DayEventProps {
   event: DayEventInput;
@@ -137,7 +137,7 @@ export const DayEvent = React.memo(function DayEvent({
         width: `calc(${width}% - 36px)`,
         boxSizing: 'border-box',
         backgroundColor: event.color || 'var(--color-primary)',
-        color: 'var(--color-text-inverse)',
+        color: getContrastColor(event.color),
         padding: '4px 8px',
         borderRadius: 'var(--radius-sm)',
         fontSize: '12px',

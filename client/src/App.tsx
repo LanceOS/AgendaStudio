@@ -17,6 +17,7 @@ import { Navigate } from 'react-router';
 import { DayViewScreen } from './modules/calendar/screens/DayViewScreen';
 import { EventCreatorScreen } from './modules/calendar/screens/EventCreatorScreen';
 import { EventDetailsScreen } from './modules/calendar/screens/EventDetailsScreen';
+import { NotFoundScreen } from './modules/core/screens/NotFoundScreen';
 
 const router = createBrowserRouter([
   {
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
       {
         path: "calendar/create-category",
         element: <CreateCategoryScreen />,
+      },
+      {
+        path: "*",
+        element: <NotFoundScreen />,
       },
     ],
   },
