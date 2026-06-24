@@ -23,7 +23,8 @@ export const CalendarScreen: React.FC = () => {
         currentDate={selectedDate}
         onDateChange={setSelectedDate}
         onDayExpand={handleDayExpand}
-        events={events.map(e => ({ date: e.date, label: e.title, color: e.color || 'var(--color-primary)' }))} 
+        onEventClick={(eventId) => navigate(`/events/${eventId}`)}
+        events={events.map(e => ({ id: e.id, date: e.date, label: e.title, color: e.color || 'var(--color-primary)' }))} 
         style={{ width: '100%', height: '100%', borderRadius: 0, border: 'none' }} 
       />
     </div>

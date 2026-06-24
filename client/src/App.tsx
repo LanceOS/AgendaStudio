@@ -16,6 +16,7 @@ import { CalendarProvider } from './modules/calendar/hooks/useCalendarState'
 import { Navigate } from 'react-router';
 import { DayViewScreen } from './modules/calendar/screens/DayViewScreen';
 import { EventCreatorScreen } from './modules/calendar/screens/EventCreatorScreen';
+import { EventDetailsScreen } from './modules/calendar/screens/EventDetailsScreen';
 
 const router = createBrowserRouter([
   {
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
       {
         path: "events/new",
         element: <EventCreatorScreen />,
+      },
+      {
+        path: "events/:eventId",
+        element: <EventDetailsScreen />,
       },
       {
         path: "settings",

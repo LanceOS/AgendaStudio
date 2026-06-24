@@ -29,8 +29,19 @@ export const DayViewScreen: React.FC = () => {
 
   const currentDate = useMemo(() => {
     if (!date) return new Date();
-    const parsed = new Date(date);
-    return isNaN(parsed.getTime()) ? new Date() : parsed;
+    
+    // Parse the YYYY-MM-DD format as local time to avoid UTC offset issues
+    const parts = date.split('-');
+    if (parts.length === 3) {
+      const year = parseInt(parts[0], 10);
+      const month = parseInt(parts[1], 10) - 1; // 0-indexed month
+      const day = parseInt(parts[2], 10);
+      const parsed = new Date(year, month, day);
+      if (!isNaN(parsed.getTime())) return parsed;
+    }
+    
+    const fallbackParsed = new Date(date);
+    return isNaN(fallbackParsed.getTime()) ? new Date() : fallbackParsed;
   }, [date]);
 
   const handleDateChange = (newDate: Date) => {
@@ -83,6 +94,7 @@ export const DayViewScreen: React.FC = () => {
         onTimeSlotSelect={handleTimeSlotSelect}
         onEventDelete={removeEvent}
         onEventUpdate={updateEvent}
+        onEventClick={(eventId) => navigate(`/events/${eventId}`)}
         style={{ width: '100%', height: '100%', borderRadius: 0, border: 'none' }}
       />
 

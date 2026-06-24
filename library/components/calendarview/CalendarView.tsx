@@ -7,8 +7,9 @@ import { Select } from '../select';
 export interface CalendarViewProps {
   currentDate?: Date;
   onDateChange?: (date: Date) => void;
-  events?: Array<{ date: Date; label: string; color?: string }>;
+  events?: Array<{ id: string; date: Date; label: string; color?: string }>;
   onDayExpand?: (date: Date) => void;
+  onEventClick?: (eventId: string) => void;
   style?: React.CSSProperties;
 }
 
@@ -17,7 +18,7 @@ const MONTHS = [
   'July', 'August', 'September', 'October', 'November', 'December'
 ];
 
-export function CalendarView({ currentDate = new Date(), onDateChange, events = [], onDayExpand, style }: CalendarViewProps) {
+export function CalendarView({ currentDate = new Date(), onDateChange, events = [], onDayExpand, onEventClick, style }: CalendarViewProps) {
   const daysInMonth = getDaysInMonth(currentDate.getFullYear(), currentDate.getMonth());
   const firstDay = getFirstDayOfMonth(currentDate.getFullYear(), currentDate.getMonth());
 
@@ -186,6 +187,13 @@ export function CalendarView({ currentDate = new Date(), onDateChange, events = 
                       whiteSpace: 'nowrap',
                       overflow: 'hidden',
                       textOverflow: 'ellipsis',
+                      cursor: onEventClick ? 'pointer' : 'default',
+                    }}
+                    onClick={(e) => {
+                      if (onEventClick) {
+                        e.stopPropagation();
+                        onEventClick(evt.id);
+                      }
                     }}
                   >
                     {evt.label}
