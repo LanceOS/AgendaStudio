@@ -1,0 +1,99 @@
+import React, { useMemo } from 'react';
+import { getDaysInMonth, getFirstDayOfMonth } from '../../utilities';
+
+export interface YearGridProps {
+  currentDate: Date;
+  events: Array<{ id: string; date: Date; label: string; color?: string }>;
+  onDayExpand?: (date: Date) => void;
+}
+
+const MONTHS = [
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December'
+];
+
+export const YearGrid: React.FC<YearGridProps> = ({ currentDate, events, onDayExpand }) => {
+  const currentYear = currentDate.getFullYear();
+
+  // O(1) event lookup optimization
+  const eventDates = useMemo(() => {
+    const dates = new Set<string>();
+    events.forEach(evt => {
+      const d = evt.date;
+      dates.add(`${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`);
+    });
+    return dates;
+  }, [events]);
+
+  return (
+    <div style={{ flex: 1, overflow: 'hidden', padding: '16px', backgroundColor: 'var(--color-surface-card)' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gridTemplateRows: 'repeat(3, minmax(0, 1fr))', gap: '16px', height: '100%' }}>
+        {Array.from({ length: 12 }).map((_, monthIdx) => {
+          const mDaysInMonth = getDaysInMonth(currentYear, monthIdx);
+          const mFirstDay = getFirstDayOfMonth(currentYear, monthIdx);
+          
+          return (
+            <div key={monthIdx} style={{ display: 'flex', flexDirection: 'column', minHeight: 0 }}>
+              <div style={{ fontWeight: 600, fontSize: '14px', marginBottom: '4px', color: 'var(--color-text-primary)' }}>
+                {MONTHS[monthIdx]}
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', textAlign: 'center', marginBottom: '2px' }}>
+                {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((d, i) => (
+                  <div key={i} style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-text-disabled)' }}>{d}</div>
+                ))}
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gridTemplateRows: 'repeat(6, 1fr)', gap: '2px', flex: 1, minHeight: 0 }}>
+                {Array.from({ length: mFirstDay }).map((_, i) => (
+                  <div key={`empty-${i}`} />
+                ))}
+                {Array.from({ length: mDaysInMonth }).map((_, i) => {
+                  const day = i + 1;
+                  const dayDate = new Date(currentYear, monthIdx, day);
+                  const hasEvents = eventDates.has(`${currentYear}-${monthIdx}-${day}`);
+                  const today = new Date();
+                  const isToday = today.getDate() === day &&
+                                  today.getMonth() === monthIdx &&
+                                  today.getFullYear() === currentYear;
+                  return (
+                    <div
+                      key={day}
+                      onClick={() => onDayExpand && onDayExpand(dayDate)}
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        cursor: onDayExpand ? 'pointer' : 'default',
+                        borderRadius: '50%',
+                        width: '28px',
+                        height: '28px',
+                        maxWidth: '100%',
+                        maxHeight: '100%',
+                        margin: 'auto',
+                        backgroundColor: isToday ? 'var(--color-primary)' : 'transparent',
+                        color: isToday ? 'var(--color-text-on-accent)' : 'var(--color-text-primary)',
+                        position: 'relative'
+                      }}
+                    >
+                      <span style={{ fontSize: '12px', fontWeight: isToday ? 600 : 400 }}>{day}</span>
+                      {hasEvents && (
+                        <div style={{
+                          position: 'absolute',
+                          bottom: '2px',
+                          width: '4px',
+                          height: '4px',
+                          borderRadius: '50%',
+                          backgroundColor: isToday ? 'var(--color-text-on-accent)' : 'var(--color-primary)'
+                        }} />
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
