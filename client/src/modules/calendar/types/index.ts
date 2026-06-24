@@ -1,4 +1,4 @@
-export type CalendarViewMode = 'month' | 'week' | 'day';
+export type CalendarViewMode = 'year' | 'month' | 'week' | 'day';
 
 export interface Category {
   id: string;

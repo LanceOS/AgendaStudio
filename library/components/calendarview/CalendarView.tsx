@@ -8,6 +8,8 @@ import { getContrastColor } from '../dayview/utils';
 export interface CalendarViewProps {
   currentDate?: Date;
   onDateChange?: (date: Date) => void;
+  viewMode?: 'month' | 'year';
+  onViewModeChange?: (mode: 'month' | 'year') => void;
   events?: Array<{ id: string; date: Date; label: string; color?: string }>;
   onDayExpand?: (date: Date) => void;
   onEventClick?: (eventId: string) => void;
@@ -19,19 +21,27 @@ const MONTHS = [
   'July', 'August', 'September', 'October', 'November', 'December'
 ];
 
-export function CalendarView({ currentDate = new Date(), onDateChange, events = [], onDayExpand, onEventClick, style }: CalendarViewProps) {
+export function CalendarView({ currentDate = new Date(), onDateChange, viewMode = 'month', onViewModeChange, events = [], onDayExpand, onEventClick, style }: CalendarViewProps) {
   const daysInMonth = getDaysInMonth(currentDate.getFullYear(), currentDate.getMonth());
   const firstDay = getFirstDayOfMonth(currentDate.getFullYear(), currentDate.getMonth());
 
   const handlePrevMonth = () => {
     if (onDateChange) {
-      onDateChange(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1));
+      if (viewMode === 'year') {
+        onDateChange(new Date(currentDate.getFullYear() - 1, currentDate.getMonth(), 1));
+      } else {
+        onDateChange(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1));
+      }
     }
   };
 
   const handleNextMonth = () => {
     if (onDateChange) {
-      onDateChange(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1));
+      if (viewMode === 'year') {
+        onDateChange(new Date(currentDate.getFullYear() + 1, currentDate.getMonth(), 1));
+      } else {
+        onDateChange(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1));
+      }
     }
   };
 
@@ -76,43 +86,151 @@ export function CalendarView({ currentDate = new Date(), onDateChange, events = 
             Today
           </Button>
           <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-            <Button variant="default" size="sm" onClick={handlePrevMonth} aria-label="Previous Month">
+            <Button variant="default" size="sm" onClick={handlePrevMonth} aria-label={viewMode === 'year' ? "Previous Year" : "Previous Month"}>
               <ChevronLeft size={16} />
             </Button>
-            <Button variant="default" size="sm" onClick={handleNextMonth} aria-label="Next Month">
+            <Button variant="default" size="sm" onClick={handleNextMonth} aria-label={viewMode === 'year' ? "Next Year" : "Next Month"}>
               <ChevronRight size={16} />
             </Button>
           </div>
         </div>
         
         <div style={{ fontWeight: 600, fontSize: '15px', color: 'var(--color-text-primary)' }}>
-          {currentDate.toLocaleString('default', { month: 'long', year: 'numeric' })}
+          {viewMode === 'year' ? currentDate.getFullYear() : currentDate.toLocaleString('default', { month: 'long', year: 'numeric' })}
         </div>
         
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Select
-            value={currentDate.getMonth().toString()}
-            options={monthOptions}
-            onValueChange={handleMonthChange}
-            size="sm"
-            style={{ width: '130px' }}
-          />
-          <Select
-            value={currentDate.getFullYear().toString()}
-            options={yearOptions}
-            onValueChange={handleYearChange}
-            size="sm"
-            style={{ width: '100px' }}
-          />
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+          <div style={{ display: 'flex', background: 'var(--color-surface-card)', border: '1px solid var(--color-border-default)', borderRadius: 'var(--radius-sm)', overflow: 'hidden' }}>
+             <button
+                onClick={() => onViewModeChange && onViewModeChange('month')}
+                style={{
+                  padding: '4px 12px',
+                  fontSize: '13px',
+                  fontWeight: 500,
+                  cursor: 'pointer',
+                  border: 'none',
+                  background: viewMode === 'month' ? 'var(--color-state-selected-bg)' : 'transparent',
+                  color: viewMode === 'month' ? 'var(--color-primary)' : 'var(--color-text-secondary)',
+                  transition: 'all 0.2s ease'
+                }}
+             >Month</button>
+             <button
+                onClick={() => onViewModeChange && onViewModeChange('year')}
+                style={{
+                  padding: '4px 12px',
+                  fontSize: '13px',
+                  fontWeight: 500,
+                  cursor: 'pointer',
+                  border: 'none',
+                  background: viewMode === 'year' ? 'var(--color-state-selected-bg)' : 'transparent',
+                  color: viewMode === 'year' ? 'var(--color-primary)' : 'var(--color-text-secondary)',
+                  transition: 'all 0.2s ease'
+                }}
+             >Year</button>
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            {viewMode === 'month' && (
+              <Select
+                value={currentDate.getMonth().toString()}
+                options={monthOptions}
+                onValueChange={handleMonthChange}
+                size="sm"
+                style={{ width: '130px' }}
+              />
+            )}
+            <Select
+              value={currentDate.getFullYear().toString()}
+              options={yearOptions}
+              onValueChange={handleYearChange}
+              size="sm"
+              style={{ width: '100px' }}
+            />
+          </div>
         </div>
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', borderBottom: '1px solid var(--color-border-default)', textAlign: 'center', backgroundColor: 'var(--color-surface-card)' }}>
-        {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((d) => (
-          <div key={d} style={{ padding: '6px', fontSize: '11px', fontWeight: 600, color: 'var(--color-text-disabled)' }}>
-            {d}
+      {viewMode === 'year' ? (
+        <div style={{ flex: 1, overflow: 'hidden', padding: '16px', backgroundColor: 'var(--color-surface-card)' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gridTemplateRows: 'repeat(3, minmax(0, 1fr))', gap: '16px', height: '100%' }}>
+            {Array.from({ length: 12 }).map((_, monthIdx) => {
+              const mDaysInMonth = getDaysInMonth(currentDate.getFullYear(), monthIdx);
+              const mFirstDay = getFirstDayOfMonth(currentDate.getFullYear(), monthIdx);
+              return (
+                <div key={monthIdx} style={{ display: 'flex', flexDirection: 'column', minHeight: 0 }}>
+                  <div style={{ fontWeight: 600, fontSize: '14px', marginBottom: '4px', color: 'var(--color-text-primary)' }}>
+                    {MONTHS[monthIdx]}
+                  </div>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', textAlign: 'center', marginBottom: '2px' }}>
+                    {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((d, i) => (
+                      <div key={i} style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-text-disabled)' }}>{d}</div>
+                    ))}
+                  </div>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gridTemplateRows: 'repeat(6, 1fr)', gap: '2px', flex: 1, minHeight: 0 }}>
+                    {Array.from({ length: mFirstDay }).map((_, i) => (
+                      <div key={`empty-${i}`} />
+                    ))}
+                    {Array.from({ length: mDaysInMonth }).map((_, i) => {
+                      const day = i + 1;
+                      const dayDate = new Date(currentDate.getFullYear(), monthIdx, day);
+                      const hasEvents = events.some(evt => 
+                        evt.date.getDate() === day &&
+                        evt.date.getMonth() === monthIdx &&
+                        evt.date.getFullYear() === currentDate.getFullYear()
+                      );
+                      const today = new Date();
+                      const isToday = today.getDate() === day &&
+                                      today.getMonth() === monthIdx &&
+                                      today.getFullYear() === currentDate.getFullYear();
+                      return (
+                        <div
+                          key={day}
+                          onClick={() => onDayExpand && onDayExpand(dayDate)}
+                          style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            cursor: onDayExpand ? 'pointer' : 'default',
+                            borderRadius: '50%',
+                            width: '28px',
+                            height: '28px',
+                            maxWidth: '100%',
+                            maxHeight: '100%',
+                            margin: 'auto',
+                            backgroundColor: isToday ? 'var(--color-primary)' : 'transparent',
+                            color: isToday ? 'var(--color-text-on-accent)' : 'var(--color-text-primary)',
+                            position: 'relative'
+                          }}
+                        >
+                          <span style={{ fontSize: '12px', fontWeight: isToday ? 600 : 400 }}>{day}</span>
+                          {hasEvents && (
+                            <div style={{
+                              position: 'absolute',
+                              bottom: '2px',
+                              width: '4px',
+                              height: '4px',
+                              borderRadius: '50%',
+                              backgroundColor: isToday ? 'var(--color-text-on-accent)' : 'var(--color-primary)'
+                            }} />
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })}
           </div>
-        ))}
-      </div>
+        </div>
+      ) : (
+        <>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', borderBottom: '1px solid var(--color-border-default)', textAlign: 'center', backgroundColor: 'var(--color-surface-card)' }}>
+            {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((d) => (
+              <div key={d} style={{ padding: '6px', fontSize: '11px', fontWeight: 600, color: 'var(--color-text-disabled)' }}>
+                {d}
+              </div>
+            ))}
+          </div>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gridAutoRows: '1fr', backgroundColor: 'var(--color-border-default)', gap: '1px', flex: 1 }}>
         {Array.from({ length: firstDay }).map((_, i) => (
           <div key={`empty-${i}`} style={{ backgroundColor: 'var(--color-surface-card)', minHeight: '0' }} />
@@ -205,6 +323,8 @@ export function CalendarView({ currentDate = new Date(), onDateChange, events = 
           );
         })}
       </div>
+      </>
+      )}
     </div>
   );
 }

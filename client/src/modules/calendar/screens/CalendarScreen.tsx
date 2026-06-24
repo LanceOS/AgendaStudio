@@ -6,7 +6,7 @@ import { useCalendarState } from '../hooks/useCalendarState';
 export const CalendarScreen: React.FC = () => {
   const { 
     selectedDate, setSelectedDate, 
-    events
+    events, viewMode, setViewMode
   } = useCalendarState();
   const navigate = useNavigate();
 
@@ -22,6 +22,8 @@ export const CalendarScreen: React.FC = () => {
       <CalendarView 
         currentDate={selectedDate}
         onDateChange={setSelectedDate}
+        viewMode={viewMode as 'month' | 'year'}
+        onViewModeChange={(mode) => setViewMode(mode)}
         onDayExpand={handleDayExpand}
         onEventClick={(eventId) => navigate(`/events/${eventId}`)}
         events={events.map(e => ({ id: e.id, date: e.date, label: e.title, color: e.color || 'var(--color-primary)' }))} 
