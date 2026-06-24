@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Stack } from '../../../../../library/components/stack';
 import { useNavigate } from 'react-router';
 import { User, Palette, Calendar, ArrowLeft } from 'lucide-react';
 import { SettingsPageLayout } from '../layouts/SettingsPageLayout';
@@ -10,7 +11,7 @@ import { Button } from '../../../../../library/components/button';
 
 type CategoryId = 'profile' | 'appearance' | 'calendar';
 
-const CATEGORIES: Array<{ id: CategoryId; label: string; description: string; icon: any }> = [
+const CATEGORIES: Array<{ id: CategoryId; label: string; description: string; icon: React.ElementType }> = [
   {
     id: 'profile',
     label: 'Profile',
@@ -75,14 +76,14 @@ export function SettingsScreen() {
                     leftIcon={<Icon size={16} style={{ color: isActive ? 'var(--color-primary)' : 'var(--color-text-secondary)' }} />}
                     style={{ padding: '8px 10px', height: 'auto', alignItems: 'flex-start' }}
                   >
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', paddingTop: '2px' }}>
+                    <Stack gap="2px" style={{ paddingTop: '2px' }}>
                       <span style={{ fontSize: '13px', fontWeight: 500, lineHeight: 1.2 }}>
                         {category.label}
                       </span>
                       <span style={{ fontSize: '11px', color: 'var(--color-text-disabled)', lineHeight: 1.2 }}>
                         {category.description}
                       </span>
-                    </div>
+                    </Stack>
                   </SidebarItem>
                 );
               })}

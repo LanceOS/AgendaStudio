@@ -74,6 +74,12 @@ export const KNOWN_THEME_COLOR_KEYS = [
   'overlayScrim',
   'white',
   'black',
+  'eventGreen',
+  'eventOrange',
+  'eventRed',
+  'eventBlue',
+  'eventPurple',
+  'eventPink',
 ] as const;
 
 export type ThemeColorKey = (typeof KNOWN_THEME_COLOR_KEYS)[number];

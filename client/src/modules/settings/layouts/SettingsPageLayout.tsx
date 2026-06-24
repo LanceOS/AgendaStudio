@@ -1,5 +1,7 @@
 import React, { type JSX, type ReactNode } from 'react';
 
+import { Flex } from '../../../../../library/components/flex';
+
 interface SettingsPageLayoutProps {
   sidebar: ReactNode;
   children: ReactNode;
@@ -10,9 +12,9 @@ export function SettingsPageLayout({
   children,
 }: SettingsPageLayoutProps): JSX.Element {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', width: '100%', overflow: 'hidden' }}>
+    <Flex direction="column" style={{ height: '100vh', width: '100%', overflow: 'hidden' }}>
       {/* Main Container */}
-      <div style={{ display: 'flex', flex: 1, minHeight: 0 }}>
+      <Flex style={{ flex: 1, minHeight: 0 }}>
         {/* Sidebar */}
         {sidebar}
 
@@ -27,7 +29,7 @@ export function SettingsPageLayout({
         >
           {children}
         </main>
-      </div>
-    </div>
+      </Flex>
+    </Flex>
   );
 }

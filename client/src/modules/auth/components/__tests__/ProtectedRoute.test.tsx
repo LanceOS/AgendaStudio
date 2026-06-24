@@ -14,7 +14,7 @@ import { authClient } from '../../../../lib/auth';
 
 describe('ProtectedRoute', () => {
   it('should render loading state when pending', () => {
-    (authClient.useSession as any).mockReturnValue({ isPending: true, data: null });
+    vi.mocked(authClient.useSession).mockReturnValue({ isPending: true, data: null } as unknown as ReturnType<typeof authClient.useSession>);
     
     render(
       <MemoryRouter>
@@ -29,7 +29,7 @@ describe('ProtectedRoute', () => {
   });
 
   it('should redirect to login if not authenticated', () => {
-    (authClient.useSession as any).mockReturnValue({ isPending: false, data: null });
+    vi.mocked(authClient.useSession).mockReturnValue({ isPending: false, data: null } as unknown as ReturnType<typeof authClient.useSession>);
     
     render(
       <MemoryRouter initialEntries={['/protected']}>
@@ -52,10 +52,10 @@ describe('ProtectedRoute', () => {
   });
 
   it('should render children if authenticated', () => {
-    (authClient.useSession as any).mockReturnValue({ 
+    vi.mocked(authClient.useSession).mockReturnValue({ 
       isPending: false, 
       data: { session: { user: { id: '1' } } } 
-    });
+    } as unknown as ReturnType<typeof authClient.useSession>);
     
     render(
       <MemoryRouter initialEntries={['/protected']}>

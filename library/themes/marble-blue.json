@@ -68,6 +68,12 @@
     "stateSelectedBg": "#e6f0fa",
     "overlayScrim": "rgba(15, 23, 42, 0.7)",
     "white": "#ffffff",
-    "black": "#000000"
+    "black": "#000000",
+    "eventGreen": "#10b981",
+    "eventOrange": "#f59e0b",
+    "eventRed": "#ef4444",
+    "eventBlue": "#3b82f6",
+    "eventPurple": "#8b5cf6",
+    "eventPink": "#ec4899"
   }
 }

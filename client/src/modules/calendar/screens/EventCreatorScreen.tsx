@@ -1,17 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router';
 import { Button } from '../../../../../library/components/button';
 import { TextInput } from '../../../../../library/components/textinput';
 import { useCalendarState } from '../hooks/useCalendarState';
 
+import { Stack } from '../../../../../library/components/stack';
+import { Flex } from '../../../../../library/components/flex';
+
 const EVENT_COLORS = [
   'var(--color-primary)',
-  '#10b981', // green
-  '#f59e0b', // orange
-  '#ef4444', // red
-  '#3b82f6', // blue
-  '#8b5cf6', // purple
-  '#ec4899', // pink
+  'var(--color-event-green)',
+  'var(--color-event-orange)',
+  'var(--color-event-red)',
+  'var(--color-event-blue)',
+  'var(--color-event-purple)',
+  'var(--color-event-pink)',
 ];
 
 // Helper to format date for datetime-local input
@@ -32,34 +35,26 @@ export const EventCreatorScreen: React.FC = () => {
   const { addEvent } = useCalendarState();
 
   const [title, setTitle] = useState('');
-  const [startDate, setStartDate] = useState<string>('');
-  const [endDate, setEndDate] = useState<string>('');
+  const initialStart = searchParams.get('start');
+  const initialEnd = searchParams.get('end');
+
+  const [startDate, setStartDate] = useState<string>(() => {
+    if (initialStart) return formatDateTimeForInput(new Date(initialStart));
+    const now = new Date();
+    now.setMinutes(0, 0, 0);
+    now.setHours(now.getHours() + 1);
+    return formatDateTimeForInput(now);
+  });
+
+  const [endDate, setEndDate] = useState<string>(() => {
+    if (initialEnd) return formatDateTimeForInput(new Date(initialEnd));
+    const now = new Date();
+    now.setMinutes(0, 0, 0);
+    now.setHours(now.getHours() + 2);
+    return formatDateTimeForInput(now);
+  });
+
   const [selectedColor, setSelectedColor] = useState(EVENT_COLORS[0]);
-
-  useEffect(() => {
-    const startParam = searchParams.get('start');
-    const endParam = searchParams.get('end');
-    
-    if (startParam) {
-      setStartDate(formatDateTimeForInput(new Date(startParam)));
-    } else {
-      // Default to next hour if no start param
-      const now = new Date();
-      now.setMinutes(0, 0, 0);
-      now.setHours(now.getHours() + 1);
-      setStartDate(formatDateTimeForInput(now));
-    }
-
-    if (endParam) {
-      setEndDate(formatDateTimeForInput(new Date(endParam)));
-    } else {
-      // Default to 1 hour after start
-      const now = new Date();
-      now.setMinutes(0, 0, 0);
-      now.setHours(now.getHours() + 2);
-      setEndDate(formatDateTimeForInput(now));
-    }
-  }, [searchParams]);
 
   const handleSave = () => {
     if (!title.trim() || !startDate || !endDate) return;
@@ -81,7 +76,7 @@ export const EventCreatorScreen: React.FC = () => {
         Create Event
       </h1>
       
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+      <Stack gap="20px">
         <TextInput
           label="Event Name"
           placeholder="Enter event name..."
@@ -90,8 +85,8 @@ export const EventCreatorScreen: React.FC = () => {
           autoFocus
         />
 
-        <div style={{ display: 'flex', gap: '16px' }}>
-          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        <Flex gap="16px">
+          <Stack gap="8px" style={{ flex: 1 }}>
             <label style={{ color: 'var(--color-text-primary)', fontWeight: 500, fontSize: '13px' }}>Start</label>
             <input 
               type="datetime-local" 
@@ -110,8 +105,8 @@ export const EventCreatorScreen: React.FC = () => {
                 transition: 'all var(--transition-fast)'
               }}
             />
-          </div>
-          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '8px' }}>
+          </Stack>
+          <Stack gap="8px" style={{ flex: 1 }}>
             <label style={{ color: 'var(--color-text-primary)', fontWeight: 500, fontSize: '13px' }}>End</label>
             <input 
               type="datetime-local" 
@@ -130,12 +125,12 @@ export const EventCreatorScreen: React.FC = () => {
                 transition: 'all var(--transition-fast)'
               }}
             />
-          </div>
-        </div>
+          </Stack>
+        </Flex>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        <Stack gap="8px">
           <label style={{ color: 'var(--color-text-primary)', fontWeight: 500, fontSize: '13px' }}>Color</label>
-          <div style={{ display: 'flex', gap: '12px' }}>
+          <Flex gap="12px">
             {EVENT_COLORS.map(color => (
               <button
                 key={color}
@@ -154,18 +149,18 @@ export const EventCreatorScreen: React.FC = () => {
                 aria-label={`Select color ${color}`}
               />
             ))}
-          </div>
-        </div>
+          </Flex>
+        </Stack>
 
-        <div style={{ display: 'flex', gap: '12px', marginTop: '16px' }}>
+        <Flex gap="12px" style={{ marginTop: '16px' }}>
           <Button variant="secondary" onClick={() => navigate('/calendar')} style={{ flex: 1 }}>
             Cancel
           </Button>
           <Button variant="primary" onClick={handleSave} style={{ flex: 1 }} disabled={!title.trim() || !startDate || !endDate}>
             Save Event
           </Button>
-        </div>
-      </div>
+        </Flex>
+      </Stack>
     </div>
   );
 };
