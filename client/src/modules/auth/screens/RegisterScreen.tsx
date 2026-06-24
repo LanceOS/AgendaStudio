@@ -56,7 +56,6 @@ export function RegisterScreen() {
             </svg>
           </div>
           <h1 style={titleStyle}>AgendaStudio</h1>
-          <p style={subtitleStyle}>Organize your life</p>
         </div>
 
         {error && <div style={errorStyle}>{error}</div>}
@@ -162,12 +161,6 @@ const titleStyle: React.CSSProperties = {
   fontWeight: 600,
   color: 'var(--color-text-primary)',
   letterSpacing: '-0.5px'
-};
-
-const subtitleStyle: React.CSSProperties = {
-  fontSize: '13px',
-  color: 'var(--color-text-disabled)',
-  lineHeight: '1.4'
 };
 
 const errorStyle: React.CSSProperties = {
