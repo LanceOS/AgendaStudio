@@ -23,7 +23,7 @@ export function SearchInput({ className = '', ...props }: SearchInputProps) {
       <TextInput
         type="search"
         className={cn(className)}
-        style={{ paddingLeft: '32px' }}
+        style={{ paddingLeft: 'var(--space-8)' }}
         {...props}
       />
     </div>

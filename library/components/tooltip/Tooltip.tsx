@@ -30,7 +30,7 @@ export function Tooltip({ content, children, style }: TooltipProps) {
               color: 'var(--color-surface-app)',
               padding: '4px 8px',
               borderRadius: 'var(--radius-xs)',
-              fontSize: '11px',
+              fontSize: 'var(--font-size-xs)',
               zIndex: 9999,
               boxShadow: 'var(--shadow-sm)',
               pointerEvents: 'none',

@@ -44,8 +44,8 @@ function InlineFormattedText({ text, customTokenRegex, renderCustomToken }: Form
           style={{
             background: 'var(--color-base100)',
             padding: '2px 4px',
-            borderRadius: '4px',
-            fontSize: '12px',
+            borderRadius: 'var(--space-1)',
+            fontSize: 'var(--space-3)',
             fontFamily: 'var(--mono)',
             color: 'var(--color-primary)',
           }}
@@ -105,11 +105,11 @@ export function FormattedMarkdown({ text, customTokenRegex, renderCustomToken }:
 
     elements.push(
       activeListType === 'ul' ? (
-        <ul key={`ul-${keySuffix}`} style={{ margin: '8px 0', paddingLeft: '24px', listStyleType: 'disc' }}>
+        <ul key={`ul-${keySuffix}`} style={{ margin: 'var(--space-2) 0', paddingLeft: 'var(--space-6)', listStyleType: 'disc' }}>
           {listItems.splice(0, listItems.length)}
         </ul>
       ) : (
-        <ol key={`ol-${keySuffix}`} style={{ margin: '8px 0', paddingLeft: '24px', listStyleType: 'decimal' }}>
+        <ol key={`ol-${keySuffix}`} style={{ margin: 'var(--space-2) 0', paddingLeft: 'var(--space-6)', listStyleType: 'decimal' }}>
           {listItems.splice(0, listItems.length)}
         </ol>
       ),
@@ -136,7 +136,7 @@ export function FormattedMarkdown({ text, customTokenRegex, renderCustomToken }:
       elements.push(
         <h3
           key={index}
-          style={{ fontSize: '14px', fontWeight: 600, marginTop: '16px', marginBottom: '8px', color: 'var(--color-text-primary)' }}
+          style={{ fontSize: 'var(--font-size-md)', fontWeight: 600, marginTop: 'var(--space-4)', marginBottom: 'var(--space-2)', color: 'var(--color-text-primary)' }}
         >
           <InlineFormattedText
             text={headingThreeMatch[1]}
@@ -152,7 +152,7 @@ export function FormattedMarkdown({ text, customTokenRegex, renderCustomToken }:
       elements.push(
         <h2
           key={index}
-          style={{ fontSize: '16px', fontWeight: 600, marginTop: '16px', marginBottom: '8px', color: 'var(--color-text-primary)' }}
+          style={{ fontSize: 'var(--space-4)', fontWeight: 600, marginTop: 'var(--space-4)', marginBottom: 'var(--space-2)', color: 'var(--color-text-primary)' }}
         >
           <InlineFormattedText
             text={headingTwoMatch[1]}
@@ -170,8 +170,8 @@ export function FormattedMarkdown({ text, customTokenRegex, renderCustomToken }:
           key={index}
           style={{
             borderLeft: '3px solid var(--color-border-default)',
-            margin: '8px 0',
-            paddingLeft: '12px',
+            margin: 'var(--space-2) 0',
+            paddingLeft: 'var(--space-3)',
             color: 'var(--color-text-secondary)',
             fontStyle: 'italic',
           }}
@@ -197,7 +197,7 @@ export function FormattedMarkdown({ text, customTokenRegex, renderCustomToken }:
             listStyleType: 'none',
             display: 'flex',
             alignItems: 'flex-start',
-            gap: '8px',
+            gap: 'var(--space-2)',
             margin: '4px 0',
             marginLeft: '-24px',
           }}
@@ -250,7 +250,7 @@ export function FormattedMarkdown({ text, customTokenRegex, renderCustomToken }:
     }
 
     if (line.trim() === '') {
-      elements.push(<div key={`br-${index}`} style={{ height: '8px' }} />);
+      elements.push(<div key={`br-${index}`} style={{ height: 'var(--space-2)' }} />);
       continue;
     }
 

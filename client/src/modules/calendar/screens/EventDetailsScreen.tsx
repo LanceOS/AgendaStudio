@@ -13,9 +13,9 @@ export const EventDetailsScreen: React.FC = () => {
 
   if (!event) {
     return (
-      <div style={{ padding: '24px', textAlign: 'center', color: 'var(--color-text-secondary)' }}>
+      <div style={{ padding: 'var(--space-6)', textAlign: 'center', color: 'var(--color-text-secondary)' }}>
         <h2>Event not found</h2>
-        <Button variant="primary" onClick={() => navigate('/calendar')} style={{ marginTop: '16px' }}>
+        <Button variant="primary" onClick={() => navigate('/calendar')} style={{ marginTop: 'var(--space-4)' }}>
           Back to Calendar
         </Button>
       </div>
@@ -31,36 +31,36 @@ export const EventDetailsScreen: React.FC = () => {
   };
 
   return (
-    <div style={{ maxWidth: '600px', margin: '0 auto', padding: '24px' }}>
+    <div style={{ maxWidth: '600px', margin: '0 auto', padding: 'var(--space-6)' }}>
       <Button 
         variant="secondary" 
         onClick={() => navigate(-1)} 
-        style={{ marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '8px' }}
+        style={{ marginBottom: 'var(--space-6)', display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}
       >
         <ArrowLeft size={16} /> Back
       </Button>
 
       <div style={{ 
-        backgroundColor: 'var(--color-surface, var(--bg))', 
+        backgroundColor: 'var(--color-surface, var(--color-surface-app))', 
         padding: '32px 0',
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)', marginBottom: 'var(--space-6)' }}>
           <div style={{ 
-            width: '24px', 
-            height: '24px', 
+            width: 'var(--space-6)', 
+            height: 'var(--space-6)', 
             borderRadius: '50%', 
             backgroundColor: event.color || 'var(--color-primary)' 
           }} />
-          <h1 style={{ margin: 0, fontSize: '24px', color: 'var(--color-text-primary)' }}>
+          <h1 style={{ margin: 0, fontSize: 'var(--space-6)', color: 'var(--color-text-primary)' }}>
             {event.title}
           </h1>
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', color: 'var(--color-text-secondary)' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: 'var(--space-3)', color: 'var(--color-text-secondary)' }}>
             <Calendar size={20} style={{ marginTop: '2px' }} />
             <div>
-              <div style={{ fontWeight: 500, color: 'var(--color-text-primary)', marginBottom: '4px' }}>Date</div>
+              <div style={{ fontWeight: 500, color: 'var(--color-text-primary)', marginBottom: 'var(--space-1)' }}>Date</div>
               <div>{formatDate(event.date)}</div>
               {event.endDate && event.date.toDateString() !== event.endDate.toDateString() && (
                 <div>to {formatDate(event.endDate)}</div>
@@ -68,10 +68,10 @@ export const EventDetailsScreen: React.FC = () => {
             </div>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', color: 'var(--color-text-secondary)' }}>
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: 'var(--space-3)', color: 'var(--color-text-secondary)' }}>
             <Clock size={20} style={{ marginTop: '2px' }} />
             <div>
-              <div style={{ fontWeight: 500, color: 'var(--color-text-primary)', marginBottom: '4px' }}>Time</div>
+              <div style={{ fontWeight: 500, color: 'var(--color-text-primary)', marginBottom: 'var(--space-1)' }}>Time</div>
               <div>
                 {formatTime(event.date)}
                 {event.endDate ? ` - ${formatTime(event.endDate)}` : ''}

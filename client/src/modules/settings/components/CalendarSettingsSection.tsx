@@ -1,18 +1,18 @@
-import React from 'react';
+
 import { Select } from '../../../../../library/components/select';
 import { Switch } from '../../../../../library/components/switch';
 
 export function CalendarSettingsSection() {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-        <h3 style={{ margin: 0, fontSize: '18px', fontWeight: 600, color: 'var(--color-text-primary)' }}>Calendar Preferences</h3>
-        <p style={{ margin: 0, fontSize: '14px', color: 'var(--color-text-secondary)' }}>Configure how your agenda is displayed.</p>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+        <h3 style={{ margin: 0, fontSize: 'var(--font-size-xl)', fontWeight: 600, color: 'var(--color-text-primary)' }}>Calendar Preferences</h3>
+        <p style={{ margin: 0, fontSize: 'var(--font-size-md)', color: 'var(--color-text-secondary)' }}>Configure how your agenda is displayed.</p>
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', maxWidth: '400px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)', maxWidth: '400px' }}>
         
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
           <div style={{ fontWeight: 500, color: 'var(--color-text-primary)' }}>Default View</div>
           <Select 
             value="month"
@@ -28,9 +28,9 @@ export function CalendarSettingsSection() {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div>
             <div style={{ fontWeight: 500, color: 'var(--color-text-primary)' }}>24-Hour Time Format</div>
-            <div style={{ fontSize: '12px', color: 'var(--color-text-secondary)' }}>Use 24-hour clock instead of AM/PM</div>
+            <div style={{ fontSize: 'var(--space-3)', color: 'var(--color-text-secondary)' }}>Use 24-hour clock instead of AM/PM</div>
           </div>
-          <Switch checked={false} onChange={() => {}} />
+          <Switch checked={false} onCheckedChange={() => {}} label="Enable 24-hour time formatting" />
         </div>
 
       </div>

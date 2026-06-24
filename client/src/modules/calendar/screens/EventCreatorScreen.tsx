@@ -72,11 +72,11 @@ export const EventCreatorScreen: React.FC = () => {
 
   return (
     <div style={{ maxWidth: '600px', margin: '40px auto', padding: '0 20px' }}>
-      <h1 style={{ fontSize: '24px', fontWeight: 600, color: 'var(--color-text-primary)', marginBottom: '24px' }}>
+      <h1 style={{ fontSize: 'var(--space-6)', fontWeight: 600, color: 'var(--color-text-primary)', marginBottom: 'var(--space-6)' }}>
         Create Event
       </h1>
       
-      <Stack gap="20px">
+      <Stack gap="var(--space-5)">
         <TextInput
           label="Event Name"
           placeholder="Enter event name..."
@@ -85,9 +85,9 @@ export const EventCreatorScreen: React.FC = () => {
           autoFocus
         />
 
-        <Flex gap="16px">
-          <Stack gap="8px" style={{ flex: 1 }}>
-            <label style={{ color: 'var(--color-text-primary)', fontWeight: 500, fontSize: '13px' }}>Start</label>
+        <Flex gap="var(--space-4)">
+          <Stack gap="var(--space-2)" style={{ flex: 1 }}>
+            <label style={{ color: 'var(--color-text-primary)', fontWeight: 500, fontSize: 'var(--font-size-base)' }}>Start</label>
             <input 
               type="datetime-local" 
               value={startDate}
@@ -100,14 +100,14 @@ export const EventCreatorScreen: React.FC = () => {
                 backgroundColor: 'var(--color-surface-card)',
                 color: 'var(--color-text-primary)',
                 fontFamily: 'var(--font-family-sans)',
-                fontSize: '14px',
+                fontSize: 'var(--font-size-md)',
                 outline: 'none',
                 transition: 'all var(--transition-fast)'
               }}
             />
           </Stack>
-          <Stack gap="8px" style={{ flex: 1 }}>
-            <label style={{ color: 'var(--color-text-primary)', fontWeight: 500, fontSize: '13px' }}>End</label>
+          <Stack gap="var(--space-2)" style={{ flex: 1 }}>
+            <label style={{ color: 'var(--color-text-primary)', fontWeight: 500, fontSize: 'var(--font-size-base)' }}>End</label>
             <input 
               type="datetime-local" 
               value={endDate}
@@ -120,7 +120,7 @@ export const EventCreatorScreen: React.FC = () => {
                 backgroundColor: 'var(--color-surface-card)',
                 color: 'var(--color-text-primary)',
                 fontFamily: 'var(--font-family-sans)',
-                fontSize: '14px',
+                fontSize: 'var(--font-size-md)',
                 outline: 'none',
                 transition: 'all var(--transition-fast)'
               }}
@@ -128,16 +128,16 @@ export const EventCreatorScreen: React.FC = () => {
           </Stack>
         </Flex>
 
-        <Stack gap="8px">
-          <label style={{ color: 'var(--color-text-primary)', fontWeight: 500, fontSize: '13px' }}>Color</label>
-          <Flex gap="12px">
+        <Stack gap="var(--space-2)">
+          <label style={{ color: 'var(--color-text-primary)', fontWeight: 500, fontSize: 'var(--font-size-base)' }}>Color</label>
+          <Flex gap="var(--space-3)">
             {EVENT_COLORS.map(color => (
               <button
                 key={color}
                 onClick={() => setSelectedColor(color)}
                 style={{
-                  width: '32px',
-                  height: '32px',
+                  width: 'var(--space-8)',
+                  height: 'var(--space-8)',
                   borderRadius: '50%',
                   backgroundColor: color,
                   border: selectedColor === color ? '2px solid var(--color-text-primary)' : '2px solid transparent',
@@ -152,7 +152,7 @@ export const EventCreatorScreen: React.FC = () => {
           </Flex>
         </Stack>
 
-        <Flex gap="12px" style={{ marginTop: '16px' }}>
+        <Flex gap="var(--space-3)" style={{ marginTop: 'var(--space-4)' }}>
           <Button variant="secondary" onClick={() => navigate('/calendar')} style={{ flex: 1 }}>
             Cancel
           </Button>

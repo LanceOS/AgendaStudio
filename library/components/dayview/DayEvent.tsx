@@ -124,7 +124,7 @@ export const DayEvent = React.memo(function DayEvent({
   return (
     <div
       onMouseDown={(e) => handleMouseDown(e, 'move')}
-      onClick={(e) => {
+      onClick={() => {
         if (!hasDragged.current && onClick) {
           onClick(event.id);
         }
@@ -140,7 +140,7 @@ export const DayEvent = React.memo(function DayEvent({
         color: getContrastColor(event.color),
         padding: '4px 8px',
         borderRadius: 'var(--radius-sm)',
-        fontSize: '12px',
+        fontSize: 'var(--space-3)',
         display: 'flex',
         flexDirection: 'column',
         boxShadow: dragState.type ? 'var(--shadow-md)' : 'var(--shadow-sm)',
@@ -158,7 +158,7 @@ export const DayEvent = React.memo(function DayEvent({
           <button
             onMouseDown={(e) => e.stopPropagation()} // Prevent drag start when clicking delete
             onClick={() => onDelete(event.id)}
-            style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', padding: '4px', opacity: 0.8, display: 'flex', alignItems: 'center' }}
+            style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', padding: 'var(--space-1)', opacity: 0.8, display: 'flex', alignItems: 'center' }}
             aria-label="Delete Event"
           >
             <Trash2 size={16} />
@@ -179,7 +179,7 @@ export const DayEvent = React.memo(function DayEvent({
             bottom: 0,
             left: 0,
             right: 0,
-            height: '8px',
+            height: 'var(--space-2)',
             cursor: 'ns-resize',
           }}
         />

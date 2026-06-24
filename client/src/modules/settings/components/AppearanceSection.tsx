@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Select } from '../../../../../library/components/select';
 import { applyThemePreference, getStoredThemePreference, type ThemePreference } from '../../../../../library/utilities/themeEngine';
 
@@ -27,16 +27,16 @@ export function AppearanceSection() {
   const selectValue = themePref === 'dark' ? 'noir' : themePref;
 
   return (
-    <Stack gap="24px">
-      <Stack gap="8px">
-        <h3 style={{ margin: 0, fontSize: '18px', fontWeight: 600, color: 'var(--color-text-primary)' }}>Appearance</h3>
-        <p style={{ margin: 0, fontSize: '14px', color: 'var(--color-text-secondary)' }}>Customize how AgendaStudio looks on your device.</p>
+    <Stack gap="var(--space-6)">
+      <Stack gap="var(--space-2)">
+        <h3 style={{ margin: 0, fontSize: 'var(--font-size-xl)', fontWeight: 600, color: 'var(--color-text-primary)' }}>Appearance</h3>
+        <p style={{ margin: 0, fontSize: 'var(--font-size-md)', color: 'var(--color-text-secondary)' }}>Customize how AgendaStudio looks on your device.</p>
       </Stack>
 
-      <Stack gap="24px" style={{ maxWidth: '400px' }}>
-        <Stack gap="8px">
-          <label style={{ fontWeight: 500, color: 'var(--color-text-primary)', fontSize: '14px' }}>Theme Preference</label>
-          <div style={{ fontSize: '12px', color: 'var(--color-text-secondary)', marginBottom: '8px' }}>
+      <Stack gap="var(--space-6)" style={{ maxWidth: '400px' }}>
+        <Stack gap="var(--space-2)">
+          <label style={{ fontWeight: 500, color: 'var(--color-text-primary)', fontSize: 'var(--font-size-md)' }}>Theme Preference</label>
+          <div style={{ fontSize: 'var(--space-3)', color: 'var(--color-text-secondary)', marginBottom: 'var(--space-2)' }}>
             Choose your preferred color theme or sync with your system settings.
           </div>
           <Select 

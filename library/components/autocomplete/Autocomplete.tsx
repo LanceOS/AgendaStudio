@@ -80,8 +80,8 @@ export function Autocomplete({ label, value, onValueChange, options, placeholder
               boxShadow: 'var(--shadow-md)',
               maxHeight: '160px',
               overflowY: 'auto',
-              marginTop: '4px',
-              padding: '4px',
+              marginTop: 'var(--space-1)',
+              padding: 'var(--space-1)',
             }}
           >
             {filteredOptions.map((opt, index) => (
@@ -107,7 +107,7 @@ export function Autocomplete({ label, value, onValueChange, options, placeholder
                         : 'transparent',
                   color: 'var(--color-text-primary)',
                   cursor: 'pointer',
-                  fontSize: '13px',
+                  fontSize: 'var(--font-size-base)',
                 }}
               >
                 {opt.label}

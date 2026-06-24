@@ -41,17 +41,17 @@ export function Popconfirm({ title, onConfirm, children, style }: PopconfirmProp
               marginBottom: '6px',
               display: 'flex',
               flexDirection: 'column',
-              gap: '8px',
+              gap: 'var(--space-2)',
               ...style,
             }}
           >
-            <div style={{ fontSize: '12px', color: 'var(--color-text-primary)', fontWeight: 500 }}>{title}</div>
+            <div style={{ fontSize: 'var(--space-3)', color: 'var(--color-text-primary)', fontWeight: 500 }}>{title}</div>
             <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '6px' }}>
               <button
                 type="button"
                 onClick={() => setIsOpen(false)}
                 className="btn btn-sm clickable"
-                style={{ padding: '2px 6px', minHeight: 'auto', fontSize: '11px' }}
+                style={{ padding: '2px 6px', minHeight: 'auto', fontSize: 'var(--font-size-xs)' }}
               >
                 No
               </button>
@@ -62,7 +62,7 @@ export function Popconfirm({ title, onConfirm, children, style }: PopconfirmProp
                   setIsOpen(false);
                 }}
                 className="btn btn-sm btn-primary clickable"
-                style={{ padding: '2px 6px', minHeight: 'auto', fontSize: '11px' }}
+                style={{ padding: '2px 6px', minHeight: 'auto', fontSize: 'var(--font-size-xs)' }}
               >
                 Yes
               </button>

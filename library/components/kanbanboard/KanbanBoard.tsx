@@ -18,7 +18,7 @@ export interface KanbanBoardProps {
 
 export function KanbanBoard({ columns, cards, onCardMove, renderColumnHeader, style }: KanbanBoardProps) {
   return (
-    <div style={{ display: 'flex', gap: '16px', overflowX: 'auto', width: '100%', height: '100%', minHeight: '320px', ...style }}>
+    <div style={{ display: 'flex', gap: 'var(--space-4)', overflowX: 'auto', width: '100%', height: '100%', minHeight: '320px', ...style }}>
       {columns.map((col) => {
         const colCards = cards.filter((card) => card.status === col.id);
         return (
@@ -37,20 +37,20 @@ export function KanbanBoard({ columns, cards, onCardMove, renderColumnHeader, st
               minWidth: '240px',
               backgroundColor: 'var(--color-base100)',
               borderRadius: 'var(--radius-md)',
-              padding: '12px',
+              padding: 'var(--space-3)',
               display: 'flex',
               flexDirection: 'column',
-              gap: '12px',
+              gap: 'var(--space-3)',
             }}
           >
             {renderColumnHeader ? (
               renderColumnHeader(col.id, col.title, colCards.length)
             ) : (
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontWeight: 600, fontSize: '13px', color: 'var(--color-text-primary)' }}>{col.title}</span>
+                <span style={{ fontWeight: 600, fontSize: 'var(--font-size-base)', color: 'var(--color-text-primary)' }}>{col.title}</span>
                 <span
                   style={{
-                    fontSize: '11px',
+                    fontSize: 'var(--font-size-xs)',
                     fontWeight: 600,
                     backgroundColor: 'var(--color-border-default)',
                     color: 'var(--color-text-disabled)',
@@ -62,7 +62,7 @@ export function KanbanBoard({ columns, cards, onCardMove, renderColumnHeader, st
                 </span>
               </div>
             )}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', overflowY: 'auto', flexGrow: 1 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', overflowY: 'auto', flexGrow: 1 }}>
               {colCards.map((card) => (
                 <div
                   key={card.id}
@@ -74,13 +74,13 @@ export function KanbanBoard({ columns, cards, onCardMove, renderColumnHeader, st
                     backgroundColor: card.title ? 'var(--color-surface-card)' : 'transparent',
                     border: card.title ? '1px solid var(--color-border-default)' : 'none',
                     borderRadius: card.title ? 'var(--radius-md)' : '0',
-                    padding: card.title ? '12px' : '0',
+                    padding: card.title ? 'var(--space-3)' : '0',
                     boxShadow: card.title ? 'var(--shadow-sm)' : 'none',
                     cursor: 'grab',
                     transition: 'all var(--transition-normal)',
                   }}
                 >
-                  {card.title && <div style={{ fontSize: '13px', fontWeight: 500, color: 'var(--color-text-primary)', marginBottom: '6px' }}>{card.title}</div>}
+                  {card.title && <div style={{ fontSize: 'var(--font-size-base)', fontWeight: 500, color: 'var(--color-text-primary)', marginBottom: '6px' }}>{card.title}</div>}
                   <div>{card.content}</div>
                 </div>
               ))}
@@ -91,7 +91,7 @@ export function KanbanBoard({ columns, cards, onCardMove, renderColumnHeader, st
                     borderRadius: 'var(--radius-md)',
                     padding: '24px 12px',
                     textAlign: 'center',
-                    fontSize: '12px',
+                    fontSize: 'var(--space-3)',
                     color: 'var(--color-text-disabled)',
                     opacity: 0.6,
                   }}

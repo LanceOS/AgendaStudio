@@ -49,7 +49,7 @@ export function RangeSlider({ min, max, value, onChange, label }: RangeSliderPro
   const rightPercent = calculatePercentage(value[1]);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', width: '100%' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', width: '100%' }}>
       {label && (
         <div style={{ display: 'flex', justifyContent: 'space-between' }} className="label">
           <span>{label}</span>
@@ -89,8 +89,8 @@ export function RangeSlider({ min, max, value, onChange, label }: RangeSliderPro
             left: `${leftPercent}%`,
             transform: 'translateX(-50%)',
             top: '-5px',
-            width: '16px',
-            height: '16px',
+            width: 'var(--space-4)',
+            height: 'var(--space-4)',
             borderRadius: '50%',
             backgroundColor: 'var(--color-surface-overlay)',
             border: '2px solid var(--color-primary)',
@@ -106,8 +106,8 @@ export function RangeSlider({ min, max, value, onChange, label }: RangeSliderPro
             left: `${rightPercent}%`,
             transform: 'translateX(-50%)',
             top: '-5px',
-            width: '16px',
-            height: '16px',
+            width: 'var(--space-4)',
+            height: 'var(--space-4)',
             borderRadius: '50%',
             backgroundColor: 'var(--color-surface-overlay)',
             border: '2px solid var(--color-primary)',

@@ -64,7 +64,7 @@ export function SidebarFooter({ children, className, style, ...props }: SidebarP
     <div
       className={className}
       style={{
-        padding: '8px',
+        padding: 'var(--space-2)',
         borderTop: '1px solid transparent',
         flexShrink: 0,
         ...style,
@@ -92,7 +92,7 @@ export function SidebarGroup({ label, children, className, style, ...props }: Si
             color: 'var(--color-text-disabled)',
             textTransform: 'uppercase',
             letterSpacing: '0.04em',
-            marginBottom: '4px',
+            marginBottom: 'var(--space-1)',
           }}
         >
           {label}

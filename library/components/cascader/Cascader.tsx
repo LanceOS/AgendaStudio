@@ -46,7 +46,7 @@ export function Cascader({ options, value, onChange, placeholder = 'Select path'
           className="select-trigger clickable"
           style={{ minHeight: '36px' }}
         >
-          <span style={{ fontSize: '13px' }}>
+          <span style={{ fontSize: 'var(--font-size-base)' }}>
             {value.length > 0 ? value.join(' / ') : placeholder}
           </span>
           <ChevronDown size={14} className="select-trigger__icon" />
@@ -63,7 +63,7 @@ export function Cascader({ options, value, onChange, placeholder = 'Select path'
               border: '1px solid var(--color-border-default)',
               borderRadius: 'var(--radius-md)',
               boxShadow: 'var(--shadow-md)',
-              marginTop: '4px',
+              marginTop: 'var(--space-1)',
               minWidth: '240px',
             }}
           >
@@ -74,7 +74,7 @@ export function Cascader({ options, value, onChange, placeholder = 'Select path'
                   borderRight: colIndex < activeColumns.length - 1 ? '1px solid var(--color-border-default)' : 'none',
                   maxHeight: '160px',
                   overflowY: 'auto',
-                  padding: '4px',
+                  padding: 'var(--space-1)',
                   minWidth: '120px',
                   display: 'flex',
                   flexDirection: 'column',
@@ -91,7 +91,7 @@ export function Cascader({ options, value, onChange, placeholder = 'Select path'
                       borderRadius: 'var(--radius-sm)',
                       backgroundColor: selectedPath[colIndex] === opt.value ? 'var(--color-base100)' : 'transparent',
                       cursor: 'pointer',
-                      fontSize: '13px',
+                      fontSize: 'var(--font-size-base)',
                     }}
                   >
                     {opt.label}

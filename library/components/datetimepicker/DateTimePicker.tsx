@@ -23,9 +23,9 @@ export function DateTimePicker({ value, onChange, label }: DateTimePickerProps) 
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', width: '100%' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)', width: '100%' }}>
       {label && <label className="label">{label}</label>}
-      <div style={{ display: 'flex', gap: '8px' }}>
+      <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
         <DatePicker value={value} onChange={handleDateChange} />
         <TimePicker
           value={value ? `${value.getHours().toString().padStart(2, '0')}:${value.getMinutes().toString().padStart(2, '0')}` : ''}

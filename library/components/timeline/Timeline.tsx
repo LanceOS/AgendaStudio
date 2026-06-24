@@ -14,24 +14,24 @@ export interface TimelineProps {
 
 export function Timeline({ events, style }: TimelineProps) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', position: 'relative', paddingLeft: '20px', ...style }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', position: 'relative', paddingLeft: 'var(--space-5)', ...style }}>
       <div
         style={{
           position: 'absolute',
-          left: '4px',
-          top: '4px',
-          bottom: '4px',
+          left: 'var(--space-1)',
+          top: 'var(--space-1)',
+          bottom: 'var(--space-1)',
           width: '2px',
           backgroundColor: 'var(--color-border-default)',
         }}
       />
       {events.map((evt, idx) => (
-        <div key={idx} style={{ position: 'relative', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+        <div key={idx} style={{ position: 'relative', display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}>
           <div
             style={{
               position: 'absolute',
               left: '-20px',
-              top: '4px',
+              top: 'var(--space-1)',
               width: '10px',
               height: '10px',
               borderRadius: '50%',
@@ -39,9 +39,9 @@ export function Timeline({ events, style }: TimelineProps) {
               border: '2px solid var(--color-surface-card)',
             }}
           />
-          <div style={{ fontSize: '11px', color: 'var(--color-text-disabled)', fontWeight: 500 }}>{evt.time}</div>
-          <div style={{ fontSize: '13px', fontWeight: 500, color: 'var(--color-text-primary)' }}>{evt.title}</div>
-          {evt.description && <div style={{ fontSize: '12px', color: 'var(--color-text-secondary)' }}>{evt.description}</div>}
+          <div style={{ fontSize: 'var(--font-size-xs)', color: 'var(--color-text-disabled)', fontWeight: 500 }}>{evt.time}</div>
+          <div style={{ fontSize: 'var(--font-size-base)', fontWeight: 500, color: 'var(--color-text-primary)' }}>{evt.title}</div>
+          {evt.description && <div style={{ fontSize: 'var(--space-3)', color: 'var(--color-text-secondary)' }}>{evt.description}</div>}
         </div>
       ))}
     </div>

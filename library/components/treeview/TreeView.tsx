@@ -34,16 +34,16 @@ export function TreeView({ nodes, onNodeClick, style }: TreeViewProps) {
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '8px',
+            gap: 'var(--space-2)',
             padding: '4px 8px',
             borderRadius: 'var(--radius-sm)',
             cursor: 'pointer',
-            fontSize: '13px',
+            fontSize: 'var(--font-size-base)',
             color: 'var(--color-text-primary)',
           }}
         >
           {isFolder ? (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-1)' }}>
               <button
                 type="button"
                 onClick={(e) => toggleExpand(node.id, e)}
@@ -59,7 +59,7 @@ export function TreeView({ nodes, onNodeClick, style }: TreeViewProps) {
           <span>{node.label}</span>
         </div>
         {isFolder && isExpanded && node.children && (
-          <div style={{ paddingLeft: '16px', display: 'flex', flexDirection: 'column', borderLeft: '1px solid var(--color-border-default)', marginLeft: '12px' }}>
+          <div style={{ paddingLeft: 'var(--space-4)', display: 'flex', flexDirection: 'column', borderLeft: '1px solid var(--color-border-default)', marginLeft: 'var(--space-3)' }}>
             {node.children.map((child) => renderNode(child))}
           </div>
         )}
@@ -68,7 +68,7 @@ export function TreeView({ nodes, onNodeClick, style }: TreeViewProps) {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', ...style }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)', ...style }}>
       {nodes.map((node) => renderNode(node))}
     </div>
   );

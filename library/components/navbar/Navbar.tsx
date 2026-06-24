@@ -21,11 +21,11 @@ export function Navbar({ brand, actions, children, style }: NavbarProps) {
         ...style,
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-        <div style={{ fontWeight: 600, fontSize: '15px', color: 'var(--color-text-primary)' }}>{brand}</div>
-        <nav style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>{children}</nav>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-5)' }}>
+        <div style={{ fontWeight: 600, fontSize: 'var(--font-size-md)', color: 'var(--color-text-primary)' }}>{brand}</div>
+        <nav style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' }}>{children}</nav>
       </div>
-      {actions && <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>{actions}</div>}
+      {actions && <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>{actions}</div>}
     </header>
   );
 }

@@ -35,20 +35,20 @@ export function MegaMenu({ trigger, columns }: MegaMenuProps) {
               border: '1px solid var(--color-border-default)',
               borderRadius: 'var(--radius-lg)',
               boxShadow: 'var(--shadow-lg)',
-              padding: '20px',
+              padding: 'var(--space-5)',
               display: 'flex',
-              gap: '24px',
-              marginTop: '8px',
+              gap: 'var(--space-6)',
+              marginTop: 'var(--space-2)',
               minWidth: '460px',
             }}
           >
             {columns.map((col, idx) => (
-              <div key={idx} style={{ display: 'flex', flexDirection: 'column', gap: '8px', minWidth: '120px' }}>
-                <div style={{ fontWeight: 600, fontSize: '11px', textTransform: 'uppercase', color: 'var(--color-text-disabled)' }}>
+              <div key={idx} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', minWidth: '120px' }}>
+                <div style={{ fontWeight: 600, fontSize: 'var(--font-size-xs)', textTransform: 'uppercase', color: 'var(--color-text-disabled)' }}>
                   {col.title}
                 </div>
                 {col.links.map((link, lIdx) => (
-                  <Link key={lIdx} href={link.href} style={{ fontSize: '13px', color: 'var(--color-text-secondary)' }}>
+                  <Link key={lIdx} href={link.href} style={{ fontSize: 'var(--font-size-base)', color: 'var(--color-text-secondary)' }}>
                     {link.label}
                   </Link>
                 ))}

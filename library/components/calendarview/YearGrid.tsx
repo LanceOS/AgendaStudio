@@ -31,20 +31,20 @@ export const YearGrid: React.FC<YearGridProps> = ({ currentDate, events, onDayEx
   }, [events]);
 
   return (
-    <div style={{ flex: 1, overflow: 'hidden', padding: '16px', backgroundColor: 'var(--color-surface-card)' }}>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gridTemplateRows: 'repeat(3, minmax(0, 1fr))', gap: '16px', height: '100%' }}>
+    <div style={{ flex: 1, overflow: 'hidden', padding: 'var(--space-4)', backgroundColor: 'var(--color-surface-card)' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gridTemplateRows: 'repeat(3, minmax(0, 1fr))', gap: 'var(--space-4)', height: '100%' }}>
         {Array.from({ length: 12 }).map((_, monthIdx) => {
           const mDaysInMonth = getDaysInMonth(currentYear, monthIdx);
           const mFirstDay = getFirstDayOfMonth(currentYear, monthIdx);
           
           return (
             <div key={monthIdx} style={{ display: 'flex', flexDirection: 'column', minHeight: 0 }}>
-              <div style={{ fontWeight: 600, fontSize: '14px', marginBottom: '4px', color: 'var(--color-text-primary)' }}>
+              <div style={{ fontWeight: 600, fontSize: 'var(--font-size-md)', marginBottom: 'var(--space-1)', color: 'var(--color-text-primary)' }}>
                 {MONTHS[monthIdx]}
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', textAlign: 'center', marginBottom: '2px' }}>
                 {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((d, i) => (
-                  <div key={i} style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-text-disabled)' }}>{d}</div>
+                  <div key={i} style={{ fontSize: 'var(--font-size-xs)', fontWeight: 600, color: 'var(--color-text-disabled)' }}>{d}</div>
                 ))}
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gridTemplateRows: 'repeat(6, 1fr)', gap: '2px', flex: 1, minHeight: 0 }}>
@@ -79,13 +79,13 @@ export const YearGrid: React.FC<YearGridProps> = ({ currentDate, events, onDayEx
                         position: 'relative'
                       }}
                     >
-                      <span style={{ fontSize: '12px', fontWeight: isToday ? 600 : 400 }}>{day}</span>
+                      <span style={{ fontSize: 'var(--space-3)', fontWeight: isToday ? 600 : 400 }}>{day}</span>
                       {hasEvents && (
                         <div style={{
                           position: 'absolute',
                           bottom: '2px',
-                          width: '4px',
-                          height: '4px',
+                          width: 'var(--space-1)',
+                          height: 'var(--space-1)',
                           borderRadius: '50%',
                           backgroundColor: isToday ? 'var(--color-text-on-accent)' : 'var(--color-primary)'
                         }} />

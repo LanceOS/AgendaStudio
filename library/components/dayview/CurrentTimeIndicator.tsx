@@ -46,8 +46,8 @@ export const CurrentTimeIndicator = React.memo(function CurrentTimeIndicator({ c
           position: 'absolute',
           left: '76px', // Aligns with the 80px border
           top: '-3px', // Centers the 8px dot vertically on the 2px line
-          width: '8px',
-          height: '8px',
+          width: 'var(--space-2)',
+          height: 'var(--space-2)',
           borderRadius: '50%',
           backgroundColor: 'var(--color-danger, #ef4444)',
           pointerEvents: 'none',

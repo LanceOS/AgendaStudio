@@ -33,12 +33,12 @@ export function DayHeader({ currentDate, onDateChange, onClose }: DayHeaderProps
   };
 
   return (
-    <div style={{ padding: '12px 16px', backgroundColor: 'var(--color-base50)', borderBottom: '1px solid var(--color-border-default)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', zIndex: 10 }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+    <div style={{ padding: 'var(--space-3) var(--space-4)', backgroundColor: 'var(--color-base50)', borderBottom: '1px solid var(--color-border-default)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', zIndex: 10 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
         <Button variant="default" size="sm" onClick={handleToday}>
           Today
         </Button>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-1)' }}>
           <Button variant="default" size="sm" onClick={handlePrevDay} aria-label="Previous Day">
             <ChevronLeft size={16} />
           </Button>
@@ -48,7 +48,7 @@ export function DayHeader({ currentDate, onDateChange, onClose }: DayHeaderProps
         </div>
       </div>
 
-      <div style={{ fontWeight: 600, fontSize: '15px', color: 'var(--color-text-primary)' }}>
+      <div style={{ fontWeight: 600, fontSize: 'var(--font-size-md)', color: 'var(--color-text-primary)' }}>
         {currentDate.toLocaleDateString('default', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}
       </div>
 

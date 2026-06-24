@@ -30,7 +30,7 @@ export function FileUploader({ onFileSelect, label }: FileUploaderProps) {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', width: '100%' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)', width: '100%' }}>
       {label && <label className="label">{label}</label>}
       <div
         onDragEnter={handleDrag}
@@ -42,7 +42,7 @@ export function FileUploader({ onFileSelect, label }: FileUploaderProps) {
         style={{
           border: '2px dashed var(--color-border-default)',
           borderRadius: 'var(--radius-lg)',
-          padding: '24px',
+          padding: 'var(--space-6)',
           textAlign: 'center',
           backgroundColor: isDragActive ? 'var(--color-state-selected-bg)' : 'var(--color-surface-card)',
           cursor: 'pointer',
@@ -56,8 +56,8 @@ export function FileUploader({ onFileSelect, label }: FileUploaderProps) {
           onChange={(e) => e.target.files && onFileSelect(e.target.files)}
           style={{ display: 'none' }}
         />
-        <Upload size={24} style={{ color: 'var(--color-text-disabled)', marginBottom: '8px' }} />
-        <p style={{ fontSize: '13px', margin: 0 }}>Drag and drop files here, or click to upload</p>
+        <Upload size={24} style={{ color: 'var(--color-text-disabled)', marginBottom: 'var(--space-2)' }} />
+        <p style={{ fontSize: 'var(--font-size-base)', margin: 0 }}>Drag and drop files here, or click to upload</p>
       </div>
     </div>
   );

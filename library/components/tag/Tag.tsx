@@ -18,7 +18,7 @@ export function Tag({ label, onClose, style }: TagProps) {
         borderRadius: 'var(--radius-sm)',
         backgroundColor: 'var(--color-base50)',
         border: '1px solid var(--color-border-default)',
-        fontSize: '12px',
+        fontSize: 'var(--space-3)',
         color: 'var(--color-text-secondary)',
         ...style,
       }}

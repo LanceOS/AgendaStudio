@@ -41,9 +41,9 @@ export function AIChatMessageBubble({ message: m }: AIChatMessageBubbleProps) {
             ? 'var(--color-error-dark)'
             : 'var(--color-border-default)'
         }`,
-        borderRadius: '8px',
+        borderRadius: 'var(--space-2)',
         padding: '10px 12px',
-        fontSize: '12px',
+        fontSize: 'var(--space-3)',
         lineHeight: '1.5',
         color:
           m.role === 'user'

@@ -96,7 +96,7 @@ export function RegisterScreen() {
             loading={loading}
             variant="primary"
             fullWidth
-            style={{ marginTop: '8px' }}
+            style={{ marginTop: 'var(--space-2)' }}
           >
             Create Account
           </Button>
@@ -130,14 +130,14 @@ const containerStyle: React.CSSProperties = {
 const cardStyle: React.CSSProperties = {
   width: '400px',
   padding: '40px',
-  borderRadius: '8px',
+  borderRadius: 'var(--space-2)',
   border: '1px solid var(--color-border-default)',
   background: 'var(--color-surface-card)',
   zIndex: 10,
   boxShadow: 'var(--shadow-lg)',
   display: 'flex',
   flexDirection: 'column',
-  gap: '24px'
+  gap: 'var(--space-6)'
 };
 
 const headerStyle: React.CSSProperties = {
@@ -145,19 +145,19 @@ const headerStyle: React.CSSProperties = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  gap: '8px'
+  gap: 'var(--space-2)'
 };
 
 const logoContainerStyle: React.CSSProperties = {
-  padding: '12px',
-  borderRadius: '8px',
+  padding: 'var(--space-3)',
+  borderRadius: 'var(--space-2)',
   background: 'var(--color-base50)',
   border: '1px solid var(--color-border-default)',
-  marginBottom: '8px'
+  marginBottom: 'var(--space-2)'
 };
 
 const titleStyle: React.CSSProperties = {
-  fontSize: '24px',
+  fontSize: 'var(--space-6)',
   fontWeight: 600,
   color: 'var(--color-text-primary)',
   letterSpacing: '-0.5px'
@@ -169,7 +169,7 @@ const errorStyle: React.CSSProperties = {
   border: '1px solid rgba(239, 68, 68, 0.18)',
   borderRadius: '6px',
   color: '#ef4444',
-  fontSize: '12px',
+  fontSize: 'var(--space-3)',
   lineHeight: '1.4'
 };
 
@@ -179,26 +179,26 @@ const successStyle: React.CSSProperties = {
   border: '1px solid var(--color-success)',
   borderRadius: '6px',
   color: 'var(--color-text-success)',
-  fontSize: '12px',
+  fontSize: 'var(--space-3)',
   lineHeight: '1.4'
 };
 
 const formStyle: React.CSSProperties = {
   display: 'flex',
   flexDirection: 'column',
-  gap: '16px'
+  gap: 'var(--space-4)'
 };
 
 const footerStyle: React.CSSProperties = {
   textAlign: 'center',
-  marginTop: '8px'
+  marginTop: 'var(--space-2)'
 };
 
 const toggleButtonStyle: React.CSSProperties = {
   background: 'none',
   border: 'none',
   color: 'var(--color-primary)',
-  fontSize: '12px',
+  fontSize: 'var(--space-3)',
   cursor: 'pointer',
   outline: 'none',
   transition: 'color var(--transition-fast)'

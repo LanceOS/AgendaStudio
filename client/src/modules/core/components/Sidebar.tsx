@@ -75,8 +75,8 @@ export function Sidebar() {
           
           <div id="work-submenu" className={`sidebar-collapsible-wrapper ${isWorkOpen ? 'open' : ''}`}>
             <div className="sidebar-collapsible-inner">
-              <div style={{ marginLeft: '14px', paddingLeft: '10px', borderLeft: '1px solid var(--color-border-subtle, rgba(0, 0, 0, 0.08))', display: 'flex', flexDirection: 'column', marginTop: '2px', marginBottom: '8px' }}>
-                <SidebarGroup label="ENTRIES" style={{ marginTop: '4px' }}>
+              <div style={{ marginLeft: '14px', paddingLeft: '10px', borderLeft: '1px solid var(--color-border-subtle, rgba(0, 0, 0, 0.08))', display: 'flex', flexDirection: 'column', marginTop: '2px', marginBottom: 'var(--space-2)' }}>
+                <SidebarGroup label="ENTRIES" style={{ marginTop: 'var(--space-1)' }}>
                   <SidebarItem nested leftIcon={
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.8 }}><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                   } rightElement={
@@ -85,7 +85,7 @@ export function Sidebar() {
                       color: 'var(--color-text-secondary)', 
                       fontSize: '10px', 
                       padding: '1px 5px', 
-                      borderRadius: '4px', 
+                      borderRadius: 'var(--space-1)', 
                       fontWeight: 500,
                       minWidth: '14px',
                       textAlign: 'center'
@@ -96,7 +96,7 @@ export function Sidebar() {
                 </SidebarGroup>
                 
                 <SidebarGroup label="LABELS" style={{ marginTop: '6px' }}>
-                  <div style={{ padding: '4px 8px', fontSize: '12px', color: 'var(--color-text-disabled)', fontStyle: 'italic' }}>No labels yet</div>
+                  <div style={{ padding: '4px 8px', fontSize: 'var(--space-3)', color: 'var(--color-text-disabled)', fontStyle: 'italic' }}>No labels yet</div>
                 </SidebarGroup>
               </div>
             </div>
@@ -141,8 +141,8 @@ export function Sidebar() {
           
           <div id="personal-submenu" className={`sidebar-collapsible-wrapper ${isPersonalOpen ? 'open' : ''}`}>
             <div className="sidebar-collapsible-inner">
-              <div style={{ marginLeft: '14px', paddingLeft: '10px', borderLeft: '1px solid var(--color-border-subtle, rgba(0, 0, 0, 0.08))', display: 'flex', flexDirection: 'column', marginTop: '2px', marginBottom: '8px' }}>
-                <SidebarGroup label="ENTRIES" style={{ marginTop: '4px' }}>
+              <div style={{ marginLeft: '14px', paddingLeft: '10px', borderLeft: '1px solid var(--color-border-subtle, rgba(0, 0, 0, 0.08))', display: 'flex', flexDirection: 'column', marginTop: '2px', marginBottom: 'var(--space-2)' }}>
+                <SidebarGroup label="ENTRIES" style={{ marginTop: 'var(--space-1)' }}>
                   <SidebarItem nested leftIcon={
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.8 }}><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                   } rightElement={
@@ -151,7 +151,7 @@ export function Sidebar() {
                       color: 'var(--color-text-secondary)', 
                       fontSize: '10px', 
                       padding: '1px 5px', 
-                      borderRadius: '4px', 
+                      borderRadius: 'var(--space-1)', 
                       fontWeight: 500,
                       minWidth: '14px',
                       textAlign: 'center'
@@ -162,13 +162,13 @@ export function Sidebar() {
                 </SidebarGroup>
                 
                 <SidebarGroup label="LABELS" style={{ marginTop: '6px' }}>
-                  <div style={{ padding: '4px 8px', fontSize: '12px', color: 'var(--color-text-disabled)', fontStyle: 'italic' }}>No labels yet</div>
+                  <div style={{ padding: '4px 8px', fontSize: 'var(--space-3)', color: 'var(--color-text-disabled)', fontStyle: 'italic' }}>No labels yet</div>
                 </SidebarGroup>
               </div>
             </div>
           </div>
         </SidebarGroup>      </SidebarContent>
-      <SidebarFooter style={{ padding: '8px', position: 'relative' }}>
+      <SidebarFooter style={{ padding: 'var(--space-2)', position: 'relative' }}>
         <ClickAwayListener onClickAway={() => setIsDropdownOpen(false)}>
           <div style={{ width: '100%' }}>
             <div
@@ -193,14 +193,14 @@ export function Sidebar() {
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ 
                   fontWeight: 500, 
-                  fontSize: '13px', 
+                  fontSize: 'var(--font-size-base)', 
                   color: 'var(--color-text-primary)',
                   whiteSpace: 'nowrap',
                   textOverflow: 'ellipsis',
                   overflow: 'hidden'
                 }}>{data?.user?.name || "User"}</div>
                 <div style={{ 
-                  fontSize: '11px', 
+                  fontSize: 'var(--font-size-xs)', 
                   color: 'var(--color-text-disabled)', 
                   textTransform: 'capitalize',
                   whiteSpace: 'nowrap',
@@ -216,11 +216,11 @@ export function Sidebar() {
             <div style={{ 
               position: 'absolute', 
               bottom: '100%', 
-              left: '8px',
-              right: '8px',
+              left: 'var(--space-2)',
+              right: 'var(--space-2)',
               backgroundColor: 'var(--color-surface-card)',
               border: '1px solid var(--color-border-default)',
-              borderRadius: '8px',
+              borderRadius: 'var(--space-2)',
               padding: '6px',
               zIndex: 1000,
               display: 'flex',
@@ -235,12 +235,12 @@ export function Sidebar() {
             }}>
               <div style={{ 
                 padding: '6px 10px', 
-                fontSize: '11px', 
+                fontSize: 'var(--font-size-xs)', 
                 fontWeight: 600, 
                 color: 'var(--color-text-disabled)', 
                 textTransform: 'uppercase',
                 borderBottom: '1px solid var(--color-border-default)',
-                marginBottom: '4px',
+                marginBottom: 'var(--space-1)',
               }}>
                 Account & Settings
               </div>
@@ -263,7 +263,7 @@ export function Sidebar() {
                 }
                 style={{
                   borderTop: '1px solid var(--color-border-default)',
-                  marginTop: '4px',
+                  marginTop: 'var(--space-1)',
                   paddingTop: '6px',
                   borderRadius: '0 0 6px 6px',
                   color: 'var(--color-primary)',

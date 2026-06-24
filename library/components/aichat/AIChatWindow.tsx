@@ -60,11 +60,11 @@ export function AIChatWindow({
           borderBottom: '1px solid var(--color-border-default)',
           display: 'flex',
           alignItems: 'center',
-          gap: '8px',
+          gap: 'var(--space-2)',
         }}
       >
         <Cpu size={16} color="var(--color-primary)" />
-        <span style={{ fontWeight: 600, fontSize: '13px', color: 'var(--color-text-primary)' }}>
+        <span style={{ fontWeight: 600, fontSize: 'var(--font-size-base)', color: 'var(--color-text-primary)' }}>
           {title}
         </span>
 
@@ -90,12 +90,12 @@ export function AIChatWindow({
       {settingsPanel && (
         <div
           style={{
-            padding: '12px 16px',
+            padding: 'var(--space-3) var(--space-4)',
             borderBottom: '1px solid var(--color-border-default)',
             background: 'var(--color-base50)',
             display: 'flex',
             flexDirection: 'column',
-            gap: '8px',
+            gap: 'var(--space-2)',
           }}
         >
           {settingsPanel}
@@ -106,10 +106,10 @@ export function AIChatWindow({
         style={{
           flex: 1,
           overflowY: 'auto',
-          padding: '16px',
+          padding: 'var(--space-4)',
           display: 'flex',
           flexDirection: 'column',
-          gap: '16px',
+          gap: 'var(--space-4)',
         }}
       >
         {messages.map((m, idx) => (
@@ -125,9 +125,9 @@ export function AIChatWindow({
               alignSelf: 'flex-start',
               background: 'var(--color-surface-card)',
               border: '1px solid var(--color-border-default)',
-              borderRadius: '8px',
+              borderRadius: 'var(--space-2)',
               padding: '10px 12px',
-              fontSize: '11px',
+              fontSize: 'var(--font-size-xs)',
               color: 'var(--color-text-disabled)',
             }}
           >
@@ -157,7 +157,7 @@ export function AIChatWindow({
         </div>
       )}
 
-      <div style={{ padding: '12px', borderTop: '1px solid var(--color-border-default)' }}>
+      <div style={{ padding: 'var(--space-3)', borderTop: '1px solid var(--color-border-default)' }}>
         <form onSubmit={handleSubmit} style={{ display: 'flex', alignItems: 'flex-end', gap: '6px' }}>
           <DenseTextarea
             placeholder={placeholder}
@@ -179,7 +179,7 @@ export function AIChatWindow({
             type="submit"
             aria-label="Send message"
             className="btn btn-primary clickable"
-            style={{ width: '32px', height: '32px', flexShrink: 0, padding: 0 }}
+            style={{ width: 'var(--space-8)', height: 'var(--space-8)', flexShrink: 0, padding: 0 }}
           >
             <Send size={12} />
           </button>

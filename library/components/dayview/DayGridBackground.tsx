@@ -27,7 +27,7 @@ export const DayGridBackground = React.memo(function DayGridBackground({ hourHei
             position: 'relative',
             borderRight: '1px solid var(--color-border-default)',
             color: 'var(--color-text-secondary)',
-            fontSize: '12px',
+            fontSize: 'var(--space-3)',
             textAlign: 'right',
             fontWeight: 500,
             backgroundColor: 'var(--color-surface-card)'
@@ -36,7 +36,7 @@ export const DayGridBackground = React.memo(function DayGridBackground({ hourHei
               <span style={{
                 position: 'absolute',
                 top: '-9px',
-                right: '12px',
+                right: 'var(--space-3)',
                 backgroundColor: 'var(--color-surface-card)',
                 padding: '0 4px'
               }}>

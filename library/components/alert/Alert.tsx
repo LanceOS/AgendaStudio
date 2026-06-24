@@ -35,12 +35,12 @@ export function Alert({ type = 'info', title, children, style }: AlertProps) {
       role="alert"
       style={{
         display: 'flex',
-        gap: '12px',
-        padding: '12px 16px',
+        gap: 'var(--space-3)',
+        padding: 'var(--space-3) var(--space-4)',
         backgroundColor: bgColors[type],
         border: `1px solid ${borderColors[type]}`,
         borderRadius: 'var(--radius-md)',
-        fontSize: '13px',
+        fontSize: 'var(--font-size-base)',
         ...style,
       }}
     >

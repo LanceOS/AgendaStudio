@@ -25,7 +25,7 @@ export function TimePicker({ value, onChange, label }: TimePickerProps) {
           className="select-trigger clickable"
           style={{ minHeight: '36px' }}
         >
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '13px' }}>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--space-2)', fontSize: 'var(--font-size-base)' }}>
             <Clock size={14} className="select-trigger__icon" />
             {value || 'Pick time'}
           </span>
@@ -42,10 +42,10 @@ export function TimePicker({ value, onChange, label }: TimePickerProps) {
               border: '1px solid var(--color-border-default)',
               borderRadius: 'var(--radius-md)',
               boxShadow: 'var(--shadow-md)',
-              marginTop: '4px',
+              marginTop: 'var(--space-1)',
               maxHeight: '160px',
               overflowY: 'auto',
-              padding: '4px',
+              padding: 'var(--space-1)',
             }}
           >
             {times.map((time) => (
@@ -61,7 +61,7 @@ export function TimePicker({ value, onChange, label }: TimePickerProps) {
                   borderRadius: 'var(--radius-sm)',
                   backgroundColor: value === time ? 'var(--color-base100)' : 'transparent',
                   cursor: 'pointer',
-                  fontSize: '13px',
+                  fontSize: 'var(--font-size-base)',
                 }}
               >
                 {time}

@@ -7,7 +7,7 @@ export interface SkeletonProps {
   style?: React.CSSProperties;
 }
 
-export function Skeleton({ variant = 'rect', width = '100%', height = '16px', style }: SkeletonProps) {
+export function Skeleton({ variant = 'rect', width = '100%', height = 'var(--space-4)', style }: SkeletonProps) {
   const radiusMap = {
     circle: '50%',
     text: 'var(--radius-xs)',

@@ -258,7 +258,7 @@ export function Select({
 
   return (
     <ClickAwayListener onClickAway={closeMenu}>
-      <div className="select-root" style={{ display: 'flex', flexDirection: 'column', gap: '4px', ...style }}>
+      <div className="select-root" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)', ...style }}>
         {label && (
           <label id={labelId} htmlFor={selectId} className="label" style={{ color: 'var(--color-text-primary)', fontWeight: 500 }}>
             {label}
@@ -286,7 +286,7 @@ export function Select({
             {selectedOption?.color && (
               <div
                 aria-hidden="true"
-                style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: selectedOption.color, marginRight: '8px', flexShrink: 0 }}
+                style={{ width: 'var(--space-2)', height: 'var(--space-2)', borderRadius: '50%', backgroundColor: selectedOption.color, marginRight: 'var(--space-2)', flexShrink: 0 }}
               />
             )}
             <span className={labelClassName} style={{ minWidth: 0, flex: 1 }}>
@@ -332,9 +332,9 @@ export function Select({
                       commitValue(opt.value);
                     }
                   }}
-                  style={{ pointerEvents: opt.disabled ? 'none' : 'auto', display: 'flex', alignItems: 'center', gap: '8px' }}
+                  style={{ pointerEvents: opt.disabled ? 'none' : 'auto', display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}
                 >
-                  {opt.color && <div aria-hidden="true" style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: opt.color, flexShrink: 0 }} />}
+                  {opt.color && <div aria-hidden="true" style={{ width: 'var(--space-2)', height: 'var(--space-2)', borderRadius: '50%', backgroundColor: opt.color, flexShrink: 0 }} />}
                   <span className="select-option__label" style={{ flex: 1 }}>{opt.label}</span>
                   {isSelected ? <Check size={14} aria-hidden="true" /> : null}
                 </div>

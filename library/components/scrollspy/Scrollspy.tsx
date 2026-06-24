@@ -29,15 +29,15 @@ export function Scrollspy({ targets, children, style }: ScrollspyProps) {
   }, [targets]);
 
   return (
-    <div style={{ display: 'flex', gap: '16px', ...style }}>
-      <nav style={{ width: '120px', display: 'flex', flexDirection: 'column', gap: '8px', flexShrink: 0 }}>
+    <div style={{ display: 'flex', gap: 'var(--space-4)', ...style }}>
+      <nav style={{ width: '120px', display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', flexShrink: 0 }}>
         {targets.map((tgt) => (
           <a
             key={tgt}
             href={`#${tgt}`}
             className="clickable"
             style={{
-              fontSize: '13px',
+              fontSize: 'var(--font-size-base)',
               textDecoration: 'none',
               color: activeId === tgt ? 'var(--color-primary)' : 'var(--color-text-disabled)',
               fontWeight: activeId === tgt ? 500 : 400,

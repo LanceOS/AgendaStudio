@@ -46,7 +46,7 @@ export function TreeSelect({ nodes, value, onChange, placeholder = 'Select node'
             borderRadius: 'var(--radius-sm)',
             backgroundColor: value === node.value ? 'var(--color-state-selected-bg)' : 'transparent',
             cursor: 'pointer',
-            fontSize: '13px',
+            fontSize: 'var(--font-size-base)',
           }}
         >
           {hasChildren && (
@@ -77,7 +77,7 @@ export function TreeSelect({ nodes, value, onChange, placeholder = 'Select node'
       <div style={{ position: 'relative', width: '100%' }}>
         {label && <label className="label">{label}</label>}
         <button type="button" onClick={() => setIsOpen(!isOpen)} className="select-trigger clickable">
-          <span style={{ fontSize: '13px' }}>{value || placeholder}</span>
+          <span style={{ fontSize: 'var(--font-size-base)' }}>{value || placeholder}</span>
           <ChevronDown size={14} className="select-trigger__icon" />
         </button>
         {isOpen && (
@@ -92,7 +92,7 @@ export function TreeSelect({ nodes, value, onChange, placeholder = 'Select node'
               border: '1px solid var(--color-border-default)',
               borderRadius: 'var(--radius-md)',
               boxShadow: 'var(--shadow-md)',
-              marginTop: '4px',
+              marginTop: 'var(--space-1)',
               maxHeight: '200px',
               overflowY: 'auto',
               padding: '6px',

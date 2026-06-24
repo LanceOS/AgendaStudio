@@ -26,9 +26,9 @@ export function TransferList({ leftItems, rightItems, onChange, label }: Transfe
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', width: '100%' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', width: '100%' }}>
       {label && <div className="label">{label}</div>}
-      <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+      <div style={{ display: 'flex', gap: 'var(--space-3)', alignItems: 'center' }}>
         <div
           style={{
             flex: 1,
@@ -46,9 +46,9 @@ export function TransferList({ leftItems, rightItems, onChange, label }: Transfe
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '8px',
+                gap: 'var(--space-2)',
                 padding: '4px 6px',
-                fontSize: '13px',
+                fontSize: 'var(--font-size-base)',
                 cursor: 'pointer',
               }}
             >
@@ -62,7 +62,7 @@ export function TransferList({ leftItems, rightItems, onChange, label }: Transfe
           ))}
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
           <button type="button" onClick={transferToRight} className="btn btn-sm clickable" style={{ minWidth: '40px' }}>
             &gt;
           </button>
@@ -88,9 +88,9 @@ export function TransferList({ leftItems, rightItems, onChange, label }: Transfe
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '8px',
+                gap: 'var(--space-2)',
                 padding: '4px 6px',
-                fontSize: '13px',
+                fontSize: 'var(--font-size-base)',
                 cursor: 'pointer',
               }}
             >

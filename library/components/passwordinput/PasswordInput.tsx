@@ -1,7 +1,7 @@
 import React from 'react';
 import { Eye, EyeOff } from 'lucide-react';
 import { cn } from '../../utilities';
-import { TextInput, TextInputProps } from '../textinput';
+import { TextInput, type TextInputProps } from '../textinput';
 
 export interface PasswordInputProps extends TextInputProps { }
 
@@ -22,8 +22,8 @@ export function PasswordInput({ className = '', ...props }: PasswordInputProps) 
         aria-label={show ? 'Hide password' : 'Show password'}
         style={{
           position: 'absolute',
-          right: '8px',
-          bottom: '8px',
+          right: 'var(--space-2)',
+          bottom: 'var(--space-2)',
           background: 'none',
           border: 'none',
           cursor: 'pointer',

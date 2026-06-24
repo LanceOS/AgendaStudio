@@ -109,7 +109,7 @@ export const DayViewScreen: React.FC = () => {
           </>
         }
       >
-        <div style={{ padding: '8px 0' }}>
+        <div style={{ padding: 'var(--space-2) 0' }}>
           <TextInput
             label="Event Name"
             placeholder="Enter event name..."
@@ -123,16 +123,16 @@ export const DayViewScreen: React.FC = () => {
             }}
           />
         </div>
-        <div style={{ padding: '8px 0', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        <div style={{ padding: 'var(--space-2) 0', display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
           <label style={{ color: 'var(--color-text-primary)', fontWeight: 500 }}>Color</label>
-          <div style={{ display: 'flex', gap: '8px' }}>
+          <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
             {EVENT_COLORS.map(color => (
               <button
                 key={color}
                 onClick={() => setSelectedColor(color)}
                 style={{
-                  width: '24px',
-                  height: '24px',
+                  width: 'var(--space-6)',
+                  height: 'var(--space-6)',
                   borderRadius: '50%',
                   backgroundColor: color,
                   border: selectedColor === color ? '2px solid var(--color-text-primary)' : '2px solid transparent',
