@@ -99,12 +99,12 @@ export const normalizeThemePreference = (value: string | null | undefined): Them
     return value;
   }
 
-  return 'system';
+  return 'marble-blue';
 };
 
 export const getStoredThemePreference = (): ThemePreference => {
   if (typeof window === 'undefined') {
-    return 'system';
+    return 'marble-blue';
   }
 
   return normalizeThemePreference(window.localStorage.getItem(THEME_STORAGE_KEY));

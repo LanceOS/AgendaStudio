@@ -10,7 +10,7 @@ export function SettingsPageLayout({
   children,
 }: SettingsPageLayoutProps): JSX.Element {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', width: '100%' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', width: '100%', overflow: 'hidden' }}>
       {/* Main Container */}
       <div style={{ display: 'flex', flex: 1, minHeight: 0 }}>
         {/* Sidebar */}
