@@ -25,7 +25,7 @@ export function CalendarSettingsSection() {
           />
         </div>
 
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div className="lib-flex lib-justify-between lib-items-center">
           <div>
             <div style={{ fontWeight: 500, color: 'var(--color-text-primary)' }}>24-Hour Time Format</div>
             <div style={{ fontSize: 'var(--space-3)', color: 'var(--color-text-secondary)' }}>Use 24-hour clock instead of AM/PM</div>

@@ -5,7 +5,7 @@ export function Layout() {
   return (
     <div style={{ display: "flex", height: "100vh", overflow: "hidden" }}>
       <Sidebar />
-      <main style={{ flex: 1 }}>
+      <main className="lib-flex-1">
         <Outlet />
       </main>
     </div>

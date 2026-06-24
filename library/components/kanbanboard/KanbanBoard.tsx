@@ -46,7 +46,7 @@ export function KanbanBoard({ columns, cards, onCardMove, renderColumnHeader, st
             {renderColumnHeader ? (
               renderColumnHeader(col.id, col.title, colCards.length)
             ) : (
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div className="lib-flex lib-justify-between lib-items-center">
                 <span style={{ fontWeight: 600, fontSize: 'var(--font-size-base)', color: 'var(--color-text-primary)' }}>{col.title}</span>
                 <span
                   style={{

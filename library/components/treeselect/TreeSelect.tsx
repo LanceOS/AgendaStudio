@@ -30,7 +30,7 @@ export function TreeSelect({ nodes, value, onChange, placeholder = 'Select node'
     const hasChildren = node.children && node.children.length > 0;
 
     return (
-      <div key={node.value} style={{ display: 'flex', flexDirection: 'column' }}>
+      <div key={node.value} className="lib-flex lib-flex-col">
         <div
           onClick={() => {
             onChange(node.value);

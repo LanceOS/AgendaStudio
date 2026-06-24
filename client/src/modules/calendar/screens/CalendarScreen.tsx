@@ -22,7 +22,7 @@ export const CalendarScreen: React.FC = () => {
   };
 
   return (
-    <div style={{ height: '100%' }}>
+    <div className="lib-h-full">
       <CalendarView 
         currentDate={selectedDate}
         onDateChange={setSelectedDate}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link as RouterLink } from 'react-router';
 import { LogIn } from 'lucide-react';
-import { authClient } from "../../../lib/auth";
+import { useAuth } from "../../../lib/hooks/useAuth";
 
 import { TextInput } from "../../../../../library/components/textinput";
 import { PasswordInput } from "../../../../../library/components/passwordinput";
@@ -13,6 +13,7 @@ export function LoginScreen() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,7 +21,7 @@ export function LoginScreen() {
     setError(null);
 
     try {
-      const { error: signInError } = await authClient.signIn.email({
+      const { error: signInError } = await login({
         email,
         password,
       });

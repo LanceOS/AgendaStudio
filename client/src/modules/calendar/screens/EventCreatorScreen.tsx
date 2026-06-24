@@ -86,7 +86,7 @@ export const EventCreatorScreen: React.FC = () => {
         />
 
         <Flex gap="var(--space-4)">
-          <Stack gap="var(--space-2)" style={{ flex: 1 }}>
+          <Stack gap="var(--space-2)" className="lib-flex-1">
             <label style={{ color: 'var(--color-text-primary)', fontWeight: 500, fontSize: 'var(--font-size-base)' }}>Start</label>
             <input 
               type="datetime-local" 
@@ -106,7 +106,7 @@ export const EventCreatorScreen: React.FC = () => {
               }}
             />
           </Stack>
-          <Stack gap="var(--space-2)" style={{ flex: 1 }}>
+          <Stack gap="var(--space-2)" className="lib-flex-1">
             <label style={{ color: 'var(--color-text-primary)', fontWeight: 500, fontSize: 'var(--font-size-base)' }}>End</label>
             <input 
               type="datetime-local" 
@@ -153,10 +153,10 @@ export const EventCreatorScreen: React.FC = () => {
         </Stack>
 
         <Flex gap="var(--space-3)" style={{ marginTop: 'var(--space-4)' }}>
-          <Button variant="secondary" onClick={() => navigate('/calendar')} style={{ flex: 1 }}>
+          <Button variant="secondary" onClick={() => navigate('/calendar')} className="lib-flex-1">
             Cancel
           </Button>
-          <Button variant="primary" onClick={handleSave} style={{ flex: 1 }} disabled={!title.trim() || !startDate || !endDate}>
+          <Button variant="primary" onClick={handleSave} className="lib-flex-1" disabled={!title.trim() || !startDate || !endDate}>
             Save Event
           </Button>
         </Flex>

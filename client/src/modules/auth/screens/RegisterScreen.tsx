@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link as RouterLink } from 'react-router';
-import { authClient } from "../../../lib/auth";
+import { useAuth } from "../../../lib/hooks/useAuth";
 
 import { TextInput } from "../../../../../library/components/textinput";
 import { PasswordInput } from "../../../../../library/components/passwordinput";
@@ -14,6 +14,7 @@ export function RegisterScreen() {
   const [success, setSuccess] = useState<boolean>(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { register } = useAuth();
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,7 +23,7 @@ export function RegisterScreen() {
     setSuccess(false);
 
     try {
-      const { error: signUpError } = await authClient.signUp.email({
+      const { error: signUpError } = await register({
         name,
         email,
         password,

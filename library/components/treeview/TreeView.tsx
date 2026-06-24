@@ -27,7 +27,7 @@ export function TreeView({ nodes, onNodeClick, style }: TreeViewProps) {
     const isExpanded = !!expanded[node.id];
 
     return (
-      <div key={node.id} style={{ display: 'flex', flexDirection: 'column' }}>
+      <div key={node.id} className="lib-flex lib-flex-col">
         <div
           onClick={() => onNodeClick?.(node)}
           className="clickable"

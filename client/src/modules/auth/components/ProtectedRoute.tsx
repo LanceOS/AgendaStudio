@@ -1,8 +1,8 @@
 import { Navigate } from "react-router";
-import { authClient } from "../../../lib/auth";
+import { useAuth } from "../../../lib/hooks/useAuth";
 
 export function ProtectedRoute({ children }: { children: React.ReactNode }) {
-  const { data, isPending } = authClient.useSession();
+  const { data, isPending } = useAuth();
 
   if (isPending) {
     return (

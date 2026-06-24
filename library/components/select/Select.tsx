@@ -335,7 +335,7 @@ export function Select({
                   style={{ pointerEvents: opt.disabled ? 'none' : 'auto', display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}
                 >
                   {opt.color && <div aria-hidden="true" style={{ width: 'var(--space-2)', height: 'var(--space-2)', borderRadius: '50%', backgroundColor: opt.color, flexShrink: 0 }} />}
-                  <span className="select-option__label" style={{ flex: 1 }}>{opt.label}</span>
+                  <span className="select-option__label lib-flex-1">{opt.label}</span>
                   {isSelected ? <Check size={14} aria-hidden="true" /> : null}
                 </div>
               );

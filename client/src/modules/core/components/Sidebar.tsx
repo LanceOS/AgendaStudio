@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router";
-import { authClient } from "../../../lib/auth";
+import { useAuth } from "../../../lib/hooks/useAuth";
 import { useCalendarState } from "../../calendar/hooks/useCalendarState";
 import { 
   Sidebar as LibSidebar, 
@@ -17,12 +17,12 @@ export function Sidebar() {
   const [isPersonalOpen, setIsPersonalOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const { data } = authClient.useSession();
+  const { data, logout } = useAuth();
   const { activeCategoryId, setActiveCategoryId } = useCalendarState();
   
 
   const handleLogout = async () => {
-    await authClient.signOut();
+    await logout();
     navigate("/login");
   };
 
@@ -170,7 +170,7 @@ export function Sidebar() {
         </SidebarGroup>      </SidebarContent>
       <SidebarFooter style={{ padding: 'var(--space-2)', position: 'relative' }}>
         <ClickAwayListener onClickAway={() => setIsDropdownOpen(false)}>
-          <div style={{ width: '100%' }}>
+          <div className="lib-w-full">
             <div
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
               className="clickable"

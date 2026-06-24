@@ -173,7 +173,7 @@ export function AIChatWindow({
               }
             }}
             autoGrow
-            style={{ flex: 1 }}
+            className="lib-flex-1"
           />
           <button
             type="submit"

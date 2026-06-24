@@ -1,29 +1,20 @@
 import React from 'react';
 import { Search } from 'lucide-react';
 import { cn } from '../../utilities';
-import { TextInput, TextInputProps } from '../textinput';
+import { TextInput, type TextInputProps } from '../textinput';
+import styles from './SearchInput.module.css';
 
 export interface SearchInputProps extends TextInputProps { }
 
 export function SearchInput({ className = '', ...props }: SearchInputProps) {
   return (
-    <div style={{ position: 'relative', width: '100%' }}>
-      <div
-        style={{
-          position: 'absolute',
-          left: '10px',
-          bottom: '10px',
-          color: 'var(--color-text-disabled)',
-          display: 'flex',
-          alignItems: 'center',
-        }}
-      >
+    <div className={styles.container}>
+      <div className={styles.iconWrapper}>
         <Search size={15} />
       </div>
       <TextInput
         type="search"
-        className={cn(className)}
-        style={{ paddingLeft: 'var(--space-8)' }}
+        className={cn(styles.input, className)}
         {...props}
       />
     </div>

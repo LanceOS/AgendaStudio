@@ -3,18 +3,15 @@ import { describe, it, expect, vi } from 'vitest';
 import { ProtectedRoute } from '../ProtectedRoute';
 import { MemoryRouter, Routes, Route } from 'react-router';
 
-// Mock the authClient
-vi.mock('../../../../lib/auth', () => ({
-  authClient: {
-    useSession: vi.fn()
-  }
+vi.mock('../../../../lib/hooks/useAuth', () => ({
+  useAuth: vi.fn()
 }));
 
-import { authClient } from '../../../../lib/auth';
+import { useAuth } from '../../../../lib/hooks/useAuth';
 
 describe('ProtectedRoute', () => {
   it('should render loading state when pending', () => {
-    vi.mocked(authClient.useSession).mockReturnValue({ isPending: true, data: null } as unknown as ReturnType<typeof authClient.useSession>);
+    vi.mocked(useAuth).mockReturnValue({ isPending: true, data: null } as unknown as ReturnType<typeof useAuth>);
     
     render(
       <MemoryRouter>
@@ -29,7 +26,7 @@ describe('ProtectedRoute', () => {
   });
 
   it('should redirect to login if not authenticated', () => {
-    vi.mocked(authClient.useSession).mockReturnValue({ isPending: false, data: null } as unknown as ReturnType<typeof authClient.useSession>);
+    vi.mocked(useAuth).mockReturnValue({ isPending: false, data: null } as unknown as ReturnType<typeof useAuth>);
     
     render(
       <MemoryRouter initialEntries={['/protected']}>
@@ -52,10 +49,10 @@ describe('ProtectedRoute', () => {
   });
 
   it('should render children if authenticated', () => {
-    vi.mocked(authClient.useSession).mockReturnValue({ 
+    vi.mocked(useAuth).mockReturnValue({ 
       isPending: false, 
       data: { session: { user: { id: '1' } } } 
-    } as unknown as ReturnType<typeof authClient.useSession>);
+    } as unknown as ReturnType<typeof useAuth>);
     
     render(
       <MemoryRouter initialEntries={['/protected']}>

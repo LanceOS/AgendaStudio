@@ -20,7 +20,7 @@ export function MegaMenu({ trigger, columns }: MegaMenuProps) {
 
   return (
     <ClickAwayListener onClickAway={() => setIsOpen(false)}>
-      <div style={{ position: 'relative' }}>
+      <div className="lib-relative">
         <div onClick={() => setIsOpen(!isOpen)} className="clickable" style={{ display: 'inline-block' }}>
           {trigger}
         </div>
