@@ -107,3 +107,10 @@ code {
   padding: 4px 8px;
   background: var(--color-surface-code, var(--code-bg));
 }
+
+.glass {
+  background: rgba(10, 10, 18, 0.65);
+  backdrop-filter: blur(16px) saturate(185%);
+  -webkit-backdrop-filter: blur(16px) saturate(185%);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}

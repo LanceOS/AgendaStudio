@@ -1,14 +1,10 @@
-import { useState } from "react";
-import { useNavigate, Link as RouterLink } from "react-router";
+import React, { useState } from 'react';
+import { useNavigate, Link as RouterLink } from 'react-router';
 import { authClient } from "../../../lib/auth";
 
-import { Card } from "../../../../../library/components/card";
 import { TextInput } from "../../../../../library/components/textinput";
 import { PasswordInput } from "../../../../../library/components/passwordinput";
 import { Button } from "../../../../../library/components/button";
-import { Alert } from "../../../../../library/components/alert";
-import { Flex } from "../../../../../library/components/flex";
-import { Stack } from "../../../../../library/components/stack";
 
 export function RegisterScreen() {
   const [name, setName] = useState("");
@@ -48,82 +44,169 @@ export function RegisterScreen() {
   };
 
   return (
-    <Flex align="center" justify="center" style={{ minHeight: '100vh', backgroundColor: 'var(--color-bg-default)' }}>
-      <div style={{ width: '100%', maxWidth: '400px', padding: 'var(--space-4)' }}>
-        <Card>
-          <div style={{ padding: '24px 24px 0 24px', textAlign: 'center' }}>
-            <h1 style={{ margin: 0, fontSize: '24px', fontWeight: 600, color: 'var(--color-text-primary)' }}>Create an Account</h1>
-            <p style={{ marginTop: '8px', marginBottom: 0, color: 'var(--color-text-secondary)', fontSize: '14px' }}>Join AgendaStudio to organize your life</p>
+    <div style={containerStyle}>
+      <div style={cardStyle} className="glass">
+        {/* Logo/Icon */}
+        <div style={headerStyle}>
+          <div style={logoContainerStyle}>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="12" cy="12" r="10" stroke="var(--color-text-primary)" strokeWidth="2.5" />
+              <circle cx="12" cy="12" r="6" stroke="var(--color-primary)" strokeWidth="2" strokeDasharray="4 2" />
+              <circle cx="12" cy="12" r="2" fill="var(--color-text-primary)" />
+            </svg>
           </div>
-          <div style={{ padding: '24px' }}>
-            {error && (
-              <Alert type="error" style={{ marginBottom: '16px' }}>
-                {error}
-              </Alert>
-            )}
-            
-            {success && (
-              <Alert type="success" style={{ marginBottom: '16px' }}>
-                Account created successfully! Redirecting...
-              </Alert>
-            )}
+          <h1 style={titleStyle}>AgendaStudio</h1>
+          <p style={subtitleStyle}>Organize your life</p>
+        </div>
 
-            <form onSubmit={handleRegister}>
-              <Stack gap="16px">
-                <TextInput
-                  id="name"
-                  type="text"
-                  label="Full Name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="John Doe"
-                  required
-                  autoComplete="name"
-                />
+        {error && <div style={errorStyle}>{error}</div>}
+        {success && <div style={successStyle}>Account created successfully! Redirecting...</div>}
 
-                <TextInput
-                  id="email"
-                  type="email"
-                  label="Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="you@example.com"
-                  required
-                  autoComplete="email"
-                />
+        <form onSubmit={handleRegister} style={formStyle}>
+          <TextInput
+            label="Full Name"
+            placeholder="John Doe"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+            autoComplete="name"
+          />
 
-                <PasswordInput
-                  id="password"
-                  label="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••"
-                  required
-                  minLength={8}
-                  autoComplete="new-password"
-                />
+          <TextInput
+            label="Email Address"
+            type="email"
+            placeholder="you@example.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            autoComplete="email"
+          />
 
-                <Button type="submit" variant="primary" loading={loading} fullWidth style={{ marginTop: '8px' }}>
-                  Sign Up
-                </Button>
-              </Stack>
-            </form>
+          <PasswordInput
+            label="Password"
+            placeholder="••••••••"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            minLength={8}
+            autoComplete="new-password"
+          />
 
-            <Flex justify="center" style={{ marginTop: '24px' }}>
-              <p style={{ margin: 0, color: 'var(--color-text-secondary)', fontSize: '14px' }}>
-                Already have an account?{' '}
-                <RouterLink 
-                  to="/login" 
-                  style={{ color: 'var(--color-primary)', textDecoration: 'none', fontWeight: 500 }}
-                  className="clickable"
-                >
-                  Sign in
-                </RouterLink>
-              </p>
-            </Flex>
-          </div>
-        </Card>
+          <Button
+            type="submit"
+            loading={loading}
+            variant="primary"
+            fullWidth
+            style={{ marginTop: '8px' }}
+          >
+            Create Account
+          </Button>
+        </form>
+
+        <div style={footerStyle}>
+          <RouterLink to="/login" style={{ textDecoration: 'none' }}>
+            <button style={toggleButtonStyle} type="button">
+              Already have an account? Sign In
+            </button>
+          </RouterLink>
+        </div>
       </div>
-    </Flex>
+    </div>
   );
 }
+
+// Styles
+const containerStyle: React.CSSProperties = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  width: '100vw',
+  height: '100vh',
+  background: 'var(--color-surface-app)',
+  overflow: 'hidden',
+  position: 'relative',
+  fontFamily: 'var(--sans)'
+};
+
+const cardStyle: React.CSSProperties = {
+  width: '400px',
+  padding: '40px',
+  borderRadius: '8px',
+  border: '1px solid var(--color-border-default)',
+  background: 'var(--color-surface-card)',
+  zIndex: 10,
+  boxShadow: 'var(--shadow-lg)',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '24px'
+};
+
+const headerStyle: React.CSSProperties = {
+  textAlign: 'center',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  gap: '8px'
+};
+
+const logoContainerStyle: React.CSSProperties = {
+  padding: '12px',
+  borderRadius: '8px',
+  background: 'var(--color-base50)',
+  border: '1px solid var(--color-border-default)',
+  marginBottom: '8px'
+};
+
+const titleStyle: React.CSSProperties = {
+  fontSize: '24px',
+  fontWeight: 600,
+  color: 'var(--color-text-primary)',
+  letterSpacing: '-0.5px'
+};
+
+const subtitleStyle: React.CSSProperties = {
+  fontSize: '13px',
+  color: 'var(--color-text-disabled)',
+  lineHeight: '1.4'
+};
+
+const errorStyle: React.CSSProperties = {
+  padding: '10px 14px',
+  background: 'rgba(239, 68, 68, 0.08)',
+  border: '1px solid rgba(239, 68, 68, 0.18)',
+  borderRadius: '6px',
+  color: '#ef4444',
+  fontSize: '12px',
+  lineHeight: '1.4'
+};
+
+const successStyle: React.CSSProperties = {
+  padding: '10px 14px',
+  background: 'var(--color-bg-success)',
+  border: '1px solid var(--color-success)',
+  borderRadius: '6px',
+  color: 'var(--color-text-success)',
+  fontSize: '12px',
+  lineHeight: '1.4'
+};
+
+const formStyle: React.CSSProperties = {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '16px'
+};
+
+const footerStyle: React.CSSProperties = {
+  textAlign: 'center',
+  marginTop: '8px'
+};
+
+const toggleButtonStyle: React.CSSProperties = {
+  background: 'none',
+  border: 'none',
+  color: 'var(--color-primary)',
+  fontSize: '12px',
+  cursor: 'pointer',
+  outline: 'none',
+  transition: 'color var(--transition-fast)'
+};
