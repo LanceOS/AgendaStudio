@@ -3,12 +3,14 @@ import { ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
 import { getDaysInMonth, getFirstDayOfMonth } from '../../utilities';
 import { Button } from '../button';
 import { Select } from '../select';
+import { getContrastColor } from '../dayview/utils';
 
 export interface CalendarViewProps {
   currentDate?: Date;
   onDateChange?: (date: Date) => void;
-  events?: Array<{ date: Date; label: string; color?: string }>;
+  events?: Array<{ id: string; date: Date; label: string; color?: string }>;
   onDayExpand?: (date: Date) => void;
+  onEventClick?: (eventId: string) => void;
   style?: React.CSSProperties;
 }
 
@@ -17,7 +19,7 @@ const MONTHS = [
   'July', 'August', 'September', 'October', 'November', 'December'
 ];
 
-export function CalendarView({ currentDate = new Date(), onDateChange, events = [], onDayExpand, style }: CalendarViewProps) {
+export function CalendarView({ currentDate = new Date(), onDateChange, events = [], onDayExpand, onEventClick, style }: CalendarViewProps) {
   const daysInMonth = getDaysInMonth(currentDate.getFullYear(), currentDate.getMonth());
   const firstDay = getFirstDayOfMonth(currentDate.getFullYear(), currentDate.getMonth());
 
@@ -182,10 +184,17 @@ export function CalendarView({ currentDate = new Date(), onDateChange, events = 
                       padding: '1px 4px',
                       borderRadius: 'var(--radius-xs)',
                       backgroundColor: evt.color || 'var(--color-state-selected-bg)',
-                      color: 'var(--color-text-primary)',
+                      color: getContrastColor(evt.color || 'var(--color-state-selected-bg)'),
                       whiteSpace: 'nowrap',
                       overflow: 'hidden',
                       textOverflow: 'ellipsis',
+                      cursor: onEventClick ? 'pointer' : 'default',
+                    }}
+                    onClick={(e) => {
+                      if (onEventClick) {
+                        e.stopPropagation();
+                        onEventClick(evt.id);
+                      }
                     }}
                   >
                     {evt.label}

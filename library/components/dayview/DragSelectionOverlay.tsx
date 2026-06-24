@@ -1,5 +1,5 @@
 import React from 'react';
-import { DragState } from './useTimeSlotDrag';
+import type { DragState } from './useTimeSlotDrag';
 
 export interface DragSelectionOverlayProps {
   dragState: DragState;

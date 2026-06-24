@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Trash2 } from 'lucide-react';
-import { DayEventInput } from './utils';
+import { getContrastColor, type DayEventInput } from './utils';
 
 export interface DayEventProps {
   event: DayEventInput;
@@ -12,6 +12,7 @@ export interface DayEventProps {
   snapMinutes?: number;
   onDelete?: (eventId: string) => void;
   onUpdate?: (eventId: string, updates: Partial<DayEventInput>) => void;
+  onClick?: (eventId: string) => void;
 }
 
 export const DayEvent = React.memo(function DayEvent({
@@ -24,7 +25,9 @@ export const DayEvent = React.memo(function DayEvent({
   snapMinutes = 15,
   onDelete,
   onUpdate,
+  onClick,
 }: DayEventProps) {
+  const hasDragged = useRef(false);
   const [dragState, setDragState] = useState<{
     type: 'move' | 'resize' | null;
     startY: number;
@@ -43,6 +46,8 @@ export const DayEvent = React.memo(function DayEvent({
     e.stopPropagation(); // prevent DayView background selection
     if (e.button !== 0) return;
     
+    hasDragged.current = false;
+    
     setDragState({
       type,
       startY: e.clientY,
@@ -54,9 +59,12 @@ export const DayEvent = React.memo(function DayEvent({
 
   const handleMouseMove = useCallback((e: MouseEvent) => {
     if (dragState.type) {
+      if (Math.abs(e.clientY - dragState.startY) > 3) {
+        hasDragged.current = true;
+      }
       setDragState(prev => ({ ...prev, currentY: e.clientY }));
     }
-  }, [dragState.type]);
+  }, [dragState.type, dragState.startY]);
 
   const handleMouseUp = useCallback((e: MouseEvent) => {
     if (!dragState.type) return;
@@ -116,6 +124,11 @@ export const DayEvent = React.memo(function DayEvent({
   return (
     <div
       onMouseDown={(e) => handleMouseDown(e, 'move')}
+      onClick={(e) => {
+        if (!hasDragged.current && onClick) {
+          onClick(event.id);
+        }
+      }}
       style={{
         position: 'absolute',
         top: `${currentTop}px`,
@@ -124,7 +137,7 @@ export const DayEvent = React.memo(function DayEvent({
         width: `calc(${width}% - 36px)`,
         boxSizing: 'border-box',
         backgroundColor: event.color || 'var(--color-primary)',
-        color: 'var(--color-text-inverse)',
+        color: getContrastColor(event.color),
         padding: '4px 8px',
         borderRadius: 'var(--radius-sm)',
         fontSize: '12px',

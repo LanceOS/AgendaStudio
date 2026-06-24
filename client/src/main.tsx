@@ -4,10 +4,10 @@ import '../../library/styles/theme.css'
 import '../../library/styles/library.css'
 import './index.css'
 import App from './App.tsx'
-import { applyThemePreference } from '../../library/utilities/themeEngine'
+import { applyThemePreference, getStoredThemePreference } from '../../library/utilities/themeEngine'
 
 // Initialize the premium theme engine
-applyThemePreference('marble-blue')
+applyThemePreference(getStoredThemePreference())
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

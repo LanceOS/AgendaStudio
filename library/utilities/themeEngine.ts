@@ -74,6 +74,12 @@ export const KNOWN_THEME_COLOR_KEYS = [
   'overlayScrim',
   'white',
   'black',
+  'eventGreen',
+  'eventOrange',
+  'eventRed',
+  'eventBlue',
+  'eventPurple',
+  'eventPink',
 ] as const;
 
 export type ThemeColorKey = (typeof KNOWN_THEME_COLOR_KEYS)[number];
@@ -99,12 +105,12 @@ export const normalizeThemePreference = (value: string | null | undefined): Them
     return value;
   }
 
-  return 'system';
+  return 'marble-blue';
 };
 
 export const getStoredThemePreference = (): ThemePreference => {
   if (typeof window === 'undefined') {
-    return 'system';
+    return 'marble-blue';
   }
 
   return normalizeThemePreference(window.localStorage.getItem(THEME_STORAGE_KEY));

@@ -61,7 +61,7 @@ function createSelectChangeEvent(nextValue: string) {
   } as React.ChangeEvent<HTMLSelectElement>;
 }
 
-export interface SelectProps extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'onChange'> {
+export interface SelectProps extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'onChange' | 'size'> {
   label?: string;
   error?: string;
   options: readonly SelectOption[];

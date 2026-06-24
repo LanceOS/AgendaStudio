@@ -13,6 +13,12 @@ const queryClient = new QueryClient()
 
 import { CalendarProvider } from './modules/calendar/hooks/useCalendarState'
 
+import { Navigate } from 'react-router';
+import { DayViewScreen } from './modules/calendar/screens/DayViewScreen';
+import { EventCreatorScreen } from './modules/calendar/screens/EventCreatorScreen';
+import { EventDetailsScreen } from './modules/calendar/screens/EventDetailsScreen';
+import { NotFoundScreen } from './modules/core/screens/NotFoundScreen';
+
 const router = createBrowserRouter([
   {
     path: "/login",
@@ -33,18 +39,44 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-        path: "/",
+        index: true,
+        element: <Navigate to="/calendar" replace />,
+      },
+      {
+        path: "calendar",
         element: <CalendarScreen />,
       },
       {
-        path: "/settings",
-        element: <SettingsScreen />,
+        path: "calendar/day/:date",
+        element: <DayViewScreen />,
       },
       {
-        path: "/calendar/create-category",
+        path: "events/new",
+        element: <EventCreatorScreen />,
+      },
+      {
+        path: "events/:eventId",
+        element: <EventDetailsScreen />,
+      },
+      {
+        path: "calendar/create-category",
         element: <CreateCategoryScreen />,
       },
+      {
+        path: "*",
+        element: <NotFoundScreen />,
+      },
     ],
+  },
+  {
+    path: "/settings",
+    element: (
+      <ProtectedRoute>
+        <CalendarProvider>
+          <SettingsScreen />
+        </CalendarProvider>
+      </ProtectedRoute>
+    ),
   },
 ]);
 

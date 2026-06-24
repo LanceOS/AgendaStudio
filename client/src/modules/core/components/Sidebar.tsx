@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 import { authClient } from "../../../lib/auth";
 import { useCalendarState } from "../../calendar/hooks/useCalendarState";
 import { 
@@ -11,21 +11,15 @@ import {
 } from "../../../../../library/components/sidebar";
 import { ClickAwayListener } from "../../../../../library/utilities/clickawaylistener";
 import { Avatar } from "../../../../../library/components/avatar";
-import { Divider } from "../../../../../library/components/divider";
-
 export function Sidebar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isWorkOpen, setIsWorkOpen] = useState(true);
   const [isPersonalOpen, setIsPersonalOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
   const { data } = authClient.useSession();
   const { activeCategoryId, setActiveCategoryId } = useCalendarState();
   
-
-
-  const handleCategoryClick = (id: string) => {
-    setActiveCategoryId(activeCategoryId === id ? null : id);
-  };
 
   const handleLogout = async () => {
     await authClient.signOut();
@@ -36,8 +30,10 @@ export function Sidebar() {
     <LibSidebar>
       <SidebarContent>
         <SidebarGroup label="Navigation">
-          <SidebarItem onClick={() => navigate("/calendar/create-category")}>Create Category</SidebarItem>
-          <SidebarItem onClick={() => navigate("/calendar/entries")}>All Entries</SidebarItem>
+          <SidebarItem active={location.pathname === "/calendar"} onClick={() => navigate("/calendar")}>Calendar</SidebarItem>
+          <SidebarItem active={location.pathname === "/events/new"} onClick={() => navigate("/events/new")}>Create Event</SidebarItem>
+          <SidebarItem active={location.pathname === "/calendar/create-category"} onClick={() => navigate("/calendar/create-category")}>Create Category</SidebarItem>
+          <SidebarItem active={location.pathname === "/calendar/entries"} onClick={() => navigate("/calendar/entries")}>All Entries</SidebarItem>
         </SidebarGroup>
         
         <SidebarGroup label="CATEGORIES">
@@ -249,7 +245,7 @@ export function Sidebar() {
                 Account & Settings
               </div>
               
-              <SidebarItem onClick={() => { setIsDropdownOpen(false); navigate("/account-preferences"); }} leftIcon={
+              <SidebarItem onClick={() => { setIsDropdownOpen(false); navigate("/settings"); }} leftIcon={
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--color-primary)' }}><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
               }>
                 Preferences

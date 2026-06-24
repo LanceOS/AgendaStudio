@@ -28,7 +28,7 @@ export function RegisterScreen() {
       } else {
         navigate("/");
       }
-    } catch (err) {
+    } catch {
       setError("An unexpected error occurred. Please try again later.");
     } finally {
       setLoading(false);
