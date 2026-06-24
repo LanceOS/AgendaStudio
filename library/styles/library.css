@@ -243,7 +243,8 @@
   border: 1px solid var(--color-border-default);
   background: var(--color-surface-input);
   color: var(--color-text-primary);
-  font: inherit;
+  font-family: inherit;
+  font-size: 13px;
   box-sizing: border-box;
   outline: none;
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast), color var(--transition-fast);
@@ -311,7 +312,7 @@
   border: 1px solid var(--color-border-default);
   background: var(--color-surface-input);
   color: var(--color-text-primary);
-  font: inherit;
+  font-family: inherit;
   font-size: 13px;
   text-align: left;
   display: inline-flex;
@@ -397,7 +398,8 @@
   border-radius: var(--radius-sm);
   background: transparent;
   color: var(--color-text-secondary);
-  font: inherit;
+  font-family: inherit;
+  font-size: 13px;
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
