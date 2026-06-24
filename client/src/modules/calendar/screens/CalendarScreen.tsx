@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router';
 import { CalendarView } from '../../../../../library/components/calendarview';
 import { useCalendarState } from '../hooks/useCalendarState';
@@ -9,6 +9,10 @@ export const CalendarScreen: React.FC = () => {
     events, viewMode, setViewMode
   } = useCalendarState();
   const navigate = useNavigate();
+
+  const mappedEvents = useMemo(() => {
+    return events.map(e => ({ id: e.id, date: e.date, label: e.title, color: e.color || 'var(--color-primary)' }));
+  }, [events]);
 
   const handleDayExpand = (date: Date) => {
     setSelectedDate(date);
@@ -26,7 +30,7 @@ export const CalendarScreen: React.FC = () => {
         onViewModeChange={(mode) => setViewMode(mode)}
         onDayExpand={handleDayExpand}
         onEventClick={(eventId) => navigate(`/events/${eventId}`)}
-        events={events.map(e => ({ id: e.id, date: e.date, label: e.title, color: e.color || 'var(--color-primary)' }))} 
+        events={mappedEvents} 
         style={{ width: '100%', height: '100%', borderRadius: 0, border: 'none' }} 
       />
     </div>

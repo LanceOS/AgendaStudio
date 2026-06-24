@@ -14,6 +14,11 @@ const MONTHS = [
 
 export const YearGrid: React.FC<YearGridProps> = ({ currentDate, events, onDayExpand }) => {
   const currentYear = currentDate.getFullYear();
+  
+  const today = new Date();
+  const todayYear = today.getFullYear();
+  const todayMonth = today.getMonth();
+  const todayDate = today.getDate();
 
   // O(1) event lookup optimization
   const eventDates = useMemo(() => {
@@ -50,10 +55,9 @@ export const YearGrid: React.FC<YearGridProps> = ({ currentDate, events, onDayEx
                   const day = i + 1;
                   const dayDate = new Date(currentYear, monthIdx, day);
                   const hasEvents = eventDates.has(`${currentYear}-${monthIdx}-${day}`);
-                  const today = new Date();
-                  const isToday = today.getDate() === day &&
-                                  today.getMonth() === monthIdx &&
-                                  today.getFullYear() === currentYear;
+                  const isToday = todayDate === day &&
+                                  todayMonth === monthIdx &&
+                                  todayYear === currentYear;
                   return (
                     <div
                       key={day}

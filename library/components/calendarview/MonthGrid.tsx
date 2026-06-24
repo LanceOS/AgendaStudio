@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Maximize2 } from 'lucide-react';
 import { getDaysInMonth, getFirstDayOfMonth } from '../../utilities';
 import { getContrastColor } from '../dayview/utils';
@@ -11,8 +11,26 @@ export interface MonthGridProps {
 }
 
 export const MonthGrid: React.FC<MonthGridProps> = ({ currentDate, events, onDayExpand, onEventClick }) => {
-  const daysInMonth = getDaysInMonth(currentDate.getFullYear(), currentDate.getMonth());
-  const firstDay = getFirstDayOfMonth(currentDate.getFullYear(), currentDate.getMonth());
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth();
+  const daysInMonth = getDaysInMonth(currentYear, currentMonth);
+  const firstDay = getFirstDayOfMonth(currentYear, currentMonth);
+
+  const today = new Date();
+  const todayYear = today.getFullYear();
+  const todayMonth = today.getMonth();
+  const todayDate = today.getDate();
+
+  const eventMap = useMemo(() => {
+    const map = new Map<string, typeof events>();
+    events.forEach(evt => {
+      const d = evt.date;
+      const key = `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+      if (!map.has(key)) map.set(key, []);
+      map.get(key)!.push(evt);
+    });
+    return map;
+  }, [events]);
 
   return (
     <>
@@ -29,18 +47,12 @@ export const MonthGrid: React.FC<MonthGridProps> = ({ currentDate, events, onDay
         ))}
         {Array.from({ length: daysInMonth }).map((_, i) => {
           const day = i + 1;
-          const dayDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
-          const dayEvents = events.filter(
-            (evt) =>
-              evt.date.getDate() === day &&
-              evt.date.getMonth() === currentDate.getMonth() &&
-              evt.date.getFullYear() === currentDate.getFullYear()
-          );
-
-          const today = new Date();
-          const isToday = today.getDate() === day &&
-                          today.getMonth() === currentDate.getMonth() &&
-                          today.getFullYear() === currentDate.getFullYear();
+          const dayDate = new Date(currentYear, currentMonth, day);
+          const dayEvents = eventMap.get(`${currentYear}-${currentMonth}-${day}`) || [];
+          
+          const isToday = todayDate === day &&
+                          todayMonth === currentMonth &&
+                          todayYear === currentYear;
 
           return (
             <div
