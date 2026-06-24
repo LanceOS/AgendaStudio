@@ -58,14 +58,20 @@ const router = createBrowserRouter([
         element: <EventDetailsScreen />,
       },
       {
-        path: "settings",
-        element: <SettingsScreen />,
-      },
-      {
         path: "calendar/create-category",
         element: <CreateCategoryScreen />,
       },
     ],
+  },
+  {
+    path: "/settings",
+    element: (
+      <ProtectedRoute>
+        <CalendarProvider>
+          <SettingsScreen />
+        </CalendarProvider>
+      </ProtectedRoute>
+    ),
   },
 ]);
 

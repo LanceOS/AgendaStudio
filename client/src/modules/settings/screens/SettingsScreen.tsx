@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import { User, Palette, Calendar } from 'lucide-react';
+import { useNavigate } from 'react-router';
+import { User, Palette, Calendar, ArrowLeft } from 'lucide-react';
 import { SettingsPageLayout } from '../layouts/SettingsPageLayout';
 import { ProfileSection } from '../components/ProfileSection';
 import { AppearanceSection } from '../components/AppearanceSection';
 import { CalendarSettingsSection } from '../components/CalendarSettingsSection';
+import { Sidebar as LibSidebar, SidebarContent, SidebarHeader, SidebarGroup, SidebarItem } from '../../../../../library/components/sidebar';
+import { Button } from '../../../../../library/components/button';
 
 type CategoryId = 'profile' | 'appearance' | 'calendar';
 
@@ -30,6 +33,7 @@ const CATEGORIES: Array<{ id: CategoryId; label: string; description: string; ic
 
 export function SettingsScreen() {
   const [activeCategory, setActiveCategory] = useState<CategoryId>('profile');
+  const navigate = useNavigate();
 
   const renderContent = () => {
     switch (activeCategory) {
@@ -46,47 +50,45 @@ export function SettingsScreen() {
 
   return (
     <SettingsPageLayout
-      headerLeftContent={
-        <h2 style={{ margin: 0, fontSize: '18px', fontWeight: 600, color: 'var(--color-text-primary)' }}>
-          User Settings
-        </h2>
-      }
       sidebar={
-        <nav style={{ padding: '24px 16px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-          {CATEGORIES.map((category) => {
-            const Icon = category.icon;
-            const isActive = activeCategory === category.id;
+        <LibSidebar>
+          <SidebarHeader style={{ padding: '16px', borderBottom: '1px solid var(--color-border-default)' }}>
+            <Button 
+              variant="secondary" 
+              onClick={() => navigate('/calendar')}
+              style={{ display: 'flex', alignItems: 'center', gap: '8px', width: '100%', justifyContent: 'center' }}
+            >
+              <ArrowLeft size={16} /> Back to Calendar
+            </Button>
+          </SidebarHeader>
+          <SidebarContent>
+            <SidebarGroup label="PREFERENCES">
+              {CATEGORIES.map((category) => {
+                const Icon = category.icon;
+                const isActive = activeCategory === category.id;
 
-            return (
-              <button
-                key={category.id}
-                onClick={() => setActiveCategory(category.id)}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '12px',
-                  padding: '12px',
-                  borderRadius: 'var(--radius-md)',
-                  backgroundColor: isActive ? 'var(--color-surface-card)' : 'transparent',
-                  border: 'none',
-                  cursor: 'pointer',
-                  textAlign: 'left',
-                  transition: 'all 0.2s',
-                }}
-              >
-                <Icon size={18} style={{ color: isActive ? 'var(--color-primary)' : 'var(--color-text-secondary)' }} />
-                <div style={{ display: 'flex', flexDirection: 'column' }}>
-                  <span style={{ fontSize: '14px', fontWeight: 500, color: isActive ? 'var(--color-text-primary)' : 'var(--color-text-secondary)' }}>
-                    {category.label}
-                  </span>
-                  <span style={{ fontSize: '11px', color: 'var(--color-text-disabled)', marginTop: '2px' }}>
-                    {category.description}
-                  </span>
-                </div>
-              </button>
-            );
-          })}
-        </nav>
+                return (
+                  <SidebarItem
+                    key={category.id}
+                    active={isActive}
+                    onClick={() => setActiveCategory(category.id)}
+                    leftIcon={<Icon size={16} style={{ color: isActive ? 'var(--color-primary)' : 'var(--color-text-secondary)' }} />}
+                    style={{ padding: '8px 10px', height: 'auto', alignItems: 'flex-start' }}
+                  >
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', paddingTop: '2px' }}>
+                      <span style={{ fontSize: '13px', fontWeight: 500, lineHeight: 1.2 }}>
+                        {category.label}
+                      </span>
+                      <span style={{ fontSize: '11px', color: 'var(--color-text-disabled)', lineHeight: 1.2 }}>
+                        {category.description}
+                      </span>
+                    </div>
+                  </SidebarItem>
+                );
+              })}
+            </SidebarGroup>
+          </SidebarContent>
+        </LibSidebar>
       }
     >
       <div style={{ padding: '32px', maxWidth: '800px' }}>
