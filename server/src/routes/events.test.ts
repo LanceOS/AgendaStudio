@@ -35,13 +35,34 @@ describe('Events API', () => {
       .post('/api/events')
       .send({
         title: 'API Test Event',
+        color: '#22c55e',
         start: '2026-06-23T10:00:00Z',
         end: '2026-06-23T11:00:00Z'
       });
       
     expect(res.status).toBe(201);
     expect(res.body.title).toBe('API Test Event');
+    expect(res.body.color).toBe('#22c55e');
     expect(res.body.id).toBeDefined();
+  });
+
+  it('should update an event', async () => {
+    const createRes = await request(app)
+      .post('/api/events')
+      .send({
+        title: 'Update Me',
+        color: '#3b82f6',
+        start: '2026-06-23T10:00:00Z',
+        end: '2026-06-23T11:00:00Z',
+      });
+
+    const updateRes = await request(app)
+      .patch(`/api/events/${createRes.body.id}`)
+      .send({ title: 'Updated', color: '#ef4444' });
+
+    expect(updateRes.status).toBe(200);
+    expect(updateRes.body.title).toBe('Updated');
+    expect(updateRes.body.color).toBe('#ef4444');
   });
 
   it('should fail to create event with invalid data', async () => {
@@ -127,5 +148,10 @@ describe('Events API', () => {
     // Verify it's deleted
     const notFoundRes = await request(app).delete(`/api/events/${id}`);
     expect(notFoundRes.status).toBe(404);
+  });
+
+  it('should reject malformed event IDs', async () => {
+    const res = await request(app).delete('/api/events/not-an-id');
+    expect(res.status).toBe(400);
   });
 });

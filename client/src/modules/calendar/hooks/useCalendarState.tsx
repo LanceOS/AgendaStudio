@@ -70,8 +70,8 @@ export const CalendarProvider: React.FC<CalendarProviderProps> = ({ children }) 
       .then((remoteEvents) => {
         if (active) setEvents(remoteEvents.map(fromApiEvent));
       })
-      .catch(() => {
-        // The calendar remains usable if the initial request fails.
+      .catch((cause) => {
+        if (active) setError(getErrorMessage(cause, 'Unable to load events.'));
       });
 
     return () => {
@@ -85,8 +85,8 @@ export const CalendarProvider: React.FC<CalendarProviderProps> = ({ children }) 
       .then((remoteCategories) => {
         if (active) setCategories(remoteCategories);
       })
-      .catch(() => {
-        // Category creation remains available when the initial request fails.
+      .catch((cause) => {
+        if (active) setError(getErrorMessage(cause, 'Unable to load categories.'));
       });
 
     return () => {

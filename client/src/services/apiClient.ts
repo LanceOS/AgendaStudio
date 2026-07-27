@@ -55,7 +55,11 @@ async function fetchClient<T>(endpoint: string, options: RequestOptions = {}): P
     } catch {
       errorData = { message: response.statusText };
     }
-    throw new ApiError(response.status, errorData.message || 'API Request Failed', errorData);
+    const message = errorData && typeof errorData === 'object'
+      ? (errorData as { message?: string; error?: string }).message
+        || (errorData as { message?: string; error?: string }).error
+      : undefined;
+    throw new ApiError(response.status, message || response.statusText || 'API Request Failed', errorData);
   }
 
   // Handle 204 No Content
