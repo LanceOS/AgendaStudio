@@ -1,5 +1,5 @@
 export interface DayEventInput {
-  id: string;
+  id: string | number;
   date: Date;
   endDate?: Date;
   [key: string]: any;

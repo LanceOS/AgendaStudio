@@ -44,7 +44,7 @@ export function Modal({ isOpen, onClose, title, children, footer, style }: Modal
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: '16px',
+            padding: 'var(--space-4)',
           }}
           className="lib-animate-fade-in"
         >
@@ -76,7 +76,7 @@ export function Modal({ isOpen, onClose, title, children, footer, style }: Modal
                 }}
               >
                 {title && (
-                  <h2 id="modal-title" style={{ margin: 0, fontSize: '15px', fontWeight: 600, color: 'var(--color-text-primary)' }}>
+                  <h2 id="modal-title" style={{ margin: 0, fontSize: 'var(--font-size-md)', fontWeight: 600, color: 'var(--color-text-primary)' }}>
                     {title}
                   </h2>
                 )}
@@ -90,7 +90,7 @@ export function Modal({ isOpen, onClose, title, children, footer, style }: Modal
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    padding: '4px',
+                    padding: 'var(--space-1)',
                     minHeight: 'auto',
                     background: isCloseHovered ? 'var(--color-surface-hover, rgba(0,0,0,0.05))' : 'transparent',
                     border: 'none',
@@ -103,7 +103,7 @@ export function Modal({ isOpen, onClose, title, children, footer, style }: Modal
                   <X size={16} />
                 </button>
               </div>
-              <div style={{ padding: '20px', overflowY: 'auto', flexGrow: 1, fontSize: '13px' }}>{children}</div>
+              <div style={{ padding: 'var(--space-5)', overflowY: 'auto', flexGrow: 1, fontSize: 'var(--font-size-base)' }}>{children}</div>
               
               {footer && (
                 <div
@@ -112,7 +112,7 @@ export function Modal({ isOpen, onClose, title, children, footer, style }: Modal
                     borderTop: '1px solid var(--color-border-default)',
                     display: 'flex',
                     justifyContent: 'flex-end',
-                    gap: '8px',
+                    gap: 'var(--space-2)',
                     backgroundColor: 'var(--color-surface-overlay)',
                     borderBottomLeftRadius: 'var(--radius-lg)',
                     borderBottomRightRadius: 'var(--radius-lg)',

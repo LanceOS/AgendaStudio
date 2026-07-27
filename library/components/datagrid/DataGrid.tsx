@@ -71,7 +71,7 @@ export function DataGrid<T>({ columns, data, rowHeight = 36, height = 360, style
           height: `${rowHeight}px`,
           alignItems: 'center',
           fontWeight: 500,
-          fontSize: '13px',
+          fontSize: 'var(--font-size-base)',
           color: 'var(--color-text-disabled)',
         }}
       >
@@ -96,7 +96,7 @@ export function DataGrid<T>({ columns, data, rowHeight = 36, height = 360, style
               alignItems: 'center',
               borderBottom: '1px solid var(--color-border-default)',
               backgroundColor: 'var(--color-surface-card)',
-              fontSize: '13px',
+              fontSize: 'var(--font-size-base)',
             }}
           >
             {columns.map((col, cIdx) => (

@@ -1,12 +1,13 @@
 import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router';
 import { CalendarView } from '../../../../../library/components/calendarview';
+import { Alert } from '../../../../../library/components/alert';
 import { useCalendarState } from '../hooks/useCalendarState';
 
 export const CalendarScreen: React.FC = () => {
   const { 
     selectedDate, setSelectedDate, 
-    events, viewMode, setViewMode
+    events, viewMode, setViewMode, error
   } = useCalendarState();
   const navigate = useNavigate();
 
@@ -22,7 +23,8 @@ export const CalendarScreen: React.FC = () => {
   };
 
   return (
-    <div style={{ height: '100%' }}>
+    <div className="lib-h-full">
+      {error && <Alert type="error" title="Calendar unavailable" style={{ margin: 'var(--space-4)' }}>{error}</Alert>}
       <CalendarView 
         currentDate={selectedDate}
         onDateChange={setSelectedDate}

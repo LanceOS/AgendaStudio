@@ -1,0 +1,17 @@
+.container {
+  position: relative;
+  width: 100%;
+}
+
+.iconWrapper {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  color: var(--color-text-disabled);
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  padding-left: var(--space-8);
+}

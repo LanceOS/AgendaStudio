@@ -74,7 +74,7 @@ export function DenseTable<T>({
           borderSpacing: 0,
           textAlign: 'left',
           fontFamily: 'var(--mono)',
-          fontSize: '11px'
+          fontSize: 'var(--font-size-xs)'
         }}
       >
         <thead>

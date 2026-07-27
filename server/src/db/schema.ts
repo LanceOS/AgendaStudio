@@ -1,11 +1,5 @@
-import { pgTable, serial, text, timestamp, boolean, varchar, uuid } from 'drizzle-orm/pg-core';
+import { pgTable, serial, text, timestamp, boolean, varchar, uuid, integer } from 'drizzle-orm/pg-core';
 
-export const events = pgTable('events', {
-  id: serial('id').primaryKey(),
-  title: varchar('title', { length: 1000 }).notNull(),
-  start: timestamp('start', { withTimezone: true, mode: 'string' }).notNull(),
-  end: timestamp('end', { withTimezone: true, mode: 'string' }).notNull(),
-});
 
 export const users = pgTable('users', {
   id: varchar('id', { length: 255 }).primaryKey(),
@@ -13,6 +7,30 @@ export const users = pgTable('users', {
   email: varchar('email', { length: 255 }).notNull().unique(),
   emailVerified: boolean('emailVerified').notNull().default(false),
   image: text('image'),
+  createdAt: timestamp('createdAt', { withTimezone: true, mode: 'date' }).defaultNow().notNull(),
+  updatedAt: timestamp('updatedAt', { withTimezone: true, mode: 'date' }).defaultNow().notNull(),
+});
+
+export const categories = pgTable('categories', {
+  id: serial('id').primaryKey(),
+  userId: varchar('userId', { length: 255 }).notNull().references(() => users.id, { onDelete: 'cascade' }),
+  name: varchar('name', { length: 255 }).notNull(),
+  color: varchar('color', { length: 50 }).notNull(),
+  createdAt: timestamp('createdAt', { withTimezone: true, mode: 'date' }).defaultNow().notNull(),
+  updatedAt: timestamp('updatedAt', { withTimezone: true, mode: 'date' }).defaultNow().notNull(),
+});
+
+export const events = pgTable('events', {
+  id: serial('id').primaryKey(),
+  userId: varchar('userId', { length: 255 }).notNull().references(() => users.id, { onDelete: 'cascade' }),
+  categoryId: integer('categoryId').references(() => categories.id, { onDelete: 'set null' }),
+  title: varchar('title', { length: 1000 }).notNull(),
+  description: text('description'),
+  location: text('location'),
+  color: varchar('color', { length: 50 }),
+  isAllDay: boolean('isAllDay').default(false).notNull(),
+  start: timestamp('start', { withTimezone: true, mode: 'string' }).notNull(),
+  end: timestamp('end', { withTimezone: true, mode: 'string' }).notNull(),
   createdAt: timestamp('createdAt', { withTimezone: true, mode: 'date' }).defaultNow().notNull(),
   updatedAt: timestamp('updatedAt', { withTimezone: true, mode: 'date' }).defaultNow().notNull(),
 });

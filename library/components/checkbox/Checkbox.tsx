@@ -9,16 +9,16 @@ export function Checkbox({ label, error, className = '', style, ...props }: Chec
   const checkboxId = React.useId();
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', ...style }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)', ...style }}>
       <label
         htmlFor={checkboxId}
         style={{
           display: 'inline-flex',
           alignItems: 'center',
-          gap: '8px',
+          gap: 'var(--space-2)',
           cursor: 'pointer',
           userSelect: 'none',
-          fontSize: '13px',
+          fontSize: 'var(--font-size-base)',
           color: 'var(--color-text-secondary)',
         }}
       >

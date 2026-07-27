@@ -28,7 +28,7 @@ export function Pagination({ current, total, onChange, style }: PaginationProps)
             onClick={() => onChange(page)}
             className="btn btn-sm clickable"
             style={{
-              minWidth: '32px',
+              minWidth: 'var(--space-8)',
               backgroundColor: isCurrent ? 'var(--color-primary)' : 'var(--color-surface-card)',
               color: isCurrent ? '#ffffff' : 'var(--color-text-primary)',
               borderColor: isCurrent ? 'var(--color-primary)' : 'var(--color-border-default)',

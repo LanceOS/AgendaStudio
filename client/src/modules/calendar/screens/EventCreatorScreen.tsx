@@ -32,7 +32,7 @@ const formatDateTimeForInput = (d: Date | null) => {
 export const EventCreatorScreen: React.FC = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const { addEvent } = useCalendarState();
+  const { addEvent, categories, error } = useCalendarState();
 
   const [title, setTitle] = useState('');
   const initialStart = searchParams.get('start');
@@ -55,28 +55,31 @@ export const EventCreatorScreen: React.FC = () => {
   });
 
   const [selectedColor, setSelectedColor] = useState(EVENT_COLORS[0]);
+  const [selectedCategoryId, setSelectedCategoryId] = useState('');
+  const [saving, setSaving] = useState(false);
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!title.trim() || !startDate || !endDate) return;
 
-    addEvent({
-      title: title.trim(),
-      date: new Date(startDate),
-      endDate: new Date(endDate),
-      color: selectedColor,
-      categoryId: 'default',
-    });
-
-    navigate('/calendar');
+    setSaving(true);
+    const saved = await addEvent({
+        title: title.trim(),
+        date: new Date(startDate),
+        endDate: new Date(endDate),
+        color: selectedColor,
+        categoryId: selectedCategoryId ? Number(selectedCategoryId) : null,
+      });
+    setSaving(false);
+    if (saved) navigate('/calendar');
   };
 
   return (
     <div style={{ maxWidth: '600px', margin: '40px auto', padding: '0 20px' }}>
-      <h1 style={{ fontSize: '24px', fontWeight: 600, color: 'var(--color-text-primary)', marginBottom: '24px' }}>
+      <h1 style={{ fontSize: 'var(--space-6)', fontWeight: 600, color: 'var(--color-text-primary)', marginBottom: 'var(--space-6)' }}>
         Create Event
       </h1>
       
-      <Stack gap="20px">
+      <Stack gap="var(--space-5)">
         <TextInput
           label="Event Name"
           placeholder="Enter event name..."
@@ -85,10 +88,11 @@ export const EventCreatorScreen: React.FC = () => {
           autoFocus
         />
 
-        <Flex gap="16px">
-          <Stack gap="8px" style={{ flex: 1 }}>
-            <label style={{ color: 'var(--color-text-primary)', fontWeight: 500, fontSize: '13px' }}>Start</label>
+        <Flex gap="var(--space-4)">
+          <Stack gap="var(--space-2)" className="lib-flex-1">
+            <label htmlFor="event-start" style={{ color: 'var(--color-text-primary)', fontWeight: 500, fontSize: 'var(--font-size-base)' }}>Start</label>
             <input 
+              id="event-start"
               type="datetime-local" 
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
@@ -100,15 +104,16 @@ export const EventCreatorScreen: React.FC = () => {
                 backgroundColor: 'var(--color-surface-card)',
                 color: 'var(--color-text-primary)',
                 fontFamily: 'var(--font-family-sans)',
-                fontSize: '14px',
+                fontSize: 'var(--font-size-md)',
                 outline: 'none',
                 transition: 'all var(--transition-fast)'
               }}
             />
           </Stack>
-          <Stack gap="8px" style={{ flex: 1 }}>
-            <label style={{ color: 'var(--color-text-primary)', fontWeight: 500, fontSize: '13px' }}>End</label>
+          <Stack gap="var(--space-2)" className="lib-flex-1">
+            <label htmlFor="event-end" style={{ color: 'var(--color-text-primary)', fontWeight: 500, fontSize: 'var(--font-size-base)' }}>End</label>
             <input 
+              id="event-end"
               type="datetime-local" 
               value={endDate}
               onChange={(e) => setEndDate(e.target.value)}
@@ -120,7 +125,7 @@ export const EventCreatorScreen: React.FC = () => {
                 backgroundColor: 'var(--color-surface-card)',
                 color: 'var(--color-text-primary)',
                 fontFamily: 'var(--font-family-sans)',
-                fontSize: '14px',
+                fontSize: 'var(--font-size-md)',
                 outline: 'none',
                 transition: 'all var(--transition-fast)'
               }}
@@ -128,16 +133,16 @@ export const EventCreatorScreen: React.FC = () => {
           </Stack>
         </Flex>
 
-        <Stack gap="8px">
-          <label style={{ color: 'var(--color-text-primary)', fontWeight: 500, fontSize: '13px' }}>Color</label>
-          <Flex gap="12px">
+        <Stack gap="var(--space-2)">
+          <label style={{ color: 'var(--color-text-primary)', fontWeight: 500, fontSize: 'var(--font-size-base)' }}>Color</label>
+          <Flex gap="var(--space-3)">
             {EVENT_COLORS.map(color => (
               <button
                 key={color}
                 onClick={() => setSelectedColor(color)}
                 style={{
-                  width: '32px',
-                  height: '32px',
+                  width: 'var(--space-8)',
+                  height: 'var(--space-8)',
                   borderRadius: '50%',
                   backgroundColor: color,
                   border: selectedColor === color ? '2px solid var(--color-text-primary)' : '2px solid transparent',
@@ -152,12 +157,31 @@ export const EventCreatorScreen: React.FC = () => {
           </Flex>
         </Stack>
 
-        <Flex gap="12px" style={{ marginTop: '16px' }}>
-          <Button variant="secondary" onClick={() => navigate('/calendar')} style={{ flex: 1 }}>
+        <Stack gap="var(--space-2)">
+          <label htmlFor="event-category" className="label">Category</label>
+          <select
+            id="event-category"
+            value={selectedCategoryId}
+            onChange={(event) => setSelectedCategoryId(event.target.value)}
+            className="input"
+          >
+            <option value="">No category</option>
+            {categories.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
+            ))}
+          </select>
+        </Stack>
+
+        {error && <div className="lib-field-error-msg" role="alert">{error}</div>}
+
+        <Flex gap="var(--space-3)" style={{ marginTop: 'var(--space-4)' }}>
+          <Button variant="secondary" onClick={() => navigate('/calendar')} className="lib-flex-1">
             Cancel
           </Button>
-          <Button variant="primary" onClick={handleSave} style={{ flex: 1 }} disabled={!title.trim() || !startDate || !endDate}>
-            Save Event
+          <Button variant="primary" onClick={handleSave} className="lib-flex-1" disabled={saving || !title.trim() || !startDate || !endDate}>
+            {saving ? 'Saving…' : 'Save Event'}
           </Button>
         </Flex>
       </Stack>

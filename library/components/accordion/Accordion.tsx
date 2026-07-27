@@ -31,7 +31,7 @@ export function Accordion({ items, style }: AccordionProps) {
               className="clickable"
               style={{
                 width: '100%',
-                padding: '12px 16px',
+                padding: 'var(--space-3) var(--space-4)',
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
@@ -39,7 +39,7 @@ export function Accordion({ items, style }: AccordionProps) {
                 border: 'none',
                 cursor: 'pointer',
                 textAlign: 'left',
-                fontSize: '13px',
+                fontSize: 'var(--font-size-base)',
                 fontWeight: 500,
                 color: 'var(--color-text-primary)',
               }}
@@ -56,9 +56,9 @@ export function Accordion({ items, style }: AccordionProps) {
             >
               <div style={{ overflow: 'hidden' }}>
                 <div style={{ 
-                  padding: '12px 16px', 
+                  padding: 'var(--space-3) var(--space-4)', 
                   borderTop: '1px solid var(--color-border-default)', 
-                  fontSize: '13px', 
+                  fontSize: 'var(--font-size-base)', 
                   color: 'var(--color-text-secondary)' 
                 }}>
                   {item.content}

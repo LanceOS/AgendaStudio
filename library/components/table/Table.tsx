@@ -10,7 +10,7 @@ export interface TableProps<T> {
 export function Table<T>({ columns, data, style }: TableProps<T>) {
   return (
     <div className="scroll-container" style={{ width: '100%', overflowX: 'auto', border: '1px solid var(--color-border-default)', borderRadius: 'var(--radius-md)', ...style }}>
-      <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '13px' }}>
+      <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: 'var(--font-size-base)' }}>
         <thead>
           <tr style={{ borderBottom: '1px solid var(--color-border-default)', backgroundColor: 'var(--color-base50)' }}>
             {columns.map((col, idx) => (

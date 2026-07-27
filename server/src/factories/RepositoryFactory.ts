@@ -1,6 +1,7 @@
 import { Db } from '../db.js';
 import {
   EventRepository,
+  CategoryRepository,
   UserRepository,
   SessionRepository,
   MCPConfigRepository,
@@ -12,6 +13,10 @@ export class RepositoryFactory {
 
   createEventRepository(): EventRepository {
     return new EventRepository(this.db);
+  }
+
+  createCategoryRepository(): CategoryRepository {
+    return new CategoryRepository(this.db);
   }
 
   createUserRepository(): UserRepository {

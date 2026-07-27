@@ -19,7 +19,7 @@ export function DescriptionList({ items, style }: DescriptionListProps) {
         gridTemplateColumns: 'max-content 1fr',
         gap: '8px 16px',
         margin: 0,
-        fontSize: '13px',
+        fontSize: 'var(--font-size-base)',
         ...style,
       }}
     >

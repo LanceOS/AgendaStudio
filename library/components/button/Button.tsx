@@ -33,7 +33,7 @@ export function Button({
 
   const sizeFontSize = {
     xs: '11px',
-    sm: '12px',
+    sm: 'var(--space-3)',
     md: '13px',
     lg: '14px',
   }[size];
@@ -80,7 +80,7 @@ export function Button({
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: '8px',
+    gap: 'var(--space-2)',
     padding: sizePadding,
     fontSize: sizeFontSize,
     fontWeight: 500,

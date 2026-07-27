@@ -49,7 +49,7 @@ export function SplitPane({ left, right, initialWidth = 240, style, className = 
         className="lib-split-pane-resizer clickable"
         onMouseDown={handleMouseDown}
         style={{
-          width: '4px',
+          width: 'var(--space-1)',
           cursor: 'col-resize',
           backgroundColor: 'var(--color-border-default)',
           transition: 'background-color var(--transition-fast)',

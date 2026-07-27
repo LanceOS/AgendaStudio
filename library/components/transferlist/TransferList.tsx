@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './TransferList.module.css';
 
 export interface TransferListProps {
   leftItems: string[];
@@ -26,31 +27,14 @@ export function TransferList({ leftItems, rightItems, onChange, label }: Transfe
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', width: '100%' }}>
+    <div className={styles.container}>
       {label && <div className="label">{label}</div>}
-      <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-        <div
-          style={{
-            flex: 1,
-            border: '1px solid var(--color-border-default)',
-            borderRadius: 'var(--radius-md)',
-            height: '160px',
-            overflowY: 'auto',
-            padding: '6px',
-            backgroundColor: 'var(--color-surface-card)',
-          }}
-        >
+      <div className={styles.listsContainer}>
+        <div className={styles.list}>
           {leftItems.map((item) => (
             <label
               key={item}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                padding: '4px 6px',
-                fontSize: '13px',
-                cursor: 'pointer',
-              }}
+              className={styles.itemLabel}
             >
               <input
                 type="checkbox"
@@ -62,37 +46,20 @@ export function TransferList({ leftItems, rightItems, onChange, label }: Transfe
           ))}
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-          <button type="button" onClick={transferToRight} className="btn btn-sm clickable" style={{ minWidth: '40px' }}>
+        <div className={styles.controlsContainer}>
+          <button type="button" onClick={transferToRight} className={`btn btn-sm clickable ${styles.controlButton}`}>
             &gt;
           </button>
-          <button type="button" onClick={transferToLeft} className="btn btn-sm clickable" style={{ minWidth: '40px' }}>
+          <button type="button" onClick={transferToLeft} className={`btn btn-sm clickable ${styles.controlButton}`}>
             &lt;
           </button>
         </div>
 
-        <div
-          style={{
-            flex: 1,
-            border: '1px solid var(--color-border-default)',
-            borderRadius: 'var(--radius-md)',
-            height: '160px',
-            overflowY: 'auto',
-            padding: '6px',
-            backgroundColor: 'var(--color-surface-card)',
-          }}
-        >
+        <div className={styles.list}>
           {rightItems.map((item) => (
             <label
               key={item}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                padding: '4px 6px',
-                fontSize: '13px',
-                cursor: 'pointer',
-              }}
+              className={styles.itemLabel}
             >
               <input
                 type="checkbox"

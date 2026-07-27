@@ -9,8 +9,8 @@ export interface AvatarProps {
 }
 
 export function Avatar({ src, name, size = 'md', style }: AvatarProps) {
-  const sizePx = { sm: '24px', md: '36px', lg: '48px' }[size];
-  const fontSize = { sm: '10px', md: '13px', lg: '16px' }[size];
+  const sizePx = { sm: 'var(--space-6)', md: '36px', lg: '48px' }[size];
+  const fontSize = { sm: '10px', md: '13px', lg: 'var(--space-4)' }[size];
 
   const getInitials = () => {
     if (!name) return '';

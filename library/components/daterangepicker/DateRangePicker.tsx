@@ -57,7 +57,7 @@ export function DateRangePicker({ value, onChange, label }: DateRangePickerProps
           className="select-trigger clickable"
           style={{ minHeight: '36px' }}
         >
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '13px' }}>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--space-2)', fontSize: 'var(--font-size-base)' }}>
             <Calendar size={14} className="select-trigger__icon" />
             {getRangeText()}
           </span>
@@ -69,29 +69,29 @@ export function DateRangePicker({ value, onChange, label }: DateRangePickerProps
               top: '100%',
               left: 0,
               zIndex: 1000,
-              padding: '12px',
+              padding: 'var(--space-3)',
               backgroundColor: 'var(--color-surface-card)',
               border: '1px solid var(--color-border-default)',
               borderRadius: 'var(--radius-md)',
               boxShadow: 'var(--shadow-md)',
-              marginTop: '4px',
+              marginTop: 'var(--space-1)',
               width: '240px',
             }}
           >
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', alignItems: 'center' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 'var(--space-2)', alignItems: 'center' }}>
               <button type="button" onClick={handlePrevMonth} className="btn btn-sm clickable" style={{ padding: '2px 6px' }}>
                 &lt;
               </button>
-              <span style={{ fontSize: '13px', fontWeight: 500 }}>
+              <span style={{ fontSize: 'var(--font-size-base)', fontWeight: 500 }}>
                 {currentDate.toLocaleString('default', { month: 'short', year: 'numeric' })}
               </span>
               <button type="button" onClick={handleNextMonth} className="btn btn-sm clickable" style={{ padding: '2px 6px' }}>
                 &gt;
               </button>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '4px', textAlign: 'center' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: 'var(--space-1)', textAlign: 'center' }}>
               {['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map((d) => (
-                <span key={d} style={{ fontSize: '11px', fontWeight: 500, color: 'var(--color-text-disabled)' }}>
+                <span key={d} style={{ fontSize: 'var(--font-size-xs)', fontWeight: 500, color: 'var(--color-text-disabled)' }}>
                   {d}
                 </span>
               ))}
@@ -116,9 +116,9 @@ export function DateRangePicker({ value, onChange, label }: DateRangePickerProps
                       background: isStart || isEnd ? 'var(--color-primary)' : inRange ? 'var(--color-state-selected-bg)' : 'transparent',
                       color: isStart || isEnd ? '#ffffff' : 'var(--color-text-primary)',
                       borderRadius: 'var(--radius-xs)',
-                      padding: '4px',
+                      padding: 'var(--space-1)',
                       cursor: 'pointer',
-                      fontSize: '11px',
+                      fontSize: 'var(--font-size-xs)',
                     }}
                   >
                     {day}

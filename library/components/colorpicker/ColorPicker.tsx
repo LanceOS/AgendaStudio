@@ -13,7 +13,7 @@ export function ColorPicker({ value, onChange, label }: ColorPickerProps) {
 
   return (
     <ClickAwayListener onClickAway={() => setIsOpen(false)}>
-      <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+      <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}>
         {label && <label className="label">{label}</label>}
         <button
           type="button"
@@ -36,12 +36,12 @@ export function ColorPicker({ value, onChange, label }: ColorPickerProps) {
               top: '100%',
               left: 0,
               zIndex: 1000,
-              padding: '8px',
+              padding: 'var(--space-2)',
               backgroundColor: 'var(--color-surface-card)',
               border: '1px solid var(--color-border-default)',
               borderRadius: 'var(--radius-md)',
               boxShadow: 'var(--shadow-md)',
-              marginTop: '4px',
+              marginTop: 'var(--space-1)',
               display: 'grid',
               gridTemplateColumns: 'repeat(4, 1fr)',
               gap: '6px',
@@ -57,8 +57,8 @@ export function ColorPicker({ value, onChange, label }: ColorPickerProps) {
                 }}
                 className="clickable"
                 style={{
-                  width: '24px',
-                  height: '24px',
+                  width: 'var(--space-6)',
+                  height: 'var(--space-6)',
                   borderRadius: 'var(--radius-xs)',
                   backgroundColor: color,
                   border: '1px solid var(--color-border-default)',

@@ -11,7 +11,7 @@ export function Switch({ label, checked, onCheckedChange, style, className = '',
   const switchId = React.useId();
 
   return (
-    <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', ...style }}>
+    <div style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--space-2)', ...style }}>
       <button
         type="button"
         id={switchId}
@@ -22,7 +22,7 @@ export function Switch({ label, checked, onCheckedChange, style, className = '',
         className={cn('clickable lib-focus-ring', className)}
         style={{
           width: '36px',
-          height: '20px',
+          height: 'var(--space-5)',
           borderRadius: 'var(--radius-full)',
           backgroundColor: checked ? 'var(--color-primary)' : 'var(--color-surface-disabled)',
           border: `1px solid ${checked ? 'var(--color-primary)' : 'var(--color-border-default)'}`,
@@ -48,7 +48,7 @@ export function Switch({ label, checked, onCheckedChange, style, className = '',
           }}
         />
       </button>
-      <label htmlFor={switchId} style={{ fontSize: '13px', cursor: 'pointer', color: 'var(--color-text-secondary)' }}>
+      <label htmlFor={switchId} style={{ fontSize: 'var(--font-size-base)', cursor: 'pointer', color: 'var(--color-text-secondary)' }}>
         {label}
       </label>
     </div>

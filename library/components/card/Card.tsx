@@ -28,18 +28,18 @@ export function Card({ title, extra, children, style, className = '', bodyStyle,
       {(title || extra) && (
         <div
           style={{
-            padding: '12px 16px',
+            padding: 'var(--space-3) var(--space-4)',
             borderBottom: '1px solid var(--color-border-default)',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
           }}
         >
-          {title && <h4 style={{ margin: 0, fontSize: '13px', fontWeight: 600, color: 'var(--color-text-primary)' }}>{title}</h4>}
+          {title && <h4 style={{ margin: 0, fontSize: 'var(--font-size-base)', fontWeight: 600, color: 'var(--color-text-primary)' }}>{title}</h4>}
           {extra}
         </div>
       )}
-      <div style={{ padding: '16px', fontSize: '13px', ...bodyStyle }}>{children}</div>
+      <div style={{ padding: 'var(--space-4)', fontSize: 'var(--font-size-base)', ...bodyStyle }}>{children}</div>
     </div>
   );
 }

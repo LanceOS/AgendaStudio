@@ -12,11 +12,11 @@ export interface DayViewProps {
   currentDate: Date;
   onDateChange?: (date: Date) => void;
   onClose?: () => void;
-  events?: Array<{ id: string; date: Date; endDate?: Date; label: string; color?: string }>;
+  events?: Array<{ id: string | number; date: Date; endDate?: Date; label: string; color?: string }>;
   onTimeSlotSelect?: (startDate: Date, endDate: Date) => void;
-  onEventDelete?: (eventId: string) => void;
-  onEventUpdate?: (eventId: string, updates: Partial<DayEventInput>) => void;
-  onEventClick?: (eventId: string) => void;
+  onEventDelete?: (eventId: string | number) => void;
+  onEventUpdate?: (eventId: string | number, updates: Partial<DayEventInput>) => void;
+  onEventClick?: (eventId: string | number) => void;
   hourHeight?: number;
   style?: React.CSSProperties;
 }

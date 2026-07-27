@@ -1,4 +1,3 @@
-import React from 'react';
 import { EmptyState } from '../../../../../library/components/emptystate';
 import { Button } from '../../../../../library/components/button';
 import { useNavigate } from 'react-router';

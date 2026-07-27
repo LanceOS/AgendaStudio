@@ -19,13 +19,13 @@ export function Breadcrumbs({ items, style }: BreadcrumbsProps) {
         return (
           <React.Fragment key={idx}>
             {item.href && !isLast ? (
-              <a href={item.href} style={{ fontSize: '13px', color: 'var(--color-text-disabled)' }}>
+              <a href={item.href} style={{ fontSize: 'var(--font-size-base)', color: 'var(--color-text-disabled)' }}>
                 {item.label}
               </a>
             ) : (
               <span
                 style={{
-                  fontSize: '13px',
+                  fontSize: 'var(--font-size-base)',
                   fontWeight: isLast ? 500 : 400,
                   color: isLast ? 'var(--color-text-primary)' : 'var(--color-text-disabled)',
                 }}

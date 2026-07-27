@@ -22,7 +22,7 @@ export function Badge({ children, variant = 'default', style, ...props }: BadgeP
         alignItems: 'center',
         padding: '2px 8px',
         borderRadius: 'var(--radius-xs)',
-        fontSize: '11px',
+        fontSize: 'var(--font-size-xs)',
         fontWeight: 500,
         border: '1px solid var(--color-border-default)',
         ...variantStyles[variant],

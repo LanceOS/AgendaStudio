@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link as RouterLink } from 'react-router';
 import { LogIn } from 'lucide-react';
-import { authClient } from "../../../lib/auth";
+import { useAuth } from "../../../lib/hooks/useAuth";
 
 import { TextInput } from "../../../../../library/components/textinput";
 import { PasswordInput } from "../../../../../library/components/passwordinput";
@@ -13,6 +13,7 @@ export function LoginScreen() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,7 +21,7 @@ export function LoginScreen() {
     setError(null);
 
     try {
-      const { error: signInError } = await authClient.signIn.email({
+      const { error: signInError } = await login({
         email,
         password,
       });
@@ -80,7 +81,7 @@ export function LoginScreen() {
             variant="primary"
             fullWidth
             leftIcon={loading ? undefined : <LogIn size={16} />}
-            style={{ marginTop: '8px' }}
+            style={{ marginTop: 'var(--space-2)' }}
           >
             Sign In
           </Button>
@@ -114,14 +115,14 @@ const containerStyle: React.CSSProperties = {
 const cardStyle: React.CSSProperties = {
   width: '400px',
   padding: '40px',
-  borderRadius: '8px',
+  borderRadius: 'var(--space-2)',
   border: '1px solid var(--color-border-default)',
   background: 'var(--color-surface-card)',
   zIndex: 10,
   boxShadow: 'var(--shadow-lg)',
   display: 'flex',
   flexDirection: 'column',
-  gap: '24px'
+  gap: 'var(--space-6)'
 };
 
 const headerStyle: React.CSSProperties = {
@@ -129,19 +130,19 @@ const headerStyle: React.CSSProperties = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  gap: '8px'
+  gap: 'var(--space-2)'
 };
 
 const logoContainerStyle: React.CSSProperties = {
-  padding: '12px',
-  borderRadius: '8px',
+  padding: 'var(--space-3)',
+  borderRadius: 'var(--space-2)',
   background: 'var(--color-base50)',
   border: '1px solid var(--color-border-default)',
-  marginBottom: '8px'
+  marginBottom: 'var(--space-2)'
 };
 
 const titleStyle: React.CSSProperties = {
-  fontSize: '24px',
+  fontSize: 'var(--space-6)',
   fontWeight: 600,
   color: 'var(--color-text-primary)',
   letterSpacing: '-0.5px'
@@ -153,26 +154,26 @@ const errorStyle: React.CSSProperties = {
   border: '1px solid rgba(239, 68, 68, 0.18)',
   borderRadius: '6px',
   color: '#ef4444',
-  fontSize: '12px',
+  fontSize: 'var(--space-3)',
   lineHeight: '1.4'
 };
 
 const formStyle: React.CSSProperties = {
   display: 'flex',
   flexDirection: 'column',
-  gap: '16px'
+  gap: 'var(--space-4)'
 };
 
 const footerStyle: React.CSSProperties = {
   textAlign: 'center',
-  marginTop: '8px'
+  marginTop: 'var(--space-2)'
 };
 
 const toggleButtonStyle: React.CSSProperties = {
   background: 'none',
   border: 'none',
   color: 'var(--color-primary)',
-  fontSize: '12px',
+  fontSize: 'var(--space-3)',
   cursor: 'pointer',
   outline: 'none',
   transition: 'color var(--transition-fast)'

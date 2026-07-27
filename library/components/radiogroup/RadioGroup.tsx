@@ -23,11 +23,11 @@ export function RadioGroup({ label, name, options, value, onChange, style }: Rad
         padding: 0,
         display: 'flex',
         flexDirection: 'column',
-        gap: '8px',
+        gap: 'var(--space-2)',
         ...style,
       }}
     >
-      <legend className="label" style={{ padding: 0, marginBottom: '4px', color: 'var(--color-text-primary)' }}>
+      <legend className="label" style={{ padding: 0, marginBottom: 'var(--space-1)', color: 'var(--color-text-primary)' }}>
         {label}
       </legend>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
@@ -40,9 +40,9 @@ export function RadioGroup({ label, name, options, value, onChange, style }: Rad
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '8px',
+                gap: 'var(--space-2)',
                 cursor: 'pointer',
-                fontSize: '13px',
+                fontSize: 'var(--font-size-base)',
                 color: 'var(--color-text-secondary)',
               }}
             >

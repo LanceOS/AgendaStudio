@@ -63,12 +63,12 @@ export function NotificationCenter() {
       <div
         style={{
           position: 'fixed',
-          bottom: '20px',
-          right: '20px',
+          bottom: 'var(--space-5)',
+          right: 'var(--space-5)',
           zIndex: 9999,
           display: 'flex',
           flexDirection: 'column',
-          gap: '8px',
+          gap: 'var(--space-2)',
           maxWidth: '320px',
         }}
       >
@@ -83,7 +83,7 @@ export function NotificationCenter() {
             <div
               key={t.id}
               style={{
-                padding: '12px 16px',
+                padding: 'var(--space-3) var(--space-4)',
                 borderRadius: 'var(--radius-md)',
                 backgroundColor: 'var(--color-surface-card)',
                 border: '1px solid var(--color-border-default)',
@@ -92,8 +92,8 @@ export function NotificationCenter() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                gap: '12px',
-                fontSize: '13px',
+                gap: 'var(--space-3)',
+                fontSize: 'var(--font-size-base)',
                 color: 'var(--color-text-primary)',
               }}
               className="lib-animate-fade-in"

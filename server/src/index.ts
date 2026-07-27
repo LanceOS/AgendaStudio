@@ -5,6 +5,7 @@ import { env } from './env.js';
 import { db } from './db.js';
 import { RepositoryFactory } from './factories/RepositoryFactory.js';
 import { createEventsRouter } from './routes/events.js';
+import { createCategoriesRouter } from './routes/categories.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { auth } from './auth.js';
 import { toNodeHandler } from 'better-auth/node';
@@ -22,10 +23,14 @@ app.use(express.json());
 // Composition Root: Initialize dependencies
 const repositoryFactory = new RepositoryFactory(db);
 const eventRepository = repositoryFactory.createEventRepository();
+const categoryRepository = repositoryFactory.createCategoryRepository();
 
 // Routes
-const eventsRouter = createEventsRouter(eventRepository);
-app.use('/api/events', eventsRouter);
+const eventsRouter = createEventsRouter(eventRepository, categoryRepository);
+app.use('/api/events', requireAuth, eventsRouter);
+
+const categoriesRouter = createCategoriesRouter(categoryRepository);
+app.use('/api/categories', requireAuth, categoriesRouter);
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok' });

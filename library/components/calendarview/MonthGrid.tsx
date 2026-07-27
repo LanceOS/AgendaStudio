@@ -5,9 +5,9 @@ import { getContrastColor } from '../dayview/utils';
 
 export interface MonthGridProps {
   currentDate: Date;
-  events: Array<{ id: string; date: Date; label: string; color?: string }>;
+  events: Array<{ id: string | number; date: Date; label: string; color?: string }>;
   onDayExpand?: (date: Date) => void;
-  onEventClick?: (eventId: string) => void;
+  onEventClick?: (eventId: string | number) => void;
 }
 
 export const MonthGrid: React.FC<MonthGridProps> = ({ currentDate, events, onDayExpand, onEventClick }) => {
@@ -36,7 +36,7 @@ export const MonthGrid: React.FC<MonthGridProps> = ({ currentDate, events, onDay
     <>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', borderBottom: '1px solid var(--color-border-default)', textAlign: 'center', backgroundColor: 'var(--color-surface-card)' }}>
         {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((d) => (
-          <div key={d} style={{ padding: '6px', fontSize: '11px', fontWeight: 600, color: 'var(--color-text-disabled)' }}>
+          <div key={d} style={{ padding: '6px', fontSize: 'var(--font-size-xs)', fontWeight: 600, color: 'var(--color-text-disabled)' }}>
             {d}
           </div>
         ))}
@@ -63,7 +63,7 @@ export const MonthGrid: React.FC<MonthGridProps> = ({ currentDate, events, onDay
                 padding: '6px',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '4px',
+                gap: 'var(--space-1)',
                 outline: isToday ? '2px solid var(--color-primary)' : 'none',
                 outlineOffset: '-2px',
                 position: 'relative',
@@ -71,7 +71,7 @@ export const MonthGrid: React.FC<MonthGridProps> = ({ currentDate, events, onDay
               }}
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                <span style={{ fontSize: '11px', fontWeight: 600, color: isToday ? 'var(--color-primary)' : 'var(--color-text-primary)' }}>{day}</span>
+                <span style={{ fontSize: 'var(--font-size-xs)', fontWeight: 600, color: isToday ? 'var(--color-primary)' : 'var(--color-text-primary)' }}>{day}</span>
                 {onDayExpand && (
                   <button
                     onClick={(e) => {

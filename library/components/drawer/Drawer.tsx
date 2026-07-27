@@ -70,7 +70,7 @@ export function Drawer({ isOpen, onClose, title, children, style }: DrawerProps)
                 }}
               >
                 {title && (
-                  <h2 style={{ margin: 0, fontSize: '15px', fontWeight: 600, color: 'var(--color-text-primary)' }}>
+                  <h2 style={{ margin: 0, fontSize: 'var(--font-size-md)', fontWeight: 600, color: 'var(--color-text-primary)' }}>
                     {title}
                   </h2>
                 )}
@@ -79,12 +79,12 @@ export function Drawer({ isOpen, onClose, title, children, style }: DrawerProps)
                   onClick={onClose}
                   aria-label="Close sidebar"
                   className="btn btn-ghost clickable"
-                  style={{ padding: '4px', minHeight: 'auto' }}
+                  style={{ padding: 'var(--space-1)', minHeight: 'auto' }}
                 >
                   <X size={16} />
                 </button>
               </div>
-              <div style={{ padding: '20px', overflowY: 'auto', flexGrow: 1, fontSize: '13px' }}>{children}</div>
+              <div style={{ padding: 'var(--space-5)', overflowY: 'auto', flexGrow: 1, fontSize: 'var(--font-size-base)' }}>{children}</div>
             </div>
           </ClickAwayListener>
         </div>

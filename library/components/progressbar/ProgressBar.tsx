@@ -11,9 +11,9 @@ export function ProgressBar({ value, max = 100, label, style }: ProgressBarProps
   const percent = Math.min(100, Math.max(0, (value / max) * 100));
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', width: '100%', ...style }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)', width: '100%', ...style }}>
       {label && (
-        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: 'var(--color-text-disabled)' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 'var(--font-size-xs)', color: 'var(--color-text-disabled)' }}>
           <span>{label}</span>
           <span>{Math.round(percent)}%</span>
         </div>

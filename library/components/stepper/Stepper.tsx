@@ -14,18 +14,18 @@ export function Stepper({ steps, activeStep, style }: StepperProps) {
         const isActive = idx === activeStep;
         return (
           <div key={idx} style={{ display: 'flex', alignItems: 'center', flex: idx < steps.length - 1 ? 1 : 'none' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
               <div
                 style={{
-                  width: '24px',
-                  height: '24px',
+                  width: 'var(--space-6)',
+                  height: 'var(--space-6)',
                   borderRadius: '50%',
                   backgroundColor: isCompleted || isActive ? 'var(--color-primary)' : 'var(--color-border-default)',
                   color: isCompleted || isActive ? 'var(--color-text-on-accent)' : 'var(--color-text-disabled)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontSize: '11px',
+                  fontSize: 'var(--font-size-xs)',
                   fontWeight: 500,
                 }}
               >
@@ -33,7 +33,7 @@ export function Stepper({ steps, activeStep, style }: StepperProps) {
               </div>
               <span
                 style={{
-                  fontSize: '13px',
+                  fontSize: 'var(--font-size-base)',
                   color: isActive ? 'var(--color-text-primary)' : 'var(--color-text-disabled)',
                   fontWeight: isActive ? 500 : 400,
                 }}

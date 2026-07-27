@@ -29,9 +29,9 @@ export function PinInput({ length = 4, value, onChange, label }: PinInputProps) 
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}>
       {label && <label className="label">{label}</label>}
-      <div style={{ display: 'flex', gap: '8px' }}>
+      <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
         {Array.from({ length }, (_, i) => (
           <input
             key={i}

@@ -17,7 +17,7 @@ export function AvatarUpload({ src, onChange, label }: AvatarUploadProps) {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', alignItems: 'center' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)', alignItems: 'center' }}>
       {label && <label className="label">{label}</label>}
       <div
         className="clickable"

@@ -23,8 +23,8 @@ export function Tabs({ items, defaultTab, style }: TabsProps) {
         style={{
           display: 'flex',
           borderBottom: '1px solid var(--color-border-default)',
-          gap: '16px',
-          marginBottom: '12px',
+          gap: 'var(--space-4)',
+          marginBottom: 'var(--space-3)',
         }}
       >
         {items.map((item) => {
@@ -42,7 +42,7 @@ export function Tabs({ items, defaultTab, style }: TabsProps) {
                 border: 'none',
                 background: 'none',
                 padding: '8px 4px',
-                fontSize: '13px',
+                fontSize: 'var(--font-size-base)',
                 fontWeight: isSelected ? 500 : 400,
                 color: isSelected ? 'var(--color-primary)' : 'var(--color-text-disabled)',
                 cursor: 'pointer',

@@ -53,11 +53,11 @@ export function SettingsScreen() {
     <SettingsPageLayout
       sidebar={
         <LibSidebar>
-          <SidebarHeader style={{ padding: '16px', borderBottom: '1px solid var(--color-border-default)' }}>
+          <SidebarHeader style={{ padding: 'var(--space-4)', borderBottom: '1px solid var(--color-border-default)' }}>
             <Button 
               variant="secondary" 
               onClick={() => navigate('/calendar')}
-              style={{ display: 'flex', alignItems: 'center', gap: '8px', width: '100%', justifyContent: 'center' }}
+              style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', width: '100%', justifyContent: 'center' }}
             >
               <ArrowLeft size={16} /> Back to Calendar
             </Button>
@@ -77,10 +77,10 @@ export function SettingsScreen() {
                     style={{ padding: '8px 10px', height: 'auto', alignItems: 'flex-start' }}
                   >
                     <Stack gap="2px" style={{ paddingTop: '2px' }}>
-                      <span style={{ fontSize: '13px', fontWeight: 500, lineHeight: 1.2 }}>
+                      <span style={{ fontSize: 'var(--font-size-base)', fontWeight: 500, lineHeight: 1.2 }}>
                         {category.label}
                       </span>
-                      <span style={{ fontSize: '11px', color: 'var(--color-text-disabled)', lineHeight: 1.2 }}>
+                      <span style={{ fontSize: 'var(--font-size-xs)', color: 'var(--color-text-disabled)', lineHeight: 1.2 }}>
                         {category.description}
                       </span>
                     </Stack>
@@ -92,7 +92,7 @@ export function SettingsScreen() {
         </LibSidebar>
       }
     >
-      <div style={{ padding: '32px', maxWidth: '800px' }}>
+      <div style={{ padding: 'var(--space-8)', maxWidth: '800px' }}>
         {renderContent()}
       </div>
     </SettingsPageLayout>

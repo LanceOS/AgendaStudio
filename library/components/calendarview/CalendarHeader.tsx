@@ -60,12 +60,12 @@ export const CalendarHeader: React.FC<CalendarHeaderProps> = ({ currentDate, vie
   const monthOptions = MONTHS.map((m, i) => ({ value: i.toString(), label: m }));
 
   return (
-    <div style={{ padding: '12px 16px', backgroundColor: 'var(--color-base50)', borderBottom: '1px solid var(--color-border-default)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+    <div style={{ padding: 'var(--space-3) var(--space-4)', backgroundColor: 'var(--color-base50)', borderBottom: '1px solid var(--color-border-default)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
         <Button variant="default" size="sm" onClick={handleToday}>
           Today
         </Button>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-1)' }}>
           <Button variant="default" size="sm" onClick={handlePrev} aria-label={viewMode === 'year' ? "Previous Year" : "Previous Month"}>
             <ChevronLeft size={16} />
           </Button>
@@ -75,17 +75,17 @@ export const CalendarHeader: React.FC<CalendarHeaderProps> = ({ currentDate, vie
         </div>
       </div>
       
-      <div style={{ fontWeight: 600, fontSize: '15px', color: 'var(--color-text-primary)' }}>
+      <div style={{ fontWeight: 600, fontSize: 'var(--font-size-md)', color: 'var(--color-text-primary)' }}>
         {viewMode === 'year' ? currentDate.getFullYear() : currentDate.toLocaleString('default', { month: 'long', year: 'numeric' })}
       </div>
       
-      <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' }}>
         <div style={{ display: 'flex', background: 'var(--color-surface-card)', border: '1px solid var(--color-border-default)', borderRadius: 'var(--radius-sm)', overflow: 'hidden' }}>
             <button
               onClick={() => onViewModeChange && onViewModeChange('month')}
               style={{
                 padding: '4px 12px',
-                fontSize: '13px',
+                fontSize: 'var(--font-size-base)',
                 fontWeight: 500,
                 cursor: 'pointer',
                 border: 'none',
@@ -98,7 +98,7 @@ export const CalendarHeader: React.FC<CalendarHeaderProps> = ({ currentDate, vie
               onClick={() => onViewModeChange && onViewModeChange('year')}
               style={{
                 padding: '4px 12px',
-                fontSize: '13px',
+                fontSize: 'var(--font-size-base)',
                 fontWeight: 500,
                 cursor: 'pointer',
                 border: 'none',
@@ -109,7 +109,7 @@ export const CalendarHeader: React.FC<CalendarHeaderProps> = ({ currentDate, vie
             >Year</button>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
           {viewMode === 'month' && (
             <Select
               value={currentDate.getMonth().toString()}
