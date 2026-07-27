@@ -226,9 +226,9 @@
         },
         "categoryId": {
           "name": "categoryId",
-          "type": "serial",
+          "type": "integer",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "title": {
           "name": "title",

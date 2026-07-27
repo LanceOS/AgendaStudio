@@ -10,7 +10,7 @@ export function createCategoriesRouter(categoryRepository: CategoryRepository) {
   router.get('/', async (req, res) => {
     // Requires an authenticated user from a previously placed middleware.
     // We assume req.user is set by better-auth or similar.
-    const userId = (req as any).user?.id || req.headers['x-user-id']; // Fallback for testing
+    const userId = (req as any).user?.id;
     if (!userId) {
       return res.status(401).json({ error: 'Unauthorized' });
     }
@@ -21,7 +21,7 @@ export function createCategoriesRouter(categoryRepository: CategoryRepository) {
 
   // POST create category
   router.post('/', validate({ body: CreateCategorySchema }), async (req, res) => {
-    const userId = (req as any).user?.id || req.headers['x-user-id'];
+    const userId = (req as any).user?.id;
     if (!userId) return res.status(401).json({ error: 'Unauthorized' });
 
     const { name, color } = req.body;
@@ -31,7 +31,7 @@ export function createCategoriesRouter(categoryRepository: CategoryRepository) {
 
   // PATCH update category
   router.patch('/:id', validate({ body: UpdateCategorySchema }), async (req, res) => {
-    const userId = (req as any).user?.id || req.headers['x-user-id'];
+    const userId = (req as any).user?.id;
     if (!userId) return res.status(401).json({ error: 'Unauthorized' });
 
     const id = parseInt(req.params.id);

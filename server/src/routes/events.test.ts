@@ -3,14 +3,31 @@ import request from 'supertest';
 import express from 'express';
 import { createEventsRouter } from './events.js';
 import { EventRepository } from '../db/repositories/EventRepository.js';
+import { CategoryRepository } from '../db/repositories/CategoryRepository.js';
 import { db } from '../db.js';
+import { users } from '../db/schema.js';
 import { errorHandler } from '../middlewares/errorHandler.js';
 
 const app = express();
 app.use(express.json());
 const repo = new EventRepository(db);
-app.use('/api/events', createEventsRouter(repo));
+const categoryRepository = new CategoryRepository(db);
+const userId = 'events-route-test-user';
+app.use('/api/events', (req, _res, next) => {
+  (req as any).user = { id: userId };
+  next();
+});
+app.use('/api/events', createEventsRouter(repo, categoryRepository));
 app.use(errorHandler);
+
+beforeEach(async () => {
+  await db.insert(users).values({
+    id: userId,
+    name: 'Events Route Test User',
+    email: 'events-route-test@example.com',
+    emailVerified: true,
+  });
+});
 
 describe('Events API', () => {
   it('should create an event', async () => {
@@ -35,6 +52,29 @@ describe('Events API', () => {
       });
       
     expect(res.status).toBe(400); // validation error
+  });
+
+  it('should reject a category owned by another user', async () => {
+    const otherUserId = 'events-route-other-user';
+    await db.insert(users).values({
+      id: otherUserId,
+      name: 'Other User',
+      email: 'events-route-other@example.com',
+      emailVerified: true,
+    });
+    const category = await categoryRepository.create(otherUserId, 'Private', '#000000');
+
+    const res = await request(app)
+      .post('/api/events')
+      .send({
+        title: 'Invalid Category Event',
+        categoryId: category.id,
+        start: '2026-06-23T10:00:00Z',
+        end: '2026-06-23T11:00:00Z',
+      });
+
+    expect(res.status).toBe(400);
+    expect(res.body.error).toBe('Category not found');
   });
 
   it('should get events', async () => {

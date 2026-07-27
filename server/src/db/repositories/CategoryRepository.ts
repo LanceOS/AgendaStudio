@@ -1,14 +1,16 @@
 import { eq, and } from 'drizzle-orm';
-import { db } from '../db.js';
+import { Db } from '../../db.js';
 import { categories } from '../schema.js';
 
 export class CategoryRepository {
+  constructor(private readonly db: Db) {}
+
   async findAll(userId: string) {
-    return await db.select().from(categories).where(eq(categories.userId, userId));
+    return await this.db.select().from(categories).where(eq(categories.userId, userId));
   }
 
   async findById(id: number, userId: string) {
-    const results = await db
+    const results = await this.db
       .select()
       .from(categories)
       .where(and(eq(categories.id, id), eq(categories.userId, userId)));
@@ -16,7 +18,7 @@ export class CategoryRepository {
   }
 
   async create(userId: string, name: string, color: string) {
-    const results = await db.insert(categories).values({
+    const results = await this.db.insert(categories).values({
       userId,
       name,
       color,
@@ -26,7 +28,7 @@ export class CategoryRepository {
   }
 
   async update(id: number, userId: string, updates: Partial<{ name: string; color: string }>) {
-    const results = await db
+    const results = await this.db
       .update(categories)
       .set({ ...updates, updatedAt: new Date() })
       .where(and(eq(categories.id, id), eq(categories.userId, userId)))
@@ -36,7 +38,7 @@ export class CategoryRepository {
   }
 
   async delete(id: number, userId: string) {
-    const results = await db
+    const results = await this.db
       .delete(categories)
       .where(and(eq(categories.id, id), eq(categories.userId, userId)))
       .returning();

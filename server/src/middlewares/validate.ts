@@ -24,7 +24,7 @@ export function validate(schemas: ValidationSchemas) {
       if (error instanceof ZodError) {
         return res.status(400).json({
           error: 'Validation Error',
-          details: error.errors,
+          details: error.issues,
         });
       }
       next(error);

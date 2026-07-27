@@ -16,7 +16,7 @@ export class RepositoryFactory {
   }
 
   createCategoryRepository(): CategoryRepository {
-    return new CategoryRepository();
+    return new CategoryRepository(this.db);
   }
 
   createUserRepository(): UserRepository {

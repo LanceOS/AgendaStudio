@@ -1,4 +1,4 @@
-import { pgTable, serial, text, timestamp, boolean, varchar, uuid } from 'drizzle-orm/pg-core';
+import { pgTable, serial, text, timestamp, boolean, varchar, uuid, integer } from 'drizzle-orm/pg-core';
 
 
 export const users = pgTable('users', {
@@ -23,7 +23,7 @@ export const categories = pgTable('categories', {
 export const events = pgTable('events', {
   id: serial('id').primaryKey(),
   userId: varchar('userId', { length: 255 }).notNull().references(() => users.id, { onDelete: 'cascade' }),
-  categoryId: serial('categoryId').references(() => categories.id, { onDelete: 'set null' }),
+  categoryId: integer('categoryId').references(() => categories.id, { onDelete: 'set null' }),
   title: varchar('title', { length: 1000 }).notNull(),
   description: text('description'),
   location: text('location'),

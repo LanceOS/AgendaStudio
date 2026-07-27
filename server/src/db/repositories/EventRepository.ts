@@ -14,6 +14,16 @@ export interface Event {
   end: string;
 }
 
+export interface CreateEventData {
+  categoryId?: number | null;
+  title: string;
+  description?: string | null;
+  location?: string | null;
+  isAllDay?: boolean;
+  start: string;
+  end: string;
+}
+
 export class EventRepository {
   constructor(private db: Db) {}
 
@@ -26,7 +36,7 @@ export class EventRepository {
     return this.db.select().from(events).where(eq(events.userId, userId));
   }
 
-  async create(userId: string, data: Omit<Event, 'id' | 'userId'>): Promise<Event> {
+  async create(userId: string, data: CreateEventData): Promise<Event> {
     const [event] = await this.db.insert(events).values({ ...data, userId }).returning();
     return event;
   }

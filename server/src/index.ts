@@ -23,12 +23,13 @@ app.use(express.json());
 // Composition Root: Initialize dependencies
 const repositoryFactory = new RepositoryFactory(db);
 const eventRepository = repositoryFactory.createEventRepository();
+const categoryRepository = repositoryFactory.createCategoryRepository();
 
 // Routes
-const eventsRouter = createEventsRouter(eventRepository);
+const eventsRouter = createEventsRouter(eventRepository, categoryRepository);
 app.use('/api/events', requireAuth, eventsRouter);
 
-const categoriesRouter = createCategoriesRouter(repositoryFactory.createCategoryRepository());
+const categoriesRouter = createCategoriesRouter(categoryRepository);
 app.use('/api/categories', requireAuth, categoriesRouter);
 
 app.get('/api/health', (req, res) => {

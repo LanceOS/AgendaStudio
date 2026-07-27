@@ -32,7 +32,7 @@ CREATE TABLE "categories" (
 CREATE TABLE "events" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"userId" varchar(255) NOT NULL,
-	"categoryId" serial NOT NULL,
+	"categoryId" integer,
 	"title" varchar(1000) NOT NULL,
 	"description" text,
 	"location" text,

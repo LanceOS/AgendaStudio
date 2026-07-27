@@ -1,14 +1,15 @@
 import { Router } from 'express';
 import { EventRepository } from '../db/repositories/EventRepository.js';
+import { CategoryRepository } from '../db/repositories/CategoryRepository.js';
 import { CreateEventSchema, QueryEventsSchema } from '../schemas/event.schema.js';
 import { validate } from '../middlewares/validate.js';
 
-export function createEventsRouter(eventRepository: EventRepository) {
+export function createEventsRouter(eventRepository: EventRepository, categoryRepository: CategoryRepository) {
   const router = Router();
 
   // GET events by range
   router.get('/', validate({ query: QueryEventsSchema }), async (req, res) => {
-    const userId = (req as any).user?.id || req.headers['x-user-id'];
+    const userId = (req as any).user?.id;
     if (!userId) return res.status(401).json({ error: 'Unauthorized' });
 
     // The query is guaranteed to be valid and type-safe here because of the middleware
@@ -25,11 +26,18 @@ export function createEventsRouter(eventRepository: EventRepository) {
 
   // POST create event
   router.post('/', validate({ body: CreateEventSchema }), async (req, res) => {
-    const userId = (req as any).user?.id || req.headers['x-user-id'];
+    const userId = (req as any).user?.id;
     if (!userId) return res.status(401).json({ error: 'Unauthorized' });
 
     // req.body is guaranteed valid and safe
     const eventData = req.body;
+
+    if (eventData.categoryId !== undefined && eventData.categoryId !== null) {
+      const category = await categoryRepository.findById(eventData.categoryId, String(userId));
+      if (!category) {
+        return res.status(400).json({ error: 'Category not found' });
+      }
+    }
 
     const event = await eventRepository.create(String(userId), eventData);
     res.status(201).json(event);
@@ -37,7 +45,7 @@ export function createEventsRouter(eventRepository: EventRepository) {
 
   // DELETE event
   router.delete('/:id', async (req, res) => {
-    const userId = (req as any).user?.id || req.headers['x-user-id'];
+    const userId = (req as any).user?.id;
     if (!userId) return res.status(401).json({ error: 'Unauthorized' });
 
     const { id } = req.params;

@@ -8,7 +8,7 @@ afterAll(async () => {
 
 beforeEach(async () => {
   // Clear tables before each test
-  const tables = ['users', 'sessions', 'accounts', 'verifications', 'mcp_configs', 'app_configs', 'events'];
+  const tables = ['users', 'sessions', 'accounts', 'verifications', 'mcp_configs', 'app_configs', 'categories', 'events'];
   for (const table of tables) {
     try {
       await db.execute(sql.raw(`TRUNCATE TABLE ${table} CASCADE;`));

@@ -41,6 +41,7 @@ async function fetchClient<T>(endpoint: string, options: RequestOptions = {}): P
 
   const response = await fetch(url, {
     ...customOptions,
+    credentials: 'include',
     headers: {
       ...defaultHeaders,
       ...headers,
