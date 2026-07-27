@@ -70,7 +70,7 @@ export const DayViewScreen: React.FC = () => {
         date: selectedStartTime,
         endDate: selectedEndTime,
         color: selectedColor,
-        categoryId: 'default',
+        categoryId: null,
       });
     }
     setIsModalOpen(false);

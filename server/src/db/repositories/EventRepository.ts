@@ -41,6 +41,15 @@ export class EventRepository {
     return event;
   }
 
+  async update(userId: string, id: number, data: Partial<CreateEventData>): Promise<Event | null> {
+    const [event] = await this.db
+      .update(events)
+      .set({ ...data, updatedAt: new Date() })
+      .where(and(eq(events.id, id), eq(events.userId, userId)))
+      .returning();
+    return event || null;
+  }
+
   async delete(userId: string, id: number | string): Promise<boolean> {
     const [deleted] = await this.db.delete(events).where(and(eq(events.id, Number(id)), eq(events.userId, userId))).returning({ id: events.id });
     return !!deleted;

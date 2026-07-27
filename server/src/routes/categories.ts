@@ -34,8 +34,8 @@ export function createCategoriesRouter(categoryRepository: CategoryRepository) {
     const userId = (req as any).user?.id;
     if (!userId) return res.status(401).json({ error: 'Unauthorized' });
 
-    const id = parseInt(req.params.id);
-    if (isNaN(id)) return res.status(400).json({ error: 'Invalid ID' });
+    const id = Number(req.params.id);
+    if (!Number.isSafeInteger(id) || id <= 0) return res.status(400).json({ error: 'Invalid ID' });
 
     const category = await categoryRepository.update(id, String(userId), req.body);
     if (category) {
@@ -47,11 +47,11 @@ export function createCategoriesRouter(categoryRepository: CategoryRepository) {
 
   // DELETE category
   router.delete('/:id', async (req, res) => {
-    const userId = (req as any).user?.id || req.headers['x-user-id'];
+    const userId = (req as any).user?.id;
     if (!userId) return res.status(401).json({ error: 'Unauthorized' });
 
-    const id = parseInt(req.params.id);
-    if (isNaN(id)) return res.status(400).json({ error: 'Invalid ID' });
+    const id = Number(req.params.id);
+    if (!Number.isSafeInteger(id) || id <= 0) return res.status(400).json({ error: 'Invalid ID' });
 
     const success = await categoryRepository.delete(id, String(userId));
     if (success) {

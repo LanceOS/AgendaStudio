@@ -9,7 +9,7 @@ export const EventDetailsScreen: React.FC = () => {
   const navigate = useNavigate();
   const { events } = useCalendarState();
 
-  const event = events.find(e => e.id === eventId);
+  const event = events.find(e => String(e.id) === eventId);
 
   if (!event) {
     return (

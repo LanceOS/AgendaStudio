@@ -64,7 +64,7 @@ export const EventCreatorScreen: React.FC = () => {
       date: new Date(startDate),
       endDate: new Date(endDate),
       color: selectedColor,
-      categoryId: 'default',
+      categoryId: null,
     });
 
     navigate('/calendar');

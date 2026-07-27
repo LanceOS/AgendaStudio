@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { EventRepository } from '../db/repositories/EventRepository.js';
 import { CategoryRepository } from '../db/repositories/CategoryRepository.js';
-import { CreateEventSchema, QueryEventsSchema } from '../schemas/event.schema.js';
+import { CreateEventSchema, QueryEventsSchema, UpdateEventSchema } from '../schemas/event.schema.js';
 import { validate } from '../middlewares/validate.js';
 
 export function createEventsRouter(eventRepository: EventRepository, categoryRepository: CategoryRepository) {
@@ -41,6 +41,27 @@ export function createEventsRouter(eventRepository: EventRepository, categoryRep
 
     const event = await eventRepository.create(String(userId), eventData);
     res.status(201).json(event);
+  });
+
+  // PATCH update event
+  router.patch('/:id', validate({ body: UpdateEventSchema }), async (req, res) => {
+    const userId = (req as any).user?.id;
+    if (!userId) return res.status(401).json({ error: 'Unauthorized' });
+
+    const id = Number(req.params.id);
+    if (!Number.isSafeInteger(id) || id <= 0) {
+      return res.status(400).json({ error: 'Invalid ID' });
+    }
+
+    const eventData = req.body;
+    if (eventData.categoryId !== undefined && eventData.categoryId !== null) {
+      const category = await categoryRepository.findById(eventData.categoryId, String(userId));
+      if (!category) return res.status(400).json({ error: 'Category not found' });
+    }
+
+    const event = await eventRepository.update(String(userId), id, eventData);
+    if (!event) return res.status(404).json({ error: 'Event not found' });
+    res.json(event);
   });
 
   // DELETE event

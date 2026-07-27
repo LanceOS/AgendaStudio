@@ -1,7 +1,7 @@
 export type CalendarViewMode = 'year' | 'month' | 'week' | 'day';
 
 export interface Category {
-  id: string;
+  id: string | number;
   name: string;
   color: string;
 }
@@ -21,15 +21,17 @@ export interface CalendarEvent {
 export interface CalendarState {
   selectedDate: Date;
   viewMode: CalendarViewMode;
-  activeCategoryId: string | null;
+  activeCategoryId: string | number | null;
 }
 
 export interface CalendarContextValue extends CalendarState {
   setSelectedDate: (date: Date) => void;
   setViewMode: (mode: CalendarViewMode) => void;
-  setActiveCategoryId: (id: string | null) => void;
+  setActiveCategoryId: (id: string | number | null) => void;
   events: CalendarEvent[];
+  categories: Category[];
   addEvent: (event: Omit<CalendarEvent, 'id'>) => void;
+  addCategory: (category: Omit<Category, 'id'>) => void;
   updateEvent: (id: string | number, event: Partial<CalendarEvent>) => void;
   removeEvent: (id: string | number) => void;
 }
