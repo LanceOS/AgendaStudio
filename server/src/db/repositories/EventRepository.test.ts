@@ -56,4 +56,23 @@ describe('EventRepository', () => {
     const events = await repo.findAll(userId);
     expect(events.find(e => e.id === event.id)).toBeUndefined();
   });
+
+  it('should isolate events and mutations by user', async () => {
+    const otherUserId = 'event-test-other-user';
+    await db.insert(users).values({
+      id: otherUserId,
+      name: 'Other Event User',
+      email: 'event-test-other@example.com',
+      emailVerified: true,
+    });
+
+    const otherEvent = await repo.create(otherUserId, {
+      title: 'Private event',
+      start: '2026-08-02T10:00:00Z',
+      end: '2026-08-02T11:00:00Z',
+    });
+
+    expect(await repo.findAll(userId)).toHaveLength(0);
+    expect(await repo.delete(userId, otherEvent.id)).toBe(false);
+  });
 });

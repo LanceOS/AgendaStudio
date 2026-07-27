@@ -90,8 +90,9 @@ export const EventCreatorScreen: React.FC = () => {
 
         <Flex gap="var(--space-4)">
           <Stack gap="var(--space-2)" className="lib-flex-1">
-            <label style={{ color: 'var(--color-text-primary)', fontWeight: 500, fontSize: 'var(--font-size-base)' }}>Start</label>
+            <label htmlFor="event-start" style={{ color: 'var(--color-text-primary)', fontWeight: 500, fontSize: 'var(--font-size-base)' }}>Start</label>
             <input 
+              id="event-start"
               type="datetime-local" 
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
@@ -110,8 +111,9 @@ export const EventCreatorScreen: React.FC = () => {
             />
           </Stack>
           <Stack gap="var(--space-2)" className="lib-flex-1">
-            <label style={{ color: 'var(--color-text-primary)', fontWeight: 500, fontSize: 'var(--font-size-base)' }}>End</label>
+            <label htmlFor="event-end" style={{ color: 'var(--color-text-primary)', fontWeight: 500, fontSize: 'var(--font-size-base)' }}>End</label>
             <input 
+              id="event-end"
               type="datetime-local" 
               value={endDate}
               onChange={(e) => setEndDate(e.target.value)}
