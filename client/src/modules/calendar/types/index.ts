@@ -7,12 +7,15 @@ export interface Category {
 }
 
 export interface CalendarEvent {
-  id: string;
+  id: string | number;
   title: string;
   date: Date;
   endDate?: Date;
   color?: string;
-  categoryId: string;
+  categoryId: string | number | null;
+  description?: string | null;
+  location?: string | null;
+  isAllDay?: boolean;
 }
 
 export interface CalendarState {
