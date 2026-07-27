@@ -8,9 +8,9 @@ export interface CalendarViewProps {
   onDateChange?: (date: Date) => void;
   viewMode?: 'month' | 'year';
   onViewModeChange?: (mode: 'month' | 'year') => void;
-  events?: Array<{ id: string; date: Date; label: string; color?: string }>;
+  events?: Array<{ id: string | number; date: Date; label: string; color?: string }>;
   onDayExpand?: (date: Date) => void;
-  onEventClick?: (eventId: string) => void;
+  onEventClick?: (eventId: string | number) => void;
   style?: React.CSSProperties;
 }
 

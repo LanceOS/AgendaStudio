@@ -30,6 +30,6 @@ export interface CalendarContextValue extends CalendarState {
   setActiveCategoryId: (id: string | null) => void;
   events: CalendarEvent[];
   addEvent: (event: Omit<CalendarEvent, 'id'>) => void;
-  updateEvent: (id: string, event: Partial<CalendarEvent>) => void;
-  removeEvent: (id: string) => void;
+  updateEvent: (id: string | number, event: Partial<CalendarEvent>) => void;
+  removeEvent: (id: string | number) => void;
 }

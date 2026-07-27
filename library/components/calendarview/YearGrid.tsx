@@ -3,7 +3,7 @@ import { getDaysInMonth, getFirstDayOfMonth } from '../../utilities';
 
 export interface YearGridProps {
   currentDate: Date;
-  events: Array<{ id: string; date: Date; label: string; color?: string }>;
+  events: Array<{ id: string | number; date: Date; label: string; color?: string }>;
   onDayExpand?: (date: Date) => void;
 }
 

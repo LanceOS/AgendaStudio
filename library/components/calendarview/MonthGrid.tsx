@@ -5,9 +5,9 @@ import { getContrastColor } from '../dayview/utils';
 
 export interface MonthGridProps {
   currentDate: Date;
-  events: Array<{ id: string; date: Date; label: string; color?: string }>;
+  events: Array<{ id: string | number; date: Date; label: string; color?: string }>;
   onDayExpand?: (date: Date) => void;
-  onEventClick?: (eventId: string) => void;
+  onEventClick?: (eventId: string | number) => void;
 }
 
 export const MonthGrid: React.FC<MonthGridProps> = ({ currentDate, events, onDayExpand, onEventClick }) => {

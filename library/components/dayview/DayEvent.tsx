@@ -10,9 +10,9 @@ export interface DayEventProps {
   width: number;
   hourHeight: number;
   snapMinutes?: number;
-  onDelete?: (eventId: string) => void;
-  onUpdate?: (eventId: string, updates: Partial<DayEventInput>) => void;
-  onClick?: (eventId: string) => void;
+  onDelete?: (eventId: string | number) => void;
+  onUpdate?: (eventId: string | number, updates: Partial<DayEventInput>) => void;
+  onClick?: (eventId: string | number) => void;
 }
 
 export const DayEvent = React.memo(function DayEvent({

@@ -24,11 +24,11 @@ export const CalendarProvider: React.FC<CalendarProviderProps> = ({ children }) 
     ]);
   };
 
-  const removeEvent = (id: string) => {
+  const removeEvent = (id: string | number) => {
     setEvents((prev) => prev.filter((e) => e.id !== id));
   };
 
-  const updateEvent = (id: string, updates: Partial<CalendarEvent>) => {
+  const updateEvent = (id: string | number, updates: Partial<CalendarEvent>) => {
     setEvents((prev) =>
       prev.map((e) => (e.id === id ? { ...e, ...updates } : e))
     );
