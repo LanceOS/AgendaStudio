@@ -6,14 +6,17 @@ import { useCalendarState } from '../hooks/useCalendarState';
 
 export function CreateCategoryScreen() {
   const navigate = useNavigate();
-  const { addCategory } = useCalendarState();
+  const { addCategory, error } = useCalendarState();
   const [name, setName] = useState('');
   const [color, setColor] = useState('#3b82f6');
+  const [saving, setSaving] = useState(false);
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!name.trim()) return;
-    addCategory({ name: name.trim(), color });
-    navigate('/calendar');
+    setSaving(true);
+    const saved = await addCategory({ name: name.trim(), color });
+    setSaving(false);
+    if (saved) navigate('/calendar');
   };
 
   return (
@@ -35,9 +38,12 @@ export function CreateCategoryScreen() {
           value={color}
           onChange={(event) => setColor(event.target.value)}
         />
+        {error && <div className="lib-field-error-msg" role="alert">{error}</div>}
         <div className="lib-flex lib-justify-end" style={{ gap: 'var(--space-3)' }}>
           <Button variant="secondary" onClick={() => navigate('/calendar')}>Cancel</Button>
-          <Button variant="primary" onClick={handleSave} disabled={!name.trim()}>Save Category</Button>
+          <Button variant="primary" onClick={handleSave} disabled={saving || !name.trim()}>
+            {saving ? 'Saving…' : 'Save Category'}
+          </Button>
         </div>
       </div>
     </div>

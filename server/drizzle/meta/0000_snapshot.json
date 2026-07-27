@@ -248,6 +248,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "color": {
+          "name": "color",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
         "isAllDay": {
           "name": "isAllDay",
           "type": "boolean",

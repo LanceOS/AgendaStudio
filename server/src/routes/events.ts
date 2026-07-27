@@ -69,7 +69,10 @@ export function createEventsRouter(eventRepository: EventRepository, categoryRep
     const userId = (req as any).user?.id;
     if (!userId) return res.status(401).json({ error: 'Unauthorized' });
 
-    const { id } = req.params;
+    const id = Number(req.params.id);
+    if (!Number.isSafeInteger(id) || id <= 0) {
+      return res.status(400).json({ error: 'Invalid ID' });
+    }
     
     const success = await eventRepository.delete(String(userId), id);
     

@@ -27,6 +27,7 @@ export const events = pgTable('events', {
   title: varchar('title', { length: 1000 }).notNull(),
   description: text('description'),
   location: text('location'),
+  color: varchar('color', { length: 50 }),
   isAllDay: boolean('isAllDay').default(false).notNull(),
   start: timestamp('start', { withTimezone: true, mode: 'string' }).notNull(),
   end: timestamp('end', { withTimezone: true, mode: 'string' }).notNull(),

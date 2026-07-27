@@ -9,6 +9,7 @@ export interface Event {
   title: string;
   description: string | null;
   location: string | null;
+  color: string | null;
   isAllDay: boolean;
   start: string;
   end: string;
@@ -19,6 +20,7 @@ export interface CreateEventData {
   title: string;
   description?: string | null;
   location?: string | null;
+  color?: string | null;
   isAllDay?: boolean;
   start: string;
   end: string;

@@ -36,6 +36,7 @@ CREATE TABLE "events" (
 	"title" varchar(1000) NOT NULL,
 	"description" text,
 	"location" text,
+	"color" varchar(50),
 	"isAllDay" boolean DEFAULT false NOT NULL,
 	"start" timestamp with time zone NOT NULL,
 	"end" timestamp with time zone NOT NULL,

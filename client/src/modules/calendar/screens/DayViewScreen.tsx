@@ -19,13 +19,15 @@ const EVENT_COLORS = [
 export const DayViewScreen: React.FC = () => {
   const { date } = useParams<{ date: string }>();
   const navigate = useNavigate();
-  const { events, removeEvent, updateEvent, addEvent } = useCalendarState();
+  const { events, categories, error, removeEvent, updateEvent, addEvent } = useCalendarState();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedStartTime, setSelectedStartTime] = useState<Date | null>(null);
   const [selectedEndTime, setSelectedEndTime] = useState<Date | null>(null);
   const [newTaskTitle, setNewTaskTitle] = useState('');
   const [selectedColor, setSelectedColor] = useState(EVENT_COLORS[0]);
+  const [selectedCategoryId, setSelectedCategoryId] = useState('');
+  const [saving, setSaving] = useState(false);
 
   const currentDate = useMemo(() => {
     if (!date) return new Date();
@@ -60,20 +62,23 @@ export const DayViewScreen: React.FC = () => {
     setSelectedEndTime(endDate);
     setNewTaskTitle('');
     setSelectedColor(EVENT_COLORS[0]);
+    setSelectedCategoryId('');
     setIsModalOpen(true);
   };
 
-  const handleSaveTask = () => {
+  const handleSaveTask = async () => {
     if (newTaskTitle.trim() && selectedStartTime && selectedEndTime) {
-      addEvent({
+      setSaving(true);
+      const saved = await addEvent({
         title: newTaskTitle.trim(),
         date: selectedStartTime,
         endDate: selectedEndTime,
         color: selectedColor,
-        categoryId: null,
+        categoryId: selectedCategoryId ? Number(selectedCategoryId) : null,
       });
+      setSaving(false);
+      if (saved) setIsModalOpen(false);
     }
-    setIsModalOpen(false);
   };
 
   const dayEvents = events.map(e => ({ 
@@ -105,7 +110,9 @@ export const DayViewScreen: React.FC = () => {
         footer={
           <>
             <Button variant="secondary" onClick={() => setIsModalOpen(false)}>Cancel</Button>
-            <Button variant="primary" onClick={handleSaveTask}>Save</Button>
+            <Button variant="primary" onClick={handleSaveTask} disabled={saving}>
+              {saving ? 'Saving…' : 'Save'}
+            </Button>
           </>
         }
       >
@@ -144,6 +151,21 @@ export const DayViewScreen: React.FC = () => {
             ))}
           </div>
         </div>
+        <div style={{ padding: 'var(--space-2) 0', display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+          <label htmlFor="day-event-category" style={{ color: 'var(--color-text-primary)', fontWeight: 500 }}>Category</label>
+          <select
+            id="day-event-category"
+            value={selectedCategoryId}
+            onChange={(event) => setSelectedCategoryId(event.target.value)}
+            className="input"
+          >
+            <option value="">No category</option>
+            {categories.map((category) => (
+              <option key={category.id} value={category.id}>{category.name}</option>
+            ))}
+          </select>
+        </div>
+        {error && <div className="lib-field-error-msg" role="alert">{error}</div>}
       </Modal>
     </div>
   );

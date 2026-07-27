@@ -10,6 +10,7 @@ const EventFieldsSchema = z.object({
   categoryId: z.number().int().positive().nullable().optional(),
   description: z.string().nullable().optional(),
   location: z.string().nullable().optional(),
+  color: z.string().max(50).nullable().optional(),
   isAllDay: z.boolean().optional(),
   start: dateStringSchema,
   end: dateStringSchema,

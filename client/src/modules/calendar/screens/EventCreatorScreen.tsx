@@ -32,7 +32,7 @@ const formatDateTimeForInput = (d: Date | null) => {
 export const EventCreatorScreen: React.FC = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const { addEvent } = useCalendarState();
+  const { addEvent, categories, error } = useCalendarState();
 
   const [title, setTitle] = useState('');
   const initialStart = searchParams.get('start');
@@ -55,19 +55,22 @@ export const EventCreatorScreen: React.FC = () => {
   });
 
   const [selectedColor, setSelectedColor] = useState(EVENT_COLORS[0]);
+  const [selectedCategoryId, setSelectedCategoryId] = useState('');
+  const [saving, setSaving] = useState(false);
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!title.trim() || !startDate || !endDate) return;
 
-    addEvent({
-      title: title.trim(),
-      date: new Date(startDate),
-      endDate: new Date(endDate),
-      color: selectedColor,
-      categoryId: null,
-    });
-
-    navigate('/calendar');
+    setSaving(true);
+    const saved = await addEvent({
+        title: title.trim(),
+        date: new Date(startDate),
+        endDate: new Date(endDate),
+        color: selectedColor,
+        categoryId: selectedCategoryId ? Number(selectedCategoryId) : null,
+      });
+    setSaving(false);
+    if (saved) navigate('/calendar');
   };
 
   return (
@@ -152,12 +155,31 @@ export const EventCreatorScreen: React.FC = () => {
           </Flex>
         </Stack>
 
+        <Stack gap="var(--space-2)">
+          <label htmlFor="event-category" className="label">Category</label>
+          <select
+            id="event-category"
+            value={selectedCategoryId}
+            onChange={(event) => setSelectedCategoryId(event.target.value)}
+            className="input"
+          >
+            <option value="">No category</option>
+            {categories.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
+            ))}
+          </select>
+        </Stack>
+
+        {error && <div className="lib-field-error-msg" role="alert">{error}</div>}
+
         <Flex gap="var(--space-3)" style={{ marginTop: 'var(--space-4)' }}>
           <Button variant="secondary" onClick={() => navigate('/calendar')} className="lib-flex-1">
             Cancel
           </Button>
-          <Button variant="primary" onClick={handleSave} className="lib-flex-1" disabled={!title.trim() || !startDate || !endDate}>
-            Save Event
+          <Button variant="primary" onClick={handleSave} className="lib-flex-1" disabled={saving || !title.trim() || !startDate || !endDate}>
+            {saving ? 'Saving…' : 'Save Event'}
           </Button>
         </Flex>
       </Stack>
